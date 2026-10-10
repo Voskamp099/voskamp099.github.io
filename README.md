@@ -1,0 +1,59 @@
+# Raelynn — Projects & Notes
+
+[简体中文](#中文) · [English](#english)
+
+个人项目与技术博客，发布到 **https://voskamp099.github.io/**。
+
+## 中文
+
+沿用提供的 HTML 模板的奶油色、点阵背景、橙色点缀和等宽字体，将页面整理为文章、项目和关于三个区域。
+
+- 中英文切换、深浅色切换，偏好保存在浏览器。
+- 文章搜索与分类，手机导航，键盘焦点和减少动态效果支持。
+- 每篇文章有独立地址；提供 RSS、站点地图和 404 页面。
+- 文章用 Markdown 保存，构建后是静态 HTML，适用于 GitHub Pages。
+- 不包含旧网站的简历、私有资料、数据库或后台管理入口。
+
+### 本地查看
+
+需要 Node.js 22 或更高版本，以及 Python 3。
+
+~~~bash
+npm ci
+npm run build
+npm run check
+npm run dev
+~~~
+
+打开终端打印的本地地址。
+
+### 添加文章
+
+在 content/posts/ 中增加：
+
+1. 一份 JSON 元数据，包含唯一 slug、日期、分类、标签、中英文标题与简介。
+2. 中文和英文两份 Markdown 正文，并在 JSON 的 body 字段中填写文件名。
+
+现有文章可以作为格式样例。修改后运行 npm run build 和 npm run check，提交并推送到 main。GitHub Actions 会自动构建并发布 dist/。
+
+首次发布需要在仓库 Settings → Pages 中选择 GitHub Actions；已经启用的仓库无需重复设置。
+
+## English
+
+A personal project notebook and technical blog at **https://voskamp099.github.io/**.
+
+The design retains the supplied reference's cream paper, dotted background, orange accents, and monospace details. It focuses on writing, projects, and a short introduction.
+
+Features include bilingual content, persistent theme and language preferences, article search and categories, mobile navigation, RSS, a sitemap, and a custom 404 page.
+
+### Local development
+
+Use Node.js 22 or later and Python 3. Run npm ci, npm run build, npm run check, then npm run dev.
+
+### Publish a post
+
+Add a JSON metadata file and two Markdown files under content/posts/, following an existing post. Both translations need a title, summary, and body. Use a unique slug and an ISO date.
+
+Build and check locally, commit, and push to main. GitHub Actions publishes the generated dist/ directory to GitHub Pages. The source repository is public; keep drafts and personal material outside it.
+
+The project uses a small Node.js build script and markdown-it, with no application server or database.
