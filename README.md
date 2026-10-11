@@ -10,7 +10,8 @@
 
 - 中英文切换、深浅色切换，偏好保存在浏览器。
 - 文章搜索与分类，手机导航，键盘焦点和减少动态效果支持。
-- 一个项目对应一篇完整记录，调试过程作为文章内的章节；每篇文章有独立地址，提供 RSS、站点地图和 404 页面。
+- 一个项目对应一篇完整记录，调试过程作为文章内的章节；每篇文章有独立地址，提供站点地图和 404 页面。
+- RSS 保留给订阅阅读器自动发现，页面不显示直接打开 XML 的按钮。
 - 文章用 Markdown 保存，构建后是静态 HTML，适用于 GitHub Pages。
 - 不包含旧网站的简历、私有资料、数据库或后台管理入口。
 
@@ -44,7 +45,7 @@ A personal project notebook and technical blog at **https://voskamp099.github.io
 
 The design retains the supplied reference's cream paper, dotted background, orange accents, and monospace details. It focuses on writing, projects, and a short introduction.
 
-Features include bilingual content, persistent theme and language preferences, article search and categories, mobile navigation, RSS, a sitemap, and a custom 404 page.
+Features include bilingual content, persistent theme and language preferences, article search and categories, mobile navigation, a sitemap, and a custom 404 page. RSS remains available for reader autodiscovery; visitor pages do not link directly to its XML document.
 
 ### Local development
 
