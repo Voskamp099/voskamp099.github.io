@@ -30,7 +30,7 @@ const header = '<a class="skip" href="#main">' + b('Skip to content', '跳到正
   + '<button class="toggle" id="langBtn" type="button" aria-label="Switch to English">EN</button>'
   + '<button class="toggle menu-toggle" id="menuBtn" type="button" aria-label="导航菜单" aria-controls="siteNav" aria-expanded="false">☰</button></header>';
 const footer = '<footer><div class="wrap footer-row"><span>~/raelynn · ' + b('Build. Learn. Write.', '做东西，学东西，写下来。')
-  + '</span><div><a href="/feed.xml">RSS</a><a href="https://github.com/Voskamp099">GitHub ↗</a><a href="/#main">' + b('Back to top ↑', '回到顶部 ↑') + '</a></div></div></footer>';
+  + '</span><div><a href="https://github.com/Voskamp099">GitHub ↗</a><a href="/#main">' + b('Back to top ↑', '回到顶部 ↑') + '</a></div></div></footer>';
 function layout({ titleEn, titleZh, description, route = '/', body, article = false, redirectTo = '' }) {
   return '<!doctype html><html lang="zh-CN" class="lang-zh theme-light" data-title-en="' + esc(titleEn) + '" data-title-zh="' + esc(titleZh)
     + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(titleZh) + '</title>'
@@ -63,7 +63,7 @@ const home = '<main id="main"><section class="hero"><div class="wrap hero-grid">
   + '<div><span class="pr">$</span> cat process.md</div><div class="output">' + b('idea → build → test → write', '想法 → 实现 → 验证 → 记录') + '</div>'
   + '<div><span class="pr">$</span> <span class="blink" aria-hidden="true"></span></div><div class="terminal-note">' + b('A notebook for things in progress.', '把进行中的东西，慢慢记下来。') + '</div></aside></div></section>'
   + '<section id="writing"><div class="wrap"><div class="kicker">01 — ' + b('Writing', '文章') + '</div><div class="section-head"><div><h2 class="sec">'
-  + b('From the notebook', '最近写下的') + '</h2><p class="sec-sub">' + b('Specific problems, practical decisions, and lessons from building.', '具体的问题、实际的选择，以及做完以后学到的东西。') + '</p></div><a class="section-link" href="/feed.xml">RSS ↗</a></div>'
+  + b('From the notebook', '最近写下的') + '</h2><p class="sec-sub">' + b('Specific problems, practical decisions, and lessons from building.', '具体的问题、实际的选择，以及做完以后学到的东西。') + '</p></div></div>'
   + '<div class="article-toolbar"><label class="search-field"><span aria-hidden="true">⌕</span><span class="visually-hidden">' + b('Search articles', '搜索文章') + '</span><input id="articleSearch" type="search" placeholder="搜索标题、内容简介或标签…"></label>'
   + '<div class="filters" aria-label="Article categories"><button class="filter" data-filter="all" aria-pressed="true">' + b('All', '全部') + '</button><button class="filter" data-filter="macos" aria-pressed="false">macOS</button><button class="filter" data-filter="ai" aria-pressed="false">' + b('AI collaboration', 'AI 协作') + '</button></div></div>'
   + '<div class="article-list">' + cards + '</div><p class="empty-state" id="searchEmpty" hidden>' + b('No matching notes. Try another keyword or category.', '没有找到匹配的文章，试试其他关键词或分类。') + '</p><p class="search-status" id="searchCount" aria-live="polite">'
