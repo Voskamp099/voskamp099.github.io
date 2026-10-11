@@ -1,15 +1,22 @@
 {
   "slug": "building-petassistant",
   "date": "2026-10-10",
-  "categories": ["macos", "ai"],
-  "tags": ["Swift", "macOS", "AI collaboration"],
+  "categories": [
+    "macos",
+    "ai"
+  ],
+  "tags": [
+    "SwiftUI",
+    "macOS",
+    "AI collaboration"
+  ],
   "title": {
-    "zh": "我和 AI 做了一只 macOS 桌面猫",
-    "en": "Building a desktop cat with AI"
+    "zh": "PetAssistant：我和 AI 做了一只 macOS 桌面猫",
+    "en": "PetAssistant: building a desktop cat with AI"
   },
   "summary": {
-    "zh": "从一张静态猫图开始，把日历、待办和语音放到桌面上。记录那些真正影响体验的小决定。",
-    "en": "A static cat became a small calendar and to-do companion. Notes on the decisions that made it useful."
+    "zh": "从一张静态猫图开始，把日历、待办和语音放到桌面上。一份完整的项目记录：交互取舍、字幕调试，以及当前版本的边界。",
+    "en": "From a static cat to a calendar and to-do companion: the interaction decisions, caption debugging, and limits of the current version."
   },
   "body": {
     "zh": "petassistant.zh.md",

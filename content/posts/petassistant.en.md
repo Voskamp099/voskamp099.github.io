@@ -28,6 +28,26 @@ During testing, we encountered issues that were easy to notice and less obvious 
 
 The fixes involved SwiftUI observation, speech segmentation, time formatting, and AppKit window and input handling. Each looked like a small item in a feature list, yet affected everyday use.
 
+## The caption had data. Why was it invisible?
+
+One concrete debugging example was the caption. The coordinator's `lastSpokenText` changed, but the expected speech bubble did not appear above the cat.
+
+The coordinator was an `ObservableObject`, and the caption used `@Published`. The pet view, however, held the coordinator in an ordinary `let` property. That allowed it to read the data without establishing the object observation relationship. The fix was to use `@ObservedObject`: the coordinator still owns the object, while the view receives and observes it.
+
+Here is the change in simplified form:
+
+```swift
+// Original entry point
+let coordinator: AppCoordinator
+
+// Observe the externally supplied object
+@ObservedObject var coordinator: AppCoordinator
+```
+
+Once the caption appeared, the layout needed tightening too. Removing the large fixed height and empty space let the vertical layout fit its content. Reporting the content height back to the AppKit floating panel made the window follow it. Movement past a threshold counts as a drag, so releasing the mouse does not unexpectedly start narration.
+
+We changed the caption from empty to schedule to to-do text on the same `NSHostingView`, then checked the rendered result with OCR. We also tested the click cycle and upward dragging in the actual interface. The checks covered what someone could see and operate, beyond the value of a string in memory.
+
 ## Make the end of narration quiet
 
 Chinese and English segments use system voices for their respective languages. English spaces are preserved, and `TODO` is expanded to “to-do list” before speech.

@@ -10,7 +10,7 @@
 
 - 中英文切换、深浅色切换，偏好保存在浏览器。
 - 文章搜索与分类，手机导航，键盘焦点和减少动态效果支持。
-- 每篇文章有独立地址；提供 RSS、站点地图和 404 页面。
+- 一个项目对应一篇完整记录，调试过程作为文章内的章节；每篇文章有独立地址，提供 RSS、站点地图和 404 页面。
 - 文章用 Markdown 保存，构建后是静态 HTML，适用于 GitHub Pages。
 - 不包含旧网站的简历、私有资料、数据库或后台管理入口。
 
@@ -51,6 +51,8 @@ Features include bilingual content, persistent theme and language preferences, a
 Use Node.js 22 or later and Python 3. Run npm ci, npm run build, npm run check, then npm run dev.
 
 ### Publish a post
+
+Keep one complete article per project, with debugging notes included as sections in that article.
 
 Add a JSON metadata file and two Markdown files under content/posts/, following an existing post. Both translations need a title, summary, and body. Use a unique slug and an ISO date.
 
