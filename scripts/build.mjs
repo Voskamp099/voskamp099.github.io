@@ -31,10 +31,11 @@ const header = '<a class="skip" href="#main">' + b('Skip to content', '跳到正
   + '<button class="toggle menu-toggle" id="menuBtn" type="button" aria-label="导航菜单" aria-controls="siteNav" aria-expanded="false">☰</button></header>';
 const footer = '<footer><div class="wrap footer-row"><span>~/raelynn · ' + b('Build. Learn. Write.', '做东西，学东西，写下来。')
   + '</span><div><a href="/feed.xml">RSS</a><a href="https://github.com/Voskamp099">GitHub ↗</a><a href="/#main">' + b('Back to top ↑', '回到顶部 ↑') + '</a></div></div></footer>';
-function layout({ titleEn, titleZh, description, route = '/', body, article = false }) {
+function layout({ titleEn, titleZh, description, route = '/', body, article = false, redirectTo = '' }) {
   return '<!doctype html><html lang="zh-CN" class="lang-zh theme-light" data-title-en="' + esc(titleEn) + '" data-title-zh="' + esc(titleZh)
     + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(titleZh) + '</title>'
     + '<meta name="description" content="' + esc(description) + '"><meta name="author" content="Raelynn">'
+    + (redirectTo ? '<meta http-equiv="refresh" content="0;url=' + esc(redirectTo) + '">' : '')
     + '<link rel="canonical" href="' + origin + route + '"><meta property="og:type" content="' + (article ? 'article' : 'website') + '">'
     + '<meta property="og:title" content="' + esc(titleZh) + '"><meta property="og:description" content="' + esc(description) + '">'
     + '<meta property="og:url" content="' + origin + route + '"><meta property="og:image" content="' + origin + '/assets/petassistant.png">'
@@ -89,6 +90,14 @@ for (const post of posts) {
     + b('Back to the notebook', '回到文章列表') + '</a></div></div></article></main>';
   await fs.mkdir('dist' + route, { recursive: true });
   await fs.writeFile('dist' + route + 'index.html', layout({ titleEn: post.title.en + ' — Raelynn', titleZh: post.title.zh + ' — Raelynn', description: post.summary.zh, route, body, article: true }));
+}
+// Keep the former debugging article URL usable after merging it into the project record.
+if (posts.some(post => post.slug === 'building-petassistant')) {
+  const route = '/writing/building-petassistant/';
+  const body = '<main id="main" class="wrap"><section><h1 class="sec">' + b('This note is now part of the PetAssistant project.', '这篇调试笔记已合并到 PetAssistant 项目记录。')
+    + '</h1><a class="btn btn--solid" href="' + route + '">' + b('Read the complete project →', '阅读完整项目记录 →') + '</a></section></main>';
+  await fs.mkdir('dist/writing/swiftui-caption-state', { recursive: true });
+  await fs.writeFile('dist/writing/swiftui-caption-state/index.html', layout({ titleEn: 'PetAssistant — Raelynn', titleZh: 'PetAssistant — Raelynn', description: 'Read the complete PetAssistant project record.', route, body, redirectTo: route }));
 }
 const notFound = '<main id="main" class="wrap"><section><div class="kicker">404</div><h1 class="sec">' + b('This page is not here.', '这一页还不存在。') + '</h1><p class="sec-sub">'
   + b('The link may have moved. Head back to the notebook.', '链接可能已经变化，回主页看看最新的文章吧。') + '</p><a class="btn btn--solid" href="/">'
