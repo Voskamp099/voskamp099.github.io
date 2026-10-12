@@ -1,6 +1,11 @@
 :root { --accent:#b94122; --accent-2:#286451; }
 html { scroll-padding-top:90px; }
 html.theme-dark { --accent:#f58b68; --accent-2:#75ccb4; }
+body {
+  background-image:radial-gradient(rgba(111,106,120,.10) .7px, transparent .7px);
+  background-size:36px 36px;
+}
+html.theme-dark body { background-image:none; }
 [hidden] { display:none !important; }
 a:focus-visible, button:focus-visible, input:focus-visible { outline:3px solid var(--accent); outline-offset:5px; }
 .skip { position:fixed; top:8px; left:8px; z-index:100; transform:translateY(-180%); background:var(--ink); color:var(--paper); padding:10px 16px; border-radius:6px; }

@@ -6,7 +6,7 @@
 
 ## 中文
 
-沿用提供的 HTML 模板的奶油色、点阵背景、橙色点缀和等宽字体，将页面整理为文章、项目和关于三个区域。
+沿用提供的 HTML 模板的奶油色、橙色点缀和等宽字体，将页面整理为文章、项目和关于三个区域。浅色背景保留稀疏的淡点阵，深色背景使用纯色。
 
 - 中英文切换、深浅色切换，偏好保存在浏览器。
 - 文章搜索与分类，手机导航，键盘焦点和减少动态效果支持。
@@ -43,7 +43,7 @@ npm run dev
 
 A personal project notebook and technical blog at **https://voskamp099.github.io/**.
 
-The design retains the supplied reference's cream paper, dotted background, orange accents, and monospace details. It focuses on writing, projects, and a short introduction.
+The design retains the supplied reference's cream paper, orange accents, and monospace details. Light mode uses a faint, sparse dotted background; dark mode uses a solid background. It focuses on writing, projects, and a short introduction.
 
 Features include bilingual content, persistent theme and language preferences, article search and categories, mobile navigation, a sitemap, and a custom 404 page. RSS remains available for reader autodiscovery; visitor pages do not link directly to its XML document.
 
