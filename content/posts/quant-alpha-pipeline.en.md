@@ -1,5 +1,7 @@
 What I started with was plain. On the WorldQuant BRAIN site: find a dataset, pick fields, write an expression, click simulate, wait for the result, check whether Sharpe and fitness clear the bar, and submit if they do.
 
+The whole thing ended up with a name: AlphaForge. This is how it went from clicking in a browser to a pipeline that can be re-run and understood.
+
 The platform has its own thresholds. Sharpe above 1.25, fitness above 1.0, and separate checks on turnover, weight concentration, and sub-universe Sharpe. The first submission that went through felt good, but it became clear quickly that the path was too slow.
 
 A simulation queues, one idea needs several fields, several windows, and several operator combinations, and clicking through it by hand eats an afternoon. Everything also lives only in the browser: close the tab and the experiment record is gone.

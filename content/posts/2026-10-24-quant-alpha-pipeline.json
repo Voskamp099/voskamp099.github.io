@@ -12,8 +12,8 @@
     "AI collaboration"
   ],
   "title": {
-    "zh": "从手动提交到自动化流水线：用 Agent 在 BRAIN 上做 Alpha 研究",
-    "en": "From manual submissions to a pipeline: alpha research with an agent"
+    "zh": "AlphaForge：我和 Agent 在 BRAIN 上做 Alpha 研究",
+    "en": "AlphaForge: alpha research with an agent"
   },
   "summary": {
     "zh": "从在平台上一个个手动提交 alpha，到在 VSCode 里交给 Agent 跑完整的自动化工作流，再到按经济含义做分类分析。一份关于操作方法的记录。",
