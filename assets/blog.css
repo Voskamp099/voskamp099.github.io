@@ -38,7 +38,9 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline:3px solid v
 .article-card h3 { font:600 21px/1.4 var(--display); letter-spacing:-.02em; margin:0 0 8px; }
 .article-card p { margin:0 0 12px; font-size:15px; color:var(--muted); }
 .article-card .arrow { color:var(--accent); font-size:20px; }
-.tags { display:flex; gap:8px; flex-wrap:wrap; font:11px var(--mono); color:var(--accent-2); }
+.tags { display:flex; gap:7px; flex-wrap:wrap; font:12px var(--mono); color:var(--accent-2); }
+.tags span { display:inline-block; padding:3px 11px; border:1px solid var(--pill-line); border-radius:999px; background:var(--pill-bg); color:var(--accent-2); line-height:1.55; white-space:nowrap; }
+.article-card:hover .tags span { border-color:var(--accent); color:var(--accent); }
 .search-status { font:12px var(--mono); color:var(--muted); margin:18px 0 0; }
 .empty-state { border:1px dashed var(--line); padding:26px; color:var(--muted); }
 .project-feature { display:grid; grid-template-columns:1fr 200px; gap:28px; align-items:center; border:1px solid var(--line); border-radius:12px; background:var(--paper-2); padding:28px; box-shadow:var(--shadow); }
