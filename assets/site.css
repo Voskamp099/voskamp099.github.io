@@ -2,14 +2,14 @@
   :root{
     --paper:#faf8f3; --paper-2:#f3efe6; --ink:#1b1a20; --muted:#6f6a78;
     --line:#e4ded2; --accent:#d9542b; --accent-2:#2f6f5e; --dark:#14131a;
-    --dark-fg:#e9e4d8; --shadow:6px 6px 0 rgba(27,26,32,.08);
+    --dark-fg:#e9e4d8; --shadow:6px 6px 0 rgba(27,26,32,.08); --pill-bg:rgba(47,111,94,.10); --pill-line:rgba(47,111,94,.26);
     --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
     --sans:"IBM Plex Sans","Noto Sans SC",system-ui,sans-serif;
     --display:"Space Grotesk","Noto Sans SC",sans-serif;
   }
   html.theme-dark{
     --paper:#16151c; --paper-2:#1f1e27; --ink:#ece8dd; --muted:#9a94a3;
-    --line:#322f3b; --accent:#f0744a; --accent-2:#5fbfa6; --shadow:6px 6px 0 rgba(0,0,0,.35);
+    --line:#322f3b; --accent:#f0744a; --accent-2:#5fbfa6; --shadow:6px 6px 0 rgba(0,0,0,.35); --pill-bg:rgba(95,191,166,.14); --pill-line:rgba(95,191,166,.30);
   }
   *{box-sizing:border-box}
   html,body{margin:0}
