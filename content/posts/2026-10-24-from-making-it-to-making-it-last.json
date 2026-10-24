@@ -1,0 +1,27 @@
+{
+  "slug": "from-making-it-to-making-it-last",
+  "date": "2026-10-24",
+  "categories": [
+    "ai",
+    "growth"
+  ],
+  "tags": [
+    "Personal growth",
+    "Berkeley",
+    "Entrepreneurship",
+    "Building with AI",
+    "Living document"
+  ],
+  "title": {
+    "zh": "从“做出来”到“走得远”",
+    "en": "From Making It to Making It Last"
+  },
+  "summary": {
+    "zh": "从十万人考研社群里的第一个产品，到伯克利的 demo day、回国后的投资分析，再到把研究和工作流都变成能跑起来的管线。一条还没走完的路。",
+    "en": "From a first product in a study community, to demo days at Berkeley and investment work back home, to pipelines that make research and workflow runnable. A path that is not finished."
+  },
+  "body": {
+    "zh": "from-making-it-to-making-it-last.zh.md",
+    "en": "from-making-it-to-making-it-last.en.md"
+  }
+}
