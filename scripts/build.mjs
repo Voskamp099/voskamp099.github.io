@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import MarkdownIt from 'markdown-it';
+import { STATIC_PAGES } from './static-pages.mjs';
 
 const origin = 'https://voskamp099.github.io';
 const md = new MarkdownIt({ html: false, linkify: true, typographer: true });
@@ -29,6 +30,11 @@ const posts = await Promise.all(files.map(async file => {
 await fs.rm('dist', { recursive: true, force: true });
 await fs.mkdir('dist/assets', { recursive: true });
 await fs.cp('assets', 'dist/assets', { recursive: true });
+
+for (const page of STATIC_PAGES) {
+  const exists = await fs.stat(page).then(() => true).catch(() => false);
+  if (exists) await fs.cp(page, 'dist/' + page);
+}
 const header = '<a class="skip" href="#main">' + b('Skip to content', '跳到正文') + '</a>'
   + '<header class="topbar"><a class="path" href="/">~/<b>raelynn</b> / notes</a>'
   + '<nav id="siteNav" aria-label="Main navigation">'

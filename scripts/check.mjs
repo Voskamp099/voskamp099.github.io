@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { STATIC_PAGES } from './static-pages.mjs';
 const root = path.resolve('dist');
 async function walk(directory) {
   const entries = await fs.readdir(directory, { withFileTypes: true });
@@ -16,7 +17,8 @@ for (const file of files) {
   if (unwanted.test(text) || text.includes(unwantedChinese) || text.includes('zx-lang') || text.includes('zx-theme')) throw new Error('Unexpected old identity in ' + path.relative(root, file));
   if (/\/Users\//.test(text)) throw new Error('Local path in published output');
   if (!file.endsWith('.html')) continue;
-  if (!text.includes('lang="zh-CN"') || !text.includes('lang="en"')) throw new Error('Missing bilingual markup in ' + file);
+  const isStaticPage = STATIC_PAGES.includes(path.relative(root, file));
+  if (!isStaticPage && (!text.includes('lang="zh-CN"') || !text.includes('lang="en"'))) throw new Error('Missing bilingual markup in ' + file);
   for (const match of text.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const href = match[1];
     if (/^(https?:|mailto:|data:)/.test(href)) continue;
