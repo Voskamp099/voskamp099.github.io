@@ -6,6 +6,8 @@ const origin = 'https://voskamp099.github.io';
 const md = new MarkdownIt({ html: false, linkify: true, typographer: true });
 const esc = value => String(value).replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
 const b = (en, zh) => '<span class="en" lang="en">' + esc(en) + '</span><span class="zh" lang="zh-CN">' + esc(zh) + '</span>';
+const library = JSON.parse(await fs.readFile(path.join('content', 'tag-library.json'), 'utf8'));
+const tagById = new Map(library.tags.map(tag => [tag.id, tag]));
 const files = (await fs.readdir('content/posts')).filter(file => file.endsWith('.json')).sort().reverse();
 const posts = await Promise.all(files.map(async file => {
   const post = JSON.parse(await fs.readFile(path.join('content/posts', file), 'utf8'));
@@ -16,7 +18,13 @@ const posts = await Promise.all(files.map(async file => {
     if (!/^[a-z0-9.-]+\.md$/.test(post.body[language])) throw new Error('Invalid body path');
     body[language] = md.render(await fs.readFile(path.join('content/posts', post.body[language]), 'utf8'));
   }
-  return { ...post, html: body };
+  const tags = post.tags.map(id => {
+    const tag = tagById.get(id);
+    if (!tag) throw new Error('Unknown tag "' + id + '" in ' + file);
+    return tag;
+  });
+  if (tags.length !== library.perPost) throw new Error('Post ' + file + ' needs exactly ' + library.perPost + ' tags from content/tag-library.json');
+  return { ...post, tags, html: body };
 }));
 await fs.rm('dist', { recursive: true, force: true });
 await fs.mkdir('dist/assets', { recursive: true });
@@ -46,9 +54,9 @@ function layout({ titleEn, titleZh, description, route = '/', body, article = fa
     + header + body + footer + '</body></html>';
 }
 const cards = posts.map(post => '<a class="article-card" data-article data-categories="' + esc(post.categories.join(' ')) + '" data-search="'
-  + esc([post.title.en, post.title.zh, post.summary.en, post.summary.zh, ...post.tags].join(' ')) + '" href="/writing/' + post.slug + '/">'
+  + esc([post.title.en, post.title.zh, post.summary.en, post.summary.zh, ...post.tags.flatMap(tag => [tag.en, tag.zh])].join(' ')) + '" href="/writing/' + post.slug + '/">'
   + '<time datetime="' + post.date + '">' + post.date + '</time><div><h3>' + b(post.title.en, post.title.zh) + '</h3><p>'
-  + b(post.summary.en, post.summary.zh) + '</p><div class="tags">' + post.tags.map(tag => '<span>' + esc(tag) + '</span>').join('')
+  + b(post.summary.en, post.summary.zh) + '</p><div class="tags">' + post.tags.map(tag => '<span>' + b(tag.en, tag.zh) + '</span>').join('')
   + '</div></div><span class="arrow" aria-hidden="true">↗</span></a>').join('');
 const home = '<main id="main"><section class="hero"><div class="wrap hero-grid"><div>'
   + '<div class="monogram" aria-hidden="true">R</div><p class="role">' + b('Projects / technical notes / building with AI', '项目 / 技术笔记 / 与 AI 协作') + '</p>'
@@ -85,7 +93,7 @@ for (const post of posts) {
   const body = '<main id="main" class="wrap"><article><header class="article-header"><a class="back" href="/#writing">← '
     + b('All notes', '全部文章') + '</a><div class="article-meta"><time datetime="' + post.date + '">' + post.date + '</time> · Raelynn · '
     + b('Written with AI assistance', '与 AI 协作整理') + '</div><h1>' + b(post.title.en, post.title.zh) + '</h1><p class="article-deck">'
-    + b(post.summary.en, post.summary.zh) + '</p><div class="tags">' + post.tags.map(tag => '<span>' + esc(tag) + '</span>').join('') + '</div></header><div class="article-body">'
+    + b(post.summary.en, post.summary.zh) + '</p><div class="tags">' + post.tags.map(tag => '<span>' + b(tag.en, tag.zh) + '</span>').join('') + '</div></header><div class="article-body">'
     + '<div class="en" lang="en">' + post.html.en + '</div><div class="zh" lang="zh-CN">' + post.html.zh + '</div><div class="article-end"><a class="back" href="/#writing">← '
     + b('Back to the notebook', '回到文章列表') + '</a></div></div></article></main>';
   await fs.mkdir('dist' + route, { recursive: true });

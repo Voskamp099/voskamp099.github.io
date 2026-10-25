@@ -1,0 +1,17 @@
+{
+  "perPost": 4,
+  "tags": [
+    { "id": "worldquant-brain", "en": "WorldQuant BRAIN", "zh": "WorldQuant BRAIN", "kind": "platform" },
+    { "id": "macos", "en": "macOS", "zh": "macOS", "kind": "platform" },
+    { "id": "berkeley", "en": "Berkeley", "zh": "伯克利", "kind": "platform" },
+    { "id": "swiftui", "en": "SwiftUI", "zh": "SwiftUI", "kind": "stack" },
+    { "id": "automation", "en": "Automation", "zh": "自动化工作流", "kind": "method" },
+    { "id": "ai-collaboration", "en": "AI collaboration", "zh": "与 AI 协作", "kind": "method" },
+    { "id": "debugging", "en": "Debugging notes", "zh": "调试记录", "kind": "method" },
+    { "id": "quant-research", "en": "Quant research", "zh": "量化研究", "kind": "topic" },
+    { "id": "personal-growth", "en": "Personal growth", "zh": "个人成长", "kind": "topic" },
+    { "id": "entrepreneurship", "en": "Entrepreneurship", "zh": "创业", "kind": "topic" },
+    { "id": "living-document", "en": "Living document", "zh": "持续更新", "kind": "format" },
+    { "id": "project-log", "en": "Project log", "zh": "项目记录", "kind": "format" }
+  ]
+}

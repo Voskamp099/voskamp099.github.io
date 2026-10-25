@@ -6,9 +6,10 @@
     "ai"
   ],
   "tags": [
-    "SwiftUI",
-    "macOS",
-    "AI collaboration"
+    "macos",
+    "swiftui",
+    "ai-collaboration",
+    "debugging"
   ],
   "title": {
     "zh": "PetAssistant：我和 AI 做了一只 macOS 桌面猫",
