@@ -7,390 +7,507 @@
 <meta name="description" content="Education, research, engineering work, publications, awards and open-source repositories of Raelynn Zhao (Voskamp099).">
 <style>
   :root{
-    --cream:#f7f5f0;
-    --card:#ffffff;
-    --ink:#232824;
-    --ink2:#4a524b;
-    --ink3:#788178;
-    --green:#2f6f5e;
-    --green-dk:#245648;
-    --green-soft:#eef3ef;
-    --line:#e2e5dc;
-    --line2:#e9ece4;
-    --warm:#c97b3f;
-    --warm-soft:#faf1e7;
-    --radius:10px;
+    --bg:#0e1110;
+    --bg2:#121716;
+    --ink:#edf1ee;
+    --ink2:#b4bcb6;
+    --ink3:#7c857e;
+    --line:#222a27;
+    --line2:#1a211f;
+    --accent:#5fbf9b;
+    --accent-dk:#2b5a4b;
+    --warm:#d9a55c;
+    --rail:250px;
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   body{
     margin:0;
-    background:var(--cream);
+    background:var(--bg);
     color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
     font-size:15px;
     line-height:1.62;
+    -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:960px;margin:0 auto;padding:40px 24px 64px}
-  a{color:var(--green);text-decoration:none}
+  ::selection{background:rgba(95,191,155,.28)}
+  a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
   .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
 
-  header.top{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:30px 32px;
+  .shell{max-width:1180px;margin:0 auto;padding:0 32px 96px;display:grid;grid-template-columns:var(--rail) minmax(0,1fr);gap:56px}
+
+  /* —— 左侧目录轴 —— */
+  .rail{
+    position:sticky;top:0;align-self:start;
+    height:100vh;padding:44px 0 32px;
+    display:flex;flex-direction:column;gap:22px;
+    border-right:1px solid var(--line2);
   }
-  header.top h1{margin:0 0 4px;font-size:26px;letter-spacing:.2px}
-  .handle{color:var(--green);font-size:13px;margin-bottom:14px}
-  .lede{margin:0 0 20px;color:var(--ink2);font-size:15.5px;max-width:62ch}
-  .links{display:flex;flex-wrap:wrap;gap:8px}
+  .rail-mark{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
+  .rail-name{font-size:17px;font-weight:600;letter-spacing:.01em;margin:0}
+  .rail nav{display:flex;flex-direction:column;gap:1px}
+  .rail nav a{
+    display:flex;align-items:baseline;gap:10px;
+    padding:6px 0;color:var(--ink3);font-size:13px;letter-spacing:.01em;
+    transition:color .14s ease;
+  }
+  .rail nav a .n{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:10.5px;color:#4d564f;letter-spacing:.06em;
+  }
+  .rail nav a:hover{color:var(--ink);text-decoration:none}
+  .rail nav a:hover .n{color:var(--accent)}
+  .rail-foot{margin-top:auto;font-size:11.5px;color:#5d665f;line-height:1.7}
+  .rail-foot span{display:block}
+
+  /* —— 头部 —— */
+  .doc{padding-top:44px;min-width:0}
+  .eyebrow{
+    margin:0 0 18px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);
+  }
+  .eyebrow .dot{color:var(--accent)}
+  h1{
+    margin:0 0 20px;font-size:clamp(38px,5.4vw,62px);line-height:1.02;
+    font-weight:600;letter-spacing:-.028em;
+  }
+  .lede{margin:0 0 26px;color:var(--ink2);font-size:16px;max-width:64ch}
+  .links{display:flex;flex-wrap:wrap;gap:10px;padding-bottom:38px;border-bottom:1px solid var(--line)}
   .links a{
-    font-size:12.5px;padding:4px 11px;border:1px solid var(--line);
-    border-radius:999px;color:var(--ink2);background:#fcfdfb;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12px;letter-spacing:.02em;padding:6px 12px;
+    border:1px solid var(--line);border-radius:3px;color:var(--ink2);
+    transition:border-color .14s ease,color .14s ease;
   }
-  .links a:hover{border-color:var(--green);color:var(--green);text-decoration:none}
+  .links a:hover{border-color:var(--accent-dk);color:var(--accent);text-decoration:none}
 
+  /* —— 分节 —— */
+  section{padding-top:52px}
   h2{
-    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--ink3);margin:38px 0 14px;font-weight:600;
+    display:flex;align-items:baseline;gap:12px;
+    margin:0 0 6px;font-size:12.5px;font-weight:600;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);
   }
-  h2 span.count{color:var(--green);font-weight:600;letter-spacing:0;text-transform:none;font-size:12px}
+  h2 .n{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;color:var(--accent);letter-spacing:.1em}
+  h2 .count{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;color:#4d564f;letter-spacing:.06em;text-transform:none}
+  .rule{height:1px;background:var(--line);margin:14px 0 4px}
 
-  .card{
-    background:var(--card);border:1px solid var(--line);
-    border-radius:var(--radius);padding:20px 22px;margin-bottom:12px;
+  .entry{padding:22px 0;border-bottom:1px solid var(--line2)}
+  .entry:last-child{border-bottom:none}
+  .row-h{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;justify-content:space-between}
+  .row-h h3{margin:0;font-size:17px;font-weight:600;letter-spacing:-.005em}
+  .when{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12px;color:var(--ink3);white-space:nowrap;
   }
-  .row-h{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between}
-  .row-h h3{margin:0;font-size:16.5px;font-weight:600;letter-spacing:.1px}
-  .when{font-size:12.5px;color:var(--ink3);white-space:nowrap}
-  .org{font-size:13px;color:var(--green);margin:2px 0 10px}
+  .org{font-size:13px;color:var(--accent);margin:5px 0 10px}
   .body{margin:0;color:var(--ink2)}
-  .body li{margin:4px 0}
-  ul.body{padding-left:20px;margin:0}
+  .body li{margin:5px 0}
+  ul.body{padding-left:19px;margin:0}
+  ul.body li::marker{color:#4d564f}
 
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
   .tag{
-    font-size:11.5px;padding:2px 9px;border-radius:999px;
-    background:var(--green-soft);color:var(--green-dk);border:1px solid #dfe8e2;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11px;letter-spacing:.02em;padding:3px 8px;border-radius:3px;
+    border:1px solid var(--line);color:var(--ink3);
   }
-  .tag.warm{background:var(--warm-soft);color:#8d5220;border-color:#f0e0cd}
+  .tag.warm{border-color:#4a3a20;color:var(--warm)}
 
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media (max-width:700px){.grid2{grid-template-columns:1fr}}
-
-  .edu h3{font-size:15.5px}
-  .edu .meta{font-size:13px;color:var(--ink2);margin:3px 0 0}
-  .edu .sub{font-size:12.8px;color:var(--ink3);margin-top:6px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+  .stack{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px 24px;font-size:14px;margin:0}
+  .stack dt{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);padding-top:2px;
+  }
+  .stack dd{margin:0;color:var(--ink2)}
 
   table.repos{width:100%;border-collapse:collapse;font-size:13.5px}
-  table.repos td{padding:9px 10px;border-top:1px solid var(--line2);vertical-align:top}
+  table.repos td{padding:11px 10px;border-top:1px solid var(--line2);vertical-align:top}
   table.repos tr:first-child td{border-top:none}
   table.repos td.repo{white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
   table.repos td.desc{color:var(--ink2)}
 
   ul.awards{list-style:none;padding:0;margin:0}
-  ul.awards li{padding:10px 0;border-top:1px solid var(--line2);font-size:14px}
+  ul.awards li{padding:11px 0;border-top:1px solid var(--line2);font-size:14px}
   ul.awards li:first-child{border-top:none;padding-top:0}
   ul.awards li:last-child{padding-bottom:0}
-  ul.awards .yr{color:var(--green);font-weight:600;font-size:12.5px;margin-right:8px}
-
-  .stack{display:grid;grid-template-columns:150px 1fr;gap:6px 18px;font-size:14px}
-  .stack dt{color:var(--ink3);font-size:12.5px;padding-top:2px}
-  .stack dd{margin:0;color:var(--ink2)}
-  @media (max-width:560px){.stack{grid-template-columns:1fr}.stack dt{margin-top:8px}}
+  ul.awards .yr{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    color:var(--accent);font-size:12px;margin-right:10px;
+  }
 
   .note{
-    background:var(--green-soft);border:1px solid #dfe8e2;border-radius:var(--radius);
-    padding:14px 18px;font-size:13.5px;color:var(--ink2);margin-top:12px;
+    margin-top:54px;padding:16px 18px;font-size:13px;color:var(--ink3);
+    border:1px solid var(--line2);border-left:2px solid var(--accent-dk);background:var(--bg2);
   }
   footer{
-    margin-top:44px;padding-top:18px;border-top:1px solid var(--line);
-    font-size:12.5px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
+    margin-top:40px;padding-top:18px;border-top:1px solid var(--line);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11.5px;color:#5d665f;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
+  }
+
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;padding:0 22px 72px}
+    .rail{
+      position:static;height:auto;padding:26px 0 16px;border-right:none;
+      border-bottom:1px solid var(--line2);gap:14px;
+    }
+    .rail nav{flex-direction:row;overflow-x:auto;gap:16px;padding-bottom:4px}
+    .rail nav a{white-space:nowrap}
+    .rail-foot{margin-top:0}
+    .rail-foot span{display:inline;margin-right:14px}
+    .doc{padding-top:26px}
+    .grid2{grid-template-columns:1fr}
+    .stack{grid-template-columns:1fr;gap:4px}
+    .stack dt{margin-top:12px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  @media print{
+    body{background:#fff;color:#111}
+    .rail{display:none}
+    .shell{display:block;padding:0}
+    a{color:#111}
+    .note{background:#fff;border-color:#ddd;border-left-color:#999;color:#444}
+    .entry,.rule,table.repos td,ul.awards li{border-color:#ddd}
+    .tag,.links a{border-color:#ddd;color:#444}
+    h1{font-size:34px}
   }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="shell">
 
-  <header class="top">
-    <h1>Raelynn Zhao</h1>
-    <div class="handle mono">Voskamp099 · github.com/Voskamp099</div>
-    <p class="lede">
-      Software engineering and applied machine learning, with hands-on work across LLM pipelines,
-      multimodal video benchmarks, evaluation models, and product engineering. Currently a Bachelor of
-      Management candidate at Beijing University of Technology and a visiting student at UC Berkeley Extension.
-    </p>
-    <div class="links">
-      <a href="https://voskamp099.github.io/">Personal site</a>
-      <a href="https://github.com/Voskamp099">GitHub</a>
-      <a href="https://linkedin.com/in/raelynn-z">LinkedIn</a>
-      <a href="mailto:xin.zhao6113@gmail.com">xin.zhao6113@gmail.com</a>
+  <aside class="rail">
+    <div>
+      <p class="rail-mark">Technical Profile</p>
+      <p class="rail-name">Raelynn Zhao</p>
     </div>
-  </header>
-
-  <h2>Education <span class="count">2</span></h2>
-
-  <div class="card edu">
-    <div class="row-h">
-      <h3>Beijing University of Technology</h3>
-      <span class="when">Sep 2023 – Jun 2027 (expected)</span>
+    <nav>
+      <a href="#education"><span class="n">01</span>Education</a>
+      <a href="#courses"><span class="n">02</span>Online courses</a>
+      <a href="#research"><span class="n">03</span>Research</a>
+      <a href="#engineering"><span class="n">04</span>Engineering &amp; product</a>
+      <a href="#projects"><span class="n">05</span>Projects</a>
+      <a href="#stack"><span class="n">06</span>Stack</a>
+      <a href="#patent"><span class="n">07</span>Patent</a>
+      <a href="#awards"><span class="n">08</span>Awards</a>
+      <a href="#repositories"><span class="n">09</span>Repositories</a>
+    </nav>
+    <div class="rail-foot">
+      <span>Voskamp099 · github.com/Voskamp099</span>
+      <span>Last updated 2026-10-26</span>
     </div>
-    <div class="meta">College of Economics and Management · Big Data Management and Application · Bachelor of Management candidate</div>
-    <div class="sub">GPA 3.64 / 4.00. Coursework: Big Data and Network Science, Data Visualization, Operations Research, Object-Oriented Programming. Micro-minor in Innovation and Entrepreneurship (2024–2025).</div>
-  </div>
+  </aside>
 
-  <div class="card edu">
-    <div class="row-h">
-      <h3>UC Berkeley Extension</h3>
-      <span class="when">Aug 2025 – May 2026</span>
+  <main class="doc">
+
+    <header>
+      <p class="eyebrow mono">Voskamp099 <span class="dot">/</span> github.com/Voskamp099</p>
+      <h1>Raelynn Zhao</h1>
+      <p class="lede">
+        Software engineering and applied machine learning, with hands-on work across LLM pipelines,
+        multimodal video benchmarks, evaluation models, and product engineering. Currently a Bachelor of
+        Management candidate at Beijing University of Technology and a visiting student at UC Berkeley Extension.
+      </p>
+      <div class="links mono">
+        <a href="https://voskamp099.github.io/">Personal site</a>
+        <a href="https://github.com/Voskamp099">GitHub</a>
+        <a href="https://linkedin.com/in/raelynn-z">LinkedIn</a>
+        <a href="mailto:xin.zhao6113@gmail.com">xin.zhao6113@gmail.com</a>
+      </div>
+    </header>
+
+    <section id="education">
+      <h2><span class="n">01</span> Education <span class="count">(2)</span></h2>
+      <div class="rule"></div>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Beijing University of Technology</h3>
+          <span class="when">Sep 2023 – Jun 2027 (expected)</span>
+        </div>
+        <div class="org">College of Economics and Management · Big Data Management and Application · Bachelor of Management candidate</div>
+        <p class="body">GPA 3.64 / 4.00. Coursework: Big Data and Network Science, Introduction to Big Data Science, Data Warehousing and Artificial Intelligence, Operations Research, Object-Oriented Programming. Micro-minor in Innovation and Entrepreneurship (2024–2025).</p>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>UC Berkeley Extension</h3>
+          <span class="when">Aug 2025 – May 2026</span>
+        </div>
+        <div class="org">Visiting Student · Berkeley Global Access Program</div>
+        <p class="body">Introduction to Statistics, Introduction to Data Analytics, The Structure and Interpretation of Computer Programs, Principles &amp; Techniques of Data Science, Directed Group Studies, Brilliance of Berkeley.</p>
+      </article>
+    </section>
+
+    <section id="courses">
+      <h2><span class="n">02</span> Selected online courses <span class="count">(2)</span></h2>
+      <div class="rule"></div>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Python Essential Training</h3>
+          <span class="when">LinkedIn Learning · Completed Jul 2026</span>
+        </div>
+        <div class="org">Certificate of completion · Ryan Mitchell · 4h 23m</div>
+        <ul class="body">
+          <li>Non-credit, self-paced training in Python syntax, built-in data structures, functions, files and modules.</li>
+        </ul>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Non-credit</span><span class="tag">Self-directed</span></div>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Artificial Intelligence Foundations: Thinking Machines</h3>
+          <span class="when">LinkedIn Learning · Completed Jul 2026</span>
+        </div>
+        <div class="org">Certificate of completion · Doug Rose · 1h 37m</div>
+        <ul class="body">
+          <li>Non-credit introduction to machine learning and neural networks, covering how models learn from data and how their outputs are evaluated.</li>
+        </ul>
+        <div class="tags"><span class="tag">Machine learning</span><span class="tag">Neural networks</span><span class="tag">Non-credit</span></div>
+      </article>
+    </section>
+
+    <section id="research">
+      <h2><span class="n">03</span> Research <span class="count">(3)</span></h2>
+      <div class="rule"></div>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Multimodal video-reasoning benchmarks</h3>
+          <span class="when">Aug 2026 – present</span>
+        </div>
+        <div class="org">Research Assistant · HIPPOCAMPAL Research Team · Remote</div>
+        <ul class="body">
+          <li>Developed task-generation pipelines on the team's existing VBVR video-reasoning benchmark suite, covering video-to-video and reference-video-to-video tasks in semantic segmentation and time-series prediction.</li>
+          <li>Defined task schemas, contributed 230K task samples, and validated target-prompt consistency against the benchmark suite.</li>
+        </ul>
+        <div class="tags"><span class="tag">Python</span><span class="tag">LLM pipelines</span><span class="tag">Benchmark construction</span><span class="tag">Data validation</span></div>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Patent classification research</h3>
+          <span class="when">Oct 2024 – Jun 2025</span>
+        </div>
+        <div class="org">Research Assistant · Beijing, China · Advised by Prof. Xijun He and Dr. Zhihao Zhang</div>
+        <ul class="body">
+          <li>Built a Python-based LLM pipeline that classifies patents into IPC 4-digit codes from titles, abstracts and metadata, with prompt design, automated processing and output validation.</li>
+          <li>Contributed to the verifiable annotation and evaluation data for the top four IPC positions, and to LLM evaluation over roughly 500,000 records running in the cloud.</li>
+        </ul>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Prompt engineering</span><span class="tag">LLM evaluation</span><span class="tag">NLP</span></div>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Social media opinion forecasting</h3>
+          <span class="when">Feb 2024 – Dec 2024</span>
+        </div>
+        <div class="org">Student Researcher · Beijing, China · Advised by Ruiping Yin</div>
+        <ul class="body">
+          <li>Set up GPU training infrastructure and fine-tuned a RoBERTa-based evaluation model (EvalNet) on the SummEval dataset for multi-dimensional summary quality scoring.</li>
+          <li>Placed that model inside an LLM-based self-iterative summarization system, and co-invented the resulting Chinese invention patent.</li>
+        </ul>
+        <div class="tags"><span class="tag">RoBERTa fine-tuning</span><span class="tag">SummEval</span><span class="tag">GPU training</span><span class="tag">Evaluation</span></div>
+      </article>
+    </section>
+
+    <section id="engineering">
+      <h2><span class="n">04</span> Engineering &amp; product work <span class="count">(4)</span></h2>
+      <div class="rule"></div>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Dream Explorer</h3>
+          <span class="when">Jun 2024 – Aug 2024</span>
+        </div>
+        <div class="org">Co-founder &amp; CTO · Beijing Tuomengzhe Education Technology Co., Ltd. · Beijing</div>
+        <ul class="body">
+          <li>Built an AI-powered learning platform as a WeChat Mini Program for students preparing for postgraduate entrance exams, implementing interactive Q&amp;A workflows and LLM-powered learning features.</li>
+          <li>Joined as a developer, then served as co-founder and CTO, working directly with the product's student users.</li>
+        </ul>
+        <div class="tags"><span class="tag">WeChat Mini Program</span><span class="tag">WXML</span><span class="tag">LLM API</span><span class="tag">Product engineering</span></div>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>INNO Fund</h3>
+          <span class="when">Jun 2026 – Aug 2026</span>
+        </div>
+        <div class="org">Investment Analyst · Beijing Inno Investment Management Co., Ltd. · Beijing</div>
+        <ul class="body">
+          <li>Conducted industry research with Python and Pandas over Chinese corporate filings, and maintained a Python screening database for early-stage deal flow.</li>
+          <li>Built an AHP-based six-dimension scoring framework and delivered heatmap benchmarks and one-page investment memos to partners.</li>
+        </ul>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">AHP scoring</span><span class="tag">Data analysis</span></div>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>QuantTide Technology</h3>
+          <span class="when">Oct 2024 – Jan 2025</span>
+        </div>
+        <div class="org">Project Contributor, Flutter Development · Xiamen, China (remote)</div>
+        <ul class="body">
+          <li>Developed reusable Flutter and Dart UI components for the DataCloud and CollabCloud data-analysis and collaboration platforms.</li>
+          <li>Coordinated feature development with the engineering team through Git and GitHub.</li>
+        </ul>
+        <div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Component design</span><span class="tag">Git</span></div>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Berkeley Emerging Technology Association (BETA)</h3>
+          <span class="when">Sep 2025 – Mar 2026</span>
+        </div>
+        <div class="org">Head of Tech Department · Berkeley, CA</div>
+        <ul class="body">
+          <li>Led the technical team building and maintaining the association's website and AI co-learning platform, migrating the stack from HTML and GitHub Pages to React on a custom domain.</li>
+          <li>Coordinated student teams and curated technical content in an all-English environment, and ran SpoonOS and AI-agent workshops and hackathons.</li>
+        </ul>
+        <div class="tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">GitHub Pages</span><span class="tag">Technical leadership</span></div>
+      </article>
+    </section>
+
+    <section id="projects">
+      <h2><span class="n">05</span> Selected projects <span class="count">(3)</span></h2>
+      <div class="rule"></div>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Solar M2F instance segmentation</h3>
+          <span class="when">2026</span>
+        </div>
+        <div class="org"><a href="https://github.com/Voskamp099/solar-m2f-snake2048">solar-m2f-snake2048</a></div>
+        <ul class="body">
+          <li>Mask2Former R50 at native 2048×2048 resolution with a dynamic snake-shaped shared-mask adapter and four-view consensus inference; the base model stays frozen and only the mask embedding and adapter are trained.</li>
+          <li>Every artifact is hash-pinned, and the submission CSV was rebuilt and re-validated on CPU. Public leaderboard score 0.36.</li>
+        </ul>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Instance segmentation</span><span class="tag">Adapter tuning</span><span class="tag">Reproducibility</span></div>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Time Mirror</h3>
+          <span class="when">Jul 2026</span>
+        </div>
+        <div class="org">Multimodal memory agent · Remote</div>
+        <ul class="body">
+          <li>Designed a multimodal agent that organizes user-generated memories into structured representations for personalized reasoning.</li>
+          <li>Built a retrieval pipeline combining LLM reasoning with structured storage, and implemented agent workflows with retrieval and tool interactions for autonomous task execution.</li>
+        </ul>
+        <div class="tags"><span class="tag">AI agents</span><span class="tag">RAG</span><span class="tag">Multimodal</span><span class="tag">FastAPI</span></div>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Skeleton-free 3D pose transfer</h3>
+          <span class="when">Mar 2024 – Apr 2025</span>
+        </div>
+        <div class="org">BJUT "Xinghuo" student research project · Beijing</div>
+        <ul class="body">
+          <li>Designed the pipeline from a joint model through a GCN network to LBS for pose and animation transfer onto 3D digital characters.</li>
+          <li>Delivered a runnable prototype registered as a software copyright, 2025SR0619808 (registered 2025-04-15).</li>
+        </ul>
+        <div class="tags"><span class="tag">Computer vision</span><span class="tag">Graph neural networks</span><span class="tag">LBS</span><span class="tag">Software copyright</span></div>
+      </article>
+    </section>
+
+    <section id="stack">
+      <h2><span class="n">06</span> Stack</h2>
+      <div class="rule"></div>
+      <div class="entry">
+        <dl class="stack">
+          <dt>Programming</dt><dd>Python, Java, C#, SQL, JavaScript / TypeScript, Dart</dd>
+          <dt>Frameworks</dt><dd>React / Next.js, FastAPI, Django, Flutter, Pandas, WeChat Mini Program (WXML)</dd>
+          <dt>AI &amp; ML</dt><dd>LLM applications, RAG, multi-agent systems, BERT fine-tuning, evaluation pipelines</dd>
+          <dt>Tooling</dt><dd>Git / GitHub, GitHub Pages, cloud LLM evaluation runs, hash-pinned artifact verification</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="patent">
+      <h2><span class="n">07</span> Patent</h2>
+      <div class="rule"></div>
+      <article class="entry">
+        <div class="row-h">
+          <h3>CN 119739853 B</h3>
+          <span class="when">Filed 2024-12-05 · Granted 2026-08-04</span>
+        </div>
+        <div class="org">A method for cross-platform social media summarization based on LLM self-iteration</div>
+        <ul class="body">
+          <li>Co-inventor, one of seven named inventors. Patent holder: Beijing University of Technology.</li>
+          <li>IPC classes G06N 20/00 and G06N 5/04.</li>
+        </ul>
+        <div class="tags"><span class="tag warm">Granted invention patent</span><span class="tag">LLM self-iteration</span><span class="tag">Summarization</span></div>
+      </article>
+    </section>
+
+    <section id="awards">
+      <h2><span class="n">08</span> Awards</h2>
+      <div class="rule"></div>
+      <div class="entry">
+        <ul class="awards">
+          <li><span class="yr">2025–2026</span>Special-Grade Scholarship for Long-term Overseas Study (¥30,000 / year) · Beijing University of Technology</li>
+          <li><span class="yr">2026-05</span>1st Place — Choose Your Major Game Design Challenge, Swipe Card Content Creator</li>
+          <li><span class="yr">2026-07</span>Merit Award — MagicHackathon S4, medical insurance agent track</li>
+          <li><span class="yr">—</span>First Prize, Beijing Division — National College Student Market Research and Analysis Competition (team)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="repositories">
+      <h2><span class="n">09</span> Repositories</h2>
+      <div class="rule"></div>
+      <div class="entry">
+        <table class="repos">
+          <tr>
+            <td class="repo"><a href="https://github.com/Voskamp099/solar-m2f-snake2048">solar-m2f-snake2048</a></td>
+            <td class="desc">Python · instance segmentation · verification-pinned submission, public LB 0.36</td>
+          </tr>
+          <tr>
+            <td class="repo"><a href="https://github.com/Voskamp099/Coding-Lady-Hackathon">Coding-Lady-Hackathon</a></td>
+            <td class="desc">TypeScript · full-stack app, 722-line feed component, parent/child growth tracking</td>
+          </tr>
+          <tr>
+            <td class="repo"><a href="https://github.com/Voskamp099/campus-ecosystem-network">campus-ecosystem-network</a></td>
+            <td class="desc">Node/Express · platform connecting universities, companies and government partners — JWT auth, admin console, moderation workflow, MySQL with JSON fallback, 64 tests</td>
+          </tr>
+          <tr>
+            <td class="repo"><a href="https://github.com/Voskamp099/PetAssistant">PetAssistant</a></td>
+            <td class="desc">Swift · native macOS menu-bar companion, Apple Calendar, bilingual speech synthesis</td>
+          </tr>
+          <tr>
+            <td class="repo"><a href="https://github.com/Voskamp099/hydroknow">hydroknow</a></td>
+            <td class="desc">Python · domain knowledge tool</td>
+          </tr>
+          <tr>
+            <td class="repo"><a href="https://github.com/Voskamp099/Auriculate-Hackathon-2026">Auriculate-Hackathon-2026</a></td>
+            <td class="desc">HTML · hand-gesture audio interface with persistent custom sound sets</td>
+          </tr>
+          <tr>
+            <td class="repo"><a href="https://github.com/Voskamp099/voskamp099.github.io">voskamp099.github.io</a></td>
+            <td class="desc">Bilingual writing and project notes · <a href="https://voskamp099.github.io/">live site</a></td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <div class="note">
+      This page summarises work that is already listed on a CV and in project repositories; it adds no new claims.
+      Figures such as the 500,000-record evaluation run and the 230K task samples describe evaluation and benchmark
+      scale, not human annotation effort. Detailed method notes live in the linked repositories.
     </div>
-    <div class="meta">Visiting Student · Berkeley Global Access Program</div>
-    <div class="sub">Introduction to Statistics, Introduction to Data Analytics, The Structure and Interpretation of Computer Programs, Principles &amp; Techniques of Data Science, Directed Group Studies, Brilliance of Berkeley.</div>
-  </div>
 
-  <h2>Selected online courses <span class="count">2</span></h2>
+    <footer>
+      <span>Raelynn Zhao · Voskamp099</span>
+      <span>Last updated 2026-10-26</span>
+    </footer>
 
-  <div class="card">
-    <div class="row-h">
-      <h3>Python Essential Training</h3>
-      <span class="when">LinkedIn Learning · Completed Jul 2026</span>
-    </div>
-    <div class="org">Certificate of completion · Ryan Mitchell · 4h 23m</div>
-    <ul class="body">
-      <li>Non-credit, self-paced training in Python syntax, built-in data structures, functions, files and modules.</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">Non-credit</span><span class="tag">Self-directed</span></div>
-  </div>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>Artificial Intelligence Foundations: Thinking Machines</h3>
-      <span class="when">LinkedIn Learning · Completed Jul 2026</span>
-    </div>
-    <div class="org">Certificate of completion · Doug Rose · 1h 37m</div>
-    <ul class="body">
-      <li>Non-credit introduction to machine learning and neural networks, covering how models learn from data and how their outputs are evaluated.</li>
-    </ul>
-    <div class="tags"><span class="tag">Machine learning</span><span class="tag">Neural networks</span><span class="tag">Non-credit</span></div>
-  </div>
-
-  <h2>Research <span class="count">3</span></h2>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>Multimodal video-reasoning benchmarks</h3>
-      <span class="when">Aug 2026 – present</span>
-    </div>
-    <div class="org">Research Assistant · HIPPOCAMPAL Research Team · Remote</div>
-    <ul class="body">
-      <li>Developed task-generation pipelines on the team's existing VBVR video-reasoning benchmark suite, covering video-to-video and reference-video-to-video tasks in semantic segmentation and time-series prediction.</li>
-      <li>Defined task schemas, contributed 230K task samples, and validated target-prompt consistency against the benchmark suite.</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">LLM pipelines</span><span class="tag">Benchmark construction</span><span class="tag">Data validation</span></div>
-  </div>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>Patent classification research</h3>
-      <span class="when">Oct 2024 – Jun 2025</span>
-    </div>
-    <div class="org">Research Assistant · Beijing, China · Advised by Prof. Xijun He and Dr. Zhihao Zhang</div>
-    <ul class="body">
-      <li>Built a Python-based LLM pipeline that classifies patents into IPC 4-digit codes from titles, abstracts and metadata, with prompt design, automated processing and output validation.</li>
-      <li>Contributed to the verifiable annotation and evaluation data for the top four IPC positions, and to LLM evaluation over roughly 500,000 records running in the cloud.</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">Prompt engineering</span><span class="tag">LLM evaluation</span><span class="tag">NLP</span></div>
-  </div>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>Social media opinion forecasting</h3>
-      <span class="when">Feb 2024 – Dec 2024</span>
-    </div>
-    <div class="org">Student Researcher · Beijing, China · Advised by Ruiping Yin</div>
-    <ul class="body">
-      <li>Set up GPU training infrastructure and fine-tuned a RoBERTa-based evaluation model (EvalNet) on the SummEval dataset for multi-dimensional summary quality scoring.</li>
-      <li>Placed that model inside an LLM-based self-iterative summarization system, and co-invented the resulting Chinese invention patent.</li>
-    </ul>
-    <div class="tags"><span class="tag">RoBERTa fine-tuning</span><span class="tag">SummEval</span><span class="tag">GPU training</span><span class="tag">Evaluation</span></div>
-  </div>
-
-  <h2>Engineering &amp; product work <span class="count">4</span></h2>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>Dream Explorer</h3>
-      <span class="when">Jun 2024 – Aug 2024</span>
-    </div>
-    <div class="org">Co-founder &amp; CTO · Beijing Tuomengzhe Education Technology Co., Ltd. · Beijing</div>
-    <ul class="body">
-      <li>Built an AI-powered learning platform as a WeChat Mini Program for students preparing for postgraduate entrance exams, implementing interactive Q&amp;A workflows and LLM-powered learning features.</li>
-      <li>Joined as a developer, then served as co-founder and CTO, working directly with the product's student users.</li>
-    </ul>
-    <div class="tags"><span class="tag">WeChat Mini Program</span><span class="tag">WXML</span><span class="tag">LLM API</span><span class="tag">Product engineering</span></div>
-  </div>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>INNO Fund</h3>
-      <span class="when">Jun 2026 – Aug 2026</span>
-    </div>
-    <div class="org">Investment Analyst · Beijing Inno Investment Management Co., Ltd. · Beijing</div>
-    <ul class="body">
-      <li>Conducted industry research with Python and Pandas over Chinese corporate filings, and maintained a Python screening database for early-stage deal flow.</li>
-      <li>Built an AHP-based six-dimension scoring framework and delivered heatmap benchmarks and one-page investment memos to partners.</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">AHP scoring</span><span class="tag">Data analysis</span></div>
-  </div>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>QuantTide Technology</h3>
-      <span class="when">Oct 2024 – Jan 2025</span>
-    </div>
-    <div class="org">Project Contributor, Flutter Development · Xiamen, China (remote)</div>
-    <ul class="body">
-      <li>Developed reusable Flutter and Dart UI components for the DataCloud and CollabCloud data-analysis and collaboration platforms.</li>
-      <li>Coordinated feature development with the engineering team through Git and GitHub.</li>
-    </ul>
-    <div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Component design</span><span class="tag">Git</span></div>
-  </div>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>Berkeley Emerging Technology Association (BETA)</h3>
-      <span class="when">Sep 2025 – Mar 2026</span>
-    </div>
-    <div class="org">Head of Tech Department · Berkeley, CA</div>
-    <ul class="body">
-      <li>Led the technical team building and maintaining the association's website and AI co-learning platform, migrating the stack from HTML and GitHub Pages to React on a custom domain.</li>
-      <li>Coordinated student teams and curated technical content in an all-English environment, and ran SpoonOS and AI-agent workshops and hackathons.</li>
-    </ul>
-    <div class="tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">GitHub Pages</span><span class="tag">Technical leadership</span></div>
-  </div>
-
-  <h2>Selected projects <span class="count">3</span></h2>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>Solar M2F instance segmentation</h3>
-      <span class="when">2026</span>
-    </div>
-    <div class="org"><a href="https://github.com/Voskamp099/solar-m2f-snake2048">solar-m2f-snake2048</a></div>
-    <ul class="body">
-      <li>Mask2Former R50 at native 2048×2048 resolution with a dynamic snake-shaped shared-mask adapter and four-view consensus inference; the base model stays frozen and only the mask embedding and adapter are trained.</li>
-      <li>Every artifact is hash-pinned, and the submission CSV was rebuilt and re-validated on CPU. Public leaderboard score 0.36.</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">Instance segmentation</span><span class="tag">Adapter tuning</span><span class="tag">Reproducibility</span></div>
-  </div>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>Time Mirror</h3>
-      <span class="when">Jul 2026 – present</span>
-    </div>
-    <div class="org">Multimodal memory agent · Remote</div>
-    <ul class="body">
-      <li>Designed a multimodal agent that organizes user-generated memories into structured representations for personalized reasoning.</li>
-      <li>Built a retrieval pipeline combining LLM reasoning with structured storage, and implemented agent workflows with retrieval and tool interactions for autonomous task execution.</li>
-    </ul>
-    <div class="tags"><span class="tag">AI agents</span><span class="tag">RAG</span><span class="tag">Multimodal</span><span class="tag">FastAPI</span></div>
-  </div>
-
-  <div class="card">
-    <div class="row-h">
-      <h3>Skeleton-free 3D pose transfer</h3>
-      <span class="when">Mar 2024 – Apr 2025</span>
-    </div>
-    <div class="org">BJUT "Xinghuo" student research project · Beijing</div>
-    <ul class="body">
-      <li>Designed the pipeline from a joint model through a GCN network to LBS for pose and animation transfer onto 3D digital characters.</li>
-      <li>Delivered a runnable prototype registered as a software copyright, 2025SR0619808 (registered 2025-04-15).</li>
-    </ul>
-    <div class="tags"><span class="tag">Computer vision</span><span class="tag">Graph neural networks</span><span class="tag">LBS</span><span class="tag">Software copyright</span></div>
-  </div>
-
-  <h2>Stack</h2>
-  <div class="card">
-    <dl class="stack">
-      <dt>Programming</dt><dd>Python, Java, C#, SQL, JavaScript / TypeScript, Dart</dd>
-      <dt>Frameworks</dt><dd>React / Next.js, FastAPI, Django, Flutter, Pandas, WeChat Mini Program (WXML)</dd>
-      <dt>AI &amp; ML</dt><dd>LLM applications, RAG, multi-agent systems, BERT fine-tuning, evaluation pipelines</dd>
-      <dt>Tooling</dt><dd>Git / GitHub, GitHub Pages, cloud LLM evaluation runs, hash-pinned artifact verification</dd>
-    </dl>
-  </div>
-
-  <h2>Patent</h2>
-  <div class="card">
-    <div class="row-h">
-      <h3>CN 119739853 B</h3>
-      <span class="when">Filed 2024-12-05 · Granted 2025</span>
-    </div>
-    <div class="org">A method for cross-platform social media summarization based on LLM self-iteration</div>
-    <ul class="body">
-      <li>Co-inventor, one of seven named inventors. Patent holder: Beijing University of Technology.</li>
-      <li>IPC classes G06N 20/00 and G06N 5/04.</li>
-    </ul>
-    <div class="tags"><span class="tag warm">Granted invention patent</span><span class="tag">LLM self-iteration</span><span class="tag">Summarization</span></div>
-  </div>
-
-  <h2>Awards</h2>
-  <div class="card">
-    <ul class="awards">
-      <li><span class="yr">2025–2026</span>Special-Grade Scholarship for Long-term Overseas Study (¥30,000 / year) · Beijing University of Technology</li>
-      <li><span class="yr">2026-05</span>1st Place — Choose Your Major Game Design Challenge, Swipe Card Content Creator</li>
-      <li><span class="yr">2026-07</span>Merit Award — MagicHackathon S4, medical insurance agent track</li>
-      <li><span class="yr">—</span>First Prize, Beijing Division — National College Student Market Research and Analysis Competition (team)</li>
-    </ul>
-  </div>
-
-  <h2>Repositories</h2>
-  <div class="card">
-    <table class="repos">
-      <tr>
-        <td class="repo"><a href="https://github.com/Voskamp099/solar-m2f-snake2048">solar-m2f-snake2048</a></td>
-        <td class="desc">Python · instance segmentation · verification-pinned submission, public LB 0.36</td>
-      </tr>
-      <tr>
-        <td class="repo"><a href="https://github.com/Voskamp099/Coding-Lady-Hackathon">Coding-Lady-Hackathon</a></td>
-        <td class="desc">TypeScript · full-stack app, 722-line feed component, parent/child growth tracking</td>
-      </tr>
-      <tr>
-        <td class="repo"><a href="https://github.com/Voskamp099/campus-ecosystem-network">campus-ecosystem-network</a></td>
-        <td class="desc">Node/Express · platform connecting universities, companies and government partners — JWT auth, admin console, moderation workflow, MySQL with JSON fallback, 64 tests</td>
-      </tr>
-      <tr>
-        <td class="repo"><a href="https://github.com/Voskamp099/PetAssistant">PetAssistant</a></td>
-        <td class="desc">Swift · native macOS menu-bar companion, Apple Calendar, bilingual speech synthesis</td>
-      </tr>
-      <tr>
-        <td class="repo"><a href="https://github.com/Voskamp099/hydroknow">hydroknow</a></td>
-        <td class="desc">Python · domain knowledge tool</td>
-      </tr>
-      <tr>
-        <td class="repo"><a href="https://github.com/Voskamp099/Auriculate-Hackathon-2026">Auriculate-Hackathon-2026</a></td>
-        <td class="desc">HTML · hand-gesture audio interface with persistent custom sound sets</td>
-      </tr>
-      <tr>
-        <td class="repo"><a href="https://github.com/Voskamp099/voskamp099.github.io">voskamp099.github.io</a></td>
-        <td class="desc">Bilingual writing and project notes · <a href="https://voskamp099.github.io/">live site</a></td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="note">
-    This page summarises work that is already listed on a CV and in project repositories; it adds no new claims.
-    Figures such as the 500,000-record evaluation run and the 230K task samples describe evaluation and benchmark
-    scale, not human annotation effort. Detailed method notes live in the linked repositories.
-  </div>
-
-  <footer>
-    <span>Raelynn Zhao · Voskamp099</span>
-    <span>Last updated 2026-10-25</span>
-  </footer>
-
+  </main>
 </div>
 </body>
 </html>
