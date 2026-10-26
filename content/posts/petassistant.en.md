@@ -1,6 +1,6 @@
 The idea was specific: a cat that stays on my desktop. When I need it, I click to check today's plans. Between clicks, it stays quiet.
 
-I built **PetAssistant** with AI assistance. This early version uses SwiftUI and AppKit, reads Apple Calendar, stores to-do lists locally, and speaks through the system speech synthesizer. It is already usable on my Mac.
+I built **PetAssistant** with AI assistance. This early version uses SwiftUI and AppKit, reads Apple Calendar, stores to-do lists locally, and speaks through the system speech synthesizer. It is already usable on macOS.
 
 ## Decide how the companion should behave
 
@@ -64,7 +64,7 @@ Restoring it preserves the position and caption without replaying narration. Thi
 
 ## Where the version stands
 
-The cat is still a static image. Walking, sleeping, and other frame animations are not implemented. The current app build targets **Apple Silicon Macs running macOS 14 or later** and has only been verified on my own machine. Intel Macs, Windows, and Linux are not supported yet.
+The cat is still a static image. Walking, sleeping, and other frame animations are not implemented. The current app build targets **macOS 14 or later** and has been verified on the target system. Windows and Linux are not supported yet.
 
 Installation and distribution need more work as well. Getting a personal prototype running is one milestone; making it easy for others to install and use reliably is the next.
 

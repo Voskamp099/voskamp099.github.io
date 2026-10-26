@@ -8,7 +8,7 @@ A simulation queues, one idea needs several fields, several windows, and several
 
 ## Moving the research into VSCode
 
-The next step was to move the research onto my own machine, with a script that does four things: authenticate, start a simulation, poll for the result, and write the metrics to a CSV.
+The next step was to run the research locally, with a script that does four things: authenticate, start a simulation, poll for the result, and write the metrics to a CSV.
 
 The biggest change was not speed but traceability. Every simulation's expression, settings, returned alpha id, and full metric set lands in a local file that can be revisited later, and the run can resume from where it stopped.
 
