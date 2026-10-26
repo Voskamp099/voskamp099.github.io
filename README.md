@@ -49,6 +49,16 @@ npm run dev
 
 需要新关键词时，先在 tag-library.json 里加一条，再在文章里引用。
 
+### 文章写作规范
+
+- **标题用「名称：说明」的结构。** 正经产品类文章先写项目专有名（PetAssistant、AlphaForge），冒号后
+  一句话说明；中英文保持同一个结构，英文里冒号后用小写开头，例如
+  "AlphaForge: alpha research with an agent"。
+- **正文第一次提到项目时把名字交代出来**，不要让标题里的名字在正文里没有出处。
+- **关键词胶囊只出现在首页 writing 列表**，文章页标题下面那一行关键词是纯文字。
+- **鼠标停在文章卡片上时只有标题变红**，关键词保持原样，不加悬停样式。
+- **slug 保持稳定**，链接发出后不改；文章合并时在 scripts/static-pages.mjs 里补一条跳转。
+
 首次发布需要在仓库 Settings → Pages 中选择 GitHub Actions；已经启用的仓库无需重复设置。
 
 ## English
@@ -80,6 +90,18 @@ Every tag comes from content/tag-library.json; post metadata only stores tag ids
 - Pills show the Chinese or English label depending on the active language, and search matches both.
 
 To introduce a new tag, add it to content/tag-library.json first, then reference its id from a post.
+
+### Post writing conventions
+
+- **Titles use a "Name: description" shape.** Product posts lead with the project name (PetAssistant,
+  AlphaForge) and one clause after the colon; the English title keeps the same shape with a lowercase
+  start after the colon, for example "AlphaForge: alpha research with an agent".
+- **Name the project in the first paragraph** so a title name is never unexplained in the body.
+- **Topic pills appear only in the homepage writing list.** The keyword row under an article title is plain
+  text.
+- **Hovering an article card turns only the title red**; the keywords stay untouched.
+- **Slugs stay stable** once published. When two posts are merged, add a redirect in
+  scripts/static-pages.mjs.
 
 Build and check locally, commit, and push to main. GitHub Actions publishes the generated dist/ directory to GitHub Pages. The source repository is public; keep drafts and personal material outside it.
 
