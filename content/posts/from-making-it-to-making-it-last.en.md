@@ -66,7 +66,7 @@ First was patent classification. Over five hundred thousand patent records, thre
 
 Then social media opinion forecasting. I set up GPU training infrastructure and fine-tuned EvalNet, a RoBERTa-based evaluation model, scoring summary quality on SummEval. Only after that did I actually feel the seam between training and inference infrastructure.
 
-After that came dataset and evaluation-sample construction for a multimodal video team: video-to-video and reference-video-to-video, with tasks in semantic segmentation and time-series prediction. The slow part was never annotation — it was checking that every target really matched its prompt. One mismatched sample makes an entire evaluation look accurate while being wrong.
+After that came dataset and evaluation-sample construction for a multimodal video team: video-to-video and reference-video-to-video, from bimanual manipulation to commonsense error localization. The slow part was never annotation — it was checking that every target really matched its prompt. One mismatched sample makes an entire evaluation look accurate while being wrong.
 
 Then a deterministic task generator: fixed random seeds, one run produces reproducible samples with answers, no GPU needed. If anyone can run the same data, it can be used for evaluation at all.
 
