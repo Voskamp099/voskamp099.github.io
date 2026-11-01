@@ -92,7 +92,7 @@ The physics can be right and the frame still be worthless. Everything in this se
 
 ## 6. The gallery
 
-Below are thirty-two real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip.
+Below are thirty-two real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip. The same thirty-two generators are also on the [sample of work page](/sample-of-work/), where the true clip and the counterfactual clip play side by side.
 
 ### A feather that loses its air drag
 
@@ -362,4 +362,4 @@ That is also the judgement I ended up with: **the hard part of this kind of data
 
 ## About this post
 
-Every picture here was rendered by generators I wrote; the scripts and the review material live inside the team's workspace. Each one is a real run, the mask is the formal binary label that was delivered, and the red overlay is only a quality-assurance view for humans — the training data is the mask itself.
+Every picture here was rendered by generators I wrote; the scripts and the review material live inside the team's workspace. Each one is a real run, the mask is the formal binary label that was delivered, and the red overlay is only a quality-assurance view for humans — the training data is the mask itself. The playable pairs live on the [sample of work page](/sample-of-work/).
