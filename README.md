@@ -99,6 +99,10 @@ generator, so it can be shared on its own.
   for a counterfactual generator, /sample-of-work/appendix-task-480/ for the Task 480 appendix.
 - The directory shows the generator section itself. A section that is only a link to another page is
   not a section.
+- The directory opens with a table of contents of exactly four entries, in this order: 01 Video to
+  Video, 02 Reference Video to Video, 03 Counterfactual generators, A Appendix — Task 480. The numbers
+  are part of the page (01, 02, 03, A), and each entry carries the English name and the Chinese name
+  side by side.
 - The two modalities are spelled out for the reader: Video to Video and Reference Video to Video.
   The abbreviations never appear in reader-facing text.
 - Every entry carries a Chinese task name and a Chinese prompt next to the English ones, because

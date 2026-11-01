@@ -88,6 +88,9 @@ npm run dev
   /sample-of-work/task-<编号>/，反事实生成器 /sample-of-work/generator-<标识>/，480 号任务的附录
   /sample-of-work/appendix-task-480/。
 - 目录页上要直接看得到生成器那一节；只给一个跳转链接的不算一节。
+- 目录页顶部的目录固定四项，顺序不变：01 Video to Video、02 Reference Video to Video、
+  03 Counterfactual generators、A 附录——480 号任务。编号本身是页面的一部分（01、02、03、A），
+  每项英文名与中文名并排显示。
 - 两种模态对读者写全称：Video to Video 与 Reference Video to Video，缩写不出现在读者可见的正文里。
 - 每条都要有中文任务名和中文提示词，跟英文版并排，因为读者先看中文页。
 - 任务条目给出输入视频、目标视频和提示词；参考视频到视频的任务另外给出参考素材，参考素材单独占一
