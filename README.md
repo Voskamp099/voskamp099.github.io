@@ -52,8 +52,9 @@ To introduce a new tag, add it to content/tag-library.json first, then reference
   AlphaForge) and one clause after the colon; the English title keeps the same shape with a lowercase
   start after the colon, for example "AlphaForge: alpha research with an agent".
 - **Name the project in the first paragraph** so a title name is never unexplained in the body.
-- **Topic pills appear only in the homepage writing list.** The keyword row under an article title is plain
-  text.
+- **Topic pills use the same boxed style everywhere.** The keyword row under an article title and the
+  pills on a sample page use the homepage pill style, so a reader sees the same chip shape in every
+  place.
 - **Hovering an article card turns only the title red**; the keywords stay untouched.
 - **Slugs stay stable** once published. When two posts are merged, add a redirect in
   scripts/static-pages.mjs.
@@ -79,13 +80,32 @@ the label map in scripts/build.mjs.
   plain text.
 - Keep clips small: downscale to 512 pixels wide and keep each clip well under a megabyte.
 
+## Sample pages
+
+A sample page is a page of its own, not a section inside an article. The article carries the method
+and the lessons; the sample page carries the artefacts, one entry per task, so it can be shared on
+its own.
+
+- The catalogue lives in content/v2v-task-samples.json, and scripts/build.mjs renders it at
+  /v2v-task-samples/. Every entry has an id, the task name, the modality, a one-line description in
+  both languages, the prompt, the source dataset and the licence.
+- An entry shows the input video, the target video and the prompt. A reference-to-video task also
+  shows its reference asset.
+- Footage that may not be redistributed is not published: the entry then shows the prompt and the
+  task definition only, and says so in one line.
+- Clips live under assets/v2v-samples/, re-encoded to 480 pixels wide, H.264, yuv420p, faststart.
+- The page never states whether a task is finished, passed or pending.
+
 ## What a research write-up contains
 
 - One real sample per generator or per task, not a description of the idea.
 - For dataset work, list every task that reached a formal review pass. A task that passed Gate B but
-  has not reached Gate C still counts, and the write-up states which state each task is in.
-- Third-party source footage stays in the team's storage; publish the contract, the workflow and the
-  numbers instead of the frames.
+  has not reached Gate C still counts and stays on the list.
+- The public pages do not show which stage each task reached. Gate and delivery state stays internal;
+  readers see the task definition, the sample and the method.
+- Third-party source footage stays in the team's storage unless its licence allows redistribution. The
+  write-up publishes the contract, the workflow and the numbers; the frames live on the sample page
+  when the licence allows it, and stay in storage when it does not.
 
 First-time publishing needs GitHub Actions selected under the repository's Settings → Pages; an already enabled repository needs no further change.
 
