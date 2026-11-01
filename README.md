@@ -93,10 +93,12 @@ generator, so it can be shared on its own.
 - The catalogue lives in content/v2v-task-samples.json and content/counterfactual-samples.json, and
   scripts/build.mjs renders it. Every entry has an id, a name, a modality or a phenomenon id, a
   one-line description in both languages, the source dataset, the licence and the line to cite it by.
-- The samples live on separate pages, each with its own table of contents:
-  /sample-of-work/ for the video reasoning tasks, /counterfactual-samples/ for the counterfactual
-  generators, and /sample-of-work/task-480/ for the Task 480 appendix. A task that deserves more
-  than one sample gets an appendix page of its own and a link from its entry.
+- /sample-of-work/ is a directory, not a long page. Its rows use the same list style as the writing
+  section: an id on the left, a chip, a title, one line of description, and a link out. Every entry
+  opens on a page of its own: /sample-of-work/task-<id>/ for a task, /sample-of-work/generator-<slug>/
+  for a counterfactual generator, /sample-of-work/appendix-task-480/ for the Task 480 appendix.
+- The directory shows the generator section itself. A section that is only a link to another page is
+  not a section.
 - The two modalities are spelled out for the reader: Video to Video and Reference Video to Video.
   The abbreviations never appear in reader-facing text.
 - Every entry carries a Chinese task name and a Chinese prompt next to the English ones, because
