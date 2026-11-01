@@ -6,7 +6,7 @@ The two clips are pixel-identical until the violation starts. So the only differ
 
 The second clip also carries a pixel-level mask that says where the violating object is and from which frame the violation becomes visible. Plus a pair of prompts: two ways of describing the same scene, one of which obeys the physics and one of which does not.
 
-This post is about how that data is produced, and about the thirty generators I wrote, each with a real sample.
+This post is about how that data is produced, and about the thirty-two generators I wrote, each with a real sample.
 
 ### Three clips first
 
@@ -92,7 +92,23 @@ The physics can be right and the frame still be worthless. Everything in this se
 
 ## 6. The gallery
 
-Below are thirty real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip.
+Below are thirty-two real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip.
+
+### A feather that loses its air drag
+
+A silver iron ball and a white feather are released together in still air. The true clip keeps the feather's drag so it drifts down slowly; the counterfactual removes that drag and the feather lands within a few frames of the ball.
+
+![A feather that loses its air drag: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/case6a-feather.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `free_fall_feather_iron_air_drag`. *
+
+### An iron ball with an anomalous gravitational acceleration
+
+Inside an evacuated chamber the ball and the feather fall straight down and land in the same frame or the next. The counterfactual gives the iron ball an anomalously larger gravitational acceleration, so it lands first while the feather is still in the air.
+
+![An iron ball with an anomalous gravitational acceleration: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/case6b-feather.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `free_fall_feather_iron_near_vacuum`. *
 
 ### A side-release buckle that unlocks under a sideways pull
 
