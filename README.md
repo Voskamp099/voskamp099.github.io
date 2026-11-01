@@ -58,6 +58,35 @@ To introduce a new tag, add it to content/tag-library.json first, then reference
 - **Slugs stay stable** once published. When two posts are merged, add a redirect in
   scripts/static-pages.mjs.
 
+## Categories and the filter row
+
+Every post JSON carries a `categories` array. The filter row on the homepage is generated from the
+categories that are actually in use, so a new category needs no site change beyond the post JSON and
+the label map in scripts/build.mjs.
+
+- `research` is reserved for research write-ups. Project posts keep their own category, and the card
+  shows the first category as a small chip.
+- The chip and the filter row are the only places a category is visible; the article body does not
+  repeat it.
+
+## Images and clips
+
+- Images live under assets/ and are referenced with a root-relative path, for example
+  `/assets/research/counterfactual/<name>.jpg`.
+- A body can embed one or more clips with a line that contains only
+  `%%VIDEO:/assets/.../true.mp4|/assets/.../counterfactual.mp4%%`. The build turns that line into a
+  row of video players. The markdown renderer escapes raw HTML, so the request has to travel as
+  plain text.
+- Keep clips small: downscale to 512 pixels wide and keep each clip well under a megabyte.
+
+## What a research write-up contains
+
+- One real sample per generator or per task, not a description of the idea.
+- For dataset work, list every task that reached a formal review pass. A task that passed Gate B but
+  has not reached Gate C still counts, and the write-up states which state each task is in.
+- Third-party source footage stays in the team's storage; publish the contract, the workflow and the
+  numbers instead of the frames.
+
 First-time publishing needs GitHub Actions selected under the repository's Settings → Pages; an already enabled repository needs no further change.
 
 The project uses a small Node.js build script and markdown-it, with no application server or database. The source repository is public; keep drafts and personal material outside it.

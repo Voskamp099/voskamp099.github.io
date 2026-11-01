@@ -1,0 +1,25 @@
+{
+  "slug": "counterfactual-physics-generators",
+  "date": "2026-11-01",
+  "categories": [
+    "research"
+  ],
+  "tags": [
+    "counterfactual",
+    "physics-simulation",
+    "research-notes",
+    "video-generation"
+  ],
+  "title": {
+    "zh": "反事实物理视频：两条只差一条规律的短片",
+    "en": "Counterfactual physics video: two clips that differ by one law"
+  },
+  "summary": {
+    "zh": "同一个场景渲两遍，一遍物理正确，一遍只改一条规律：掩膜精确到像素，六道硬门全部自动判定。附二十九个生成器各一条真实样本。",
+    "en": "The same scene rendered twice, once with correct physics and once with a single law broken: pixel-exact masks, six gates decided by machine, and one real sample from each of twenty-nine generators."
+  },
+  "body": {
+    "zh": "counterfactual-physics-generators.zh.md",
+    "en": "counterfactual-physics-generators.en.md"
+  }
+}

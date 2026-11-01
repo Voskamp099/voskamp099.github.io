@@ -272,7 +272,7 @@
     </section>
 
     <section id="research">
-      <h2><span class="n">03</span> Research <span class="count">(3)</span></h2>
+      <h2><span class="n">03</span> Research <span class="count">(4)</span></h2>
       <div class="rule"></div>
 
       <article class="entry">
@@ -284,8 +284,24 @@
         <ul class="body">
           <li>Developed task-generation pipelines on the team's existing VBVR video-reasoning benchmark suite, covering video-to-video and reference-video-to-video tasks from bimanual manipulation to commonsense error localization.</li>
           <li>Defined task schemas, contributed 230K task samples, and validated target-prompt consistency against the benchmark suite.</li>
+          <li>Owned sixteen dataset tasks end to end, from source contract to published samples; every one carries a formal Gate B review pass, and ten were promoted to the deliverable state after Gate C.</li>
         </ul>
         <div class="tags"><span class="tag">Python</span><span class="tag">LLM pipelines</span><span class="tag">Benchmark construction</span><span class="tag">Data validation</span></div>
+        <p class="body" style="margin-top:12px"><a href="/writing/v2v-rv2v-reasoning-data/">Read the write-up &rarr;</a></p>
+      </article>
+
+      <article class="entry">
+        <div class="row-h">
+          <h3>Counterfactual physics video generators</h3>
+          <span class="when">Aug 2026 &ndash; present</span>
+        </div>
+        <div class="org">Research Assistant &middot; HIPPOCAMPAL Research Team &middot; Remote</div>
+        <ul class="body">
+          <li>Authored twenty-nine counterfactual video generators: each renders one scene twice, once with correct physics and once with exactly one law broken, and ships a pixel-exact mask of where the violation becomes visible.</li>
+          <li>Built the review harness that decides each case by machine &mdash; eighty-five to a hundred and four criteria per sample, covering pixel equality before the intervention, mask geometry re-projected through the render camera, and a single-error check &mdash; and reworked the cases that failed the picture as well as the physics.</li>
+        </ul>
+        <div class="tags"><span class="tag">Physics simulation</span><span class="tag">Video generation</span><span class="tag">Evaluation</span><span class="tag">Reproducibility</span></div>
+        <p class="body" style="margin-top:12px"><a href="/writing/counterfactual-physics-generators/">Read the write-up &rarr;</a></p>
       </article>
 
       <article class="entry">
