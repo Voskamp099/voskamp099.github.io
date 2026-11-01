@@ -1,0 +1,25 @@
+{
+  "slug": "codex-harness-sandbox-and-token",
+  "date": "2026-11-01",
+  "categories": [
+    "ai"
+  ],
+  "tags": [
+    "ai",
+    "ai-collaboration",
+    "macos",
+    "debugging"
+  ],
+  "title": {
+    "zh": "Codex 的隔离：沙箱管目录，令牌管仓库",
+    "en": "Codex isolation: the sandbox owns directories, the token owns the repository"
+  },
+  "summary": {
+    "zh": "本地沙箱决定能写这台机器上的哪些目录，细粒度令牌决定能改 GitHub 上的哪个仓库。两层各管一件事，缺一不可；这篇把边界、实测结果和剩下的口子都写清楚。",
+    "en": "The local sandbox decides which directories on this machine may be written; a fine-grained token decides which repository on GitHub may be changed. The two layers cover different questions and neither replaces the other. The boundary, the measurements, and the openings that remain."
+  },
+  "body": {
+    "zh": "codex-harness-sandbox-and-token.zh.md",
+    "en": "codex-harness-sandbox-and-token.en.md"
+  }
+}
