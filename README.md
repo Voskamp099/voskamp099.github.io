@@ -43,6 +43,10 @@ Every tag comes from content/tag-library.json; post metadata only stores tag ids
 - The tags field in a post JSON holds ids only, for example "tags": ["worldquant-brain", "quant-research", "automation", "ai-collaboration"].
 - The build fails on an unknown id or a wrong tag count.
 - Pills show the Chinese or English label depending on the active language, and search matches both.
+- The chips on a research article describe the work itself: the field it belongs to (Video
+  reasoning, AI), the kind of work (Benchmark, Multi-model, Counterfactual) and the form of the
+  write-up (Research notes, Evaluation). A chip that only describes internal plumbing does not
+  belong on the article.
 
 To introduce a new tag, add it to content/tag-library.json first, then reference its id from a post.
 
@@ -87,14 +91,24 @@ and the lessons; the sample page carries the artefacts, one entry per task and o
 generator, so it can be shared on its own.
 
 - The catalogue lives in content/v2v-task-samples.json and content/counterfactual-samples.json, and
-  scripts/build.mjs renders both at /sample-of-work/. Every entry has an id, a name, a modality or a
-  phenomenon id, a one-line description in both languages, the source dataset, the licence and the
-  line to cite it by.
+  scripts/build.mjs renders it. Every entry has an id, a name, a modality or a phenomenon id, a
+  one-line description in both languages, the source dataset, the licence and the line to cite it by.
+- The samples live on separate pages, each with its own table of contents:
+  /sample-of-work/ for the video reasoning tasks, /counterfactual-samples/ for the counterfactual
+  generators, and /sample-of-work/task-480/ for the Task 480 appendix. A task that deserves more
+  than one sample gets an appendix page of its own and a link from its entry.
+- The two modalities are spelled out for the reader: Video to Video and Reference Video to Video.
+  The abbreviations never appear in reader-facing text.
+- Every entry carries a Chinese task name and a Chinese prompt next to the English ones, because
+  the Chinese page is the one people read first.
 - A task entry shows the input video, the target video and the prompt. A Reference Video to Video
   task also shows its reference asset, on its own labelled row above the input and target pair.
+- Every clip on the page is rendered in the same box, so a reference asset and an input clip read as
+  the same object and no frame is ever cropped.
 - A generator entry shows the true clip beside the counterfactual clip, plus the phenomenon id.
 - The page never states whether a task is finished, passed or pending.
-- The page has one play-all control that starts every clip at once and one that pauses them all.
+- Every task card carries its own "play together" control that starts that task's clips at once;
+  the page keeps one "pause all" control above the entries.
 
 ### Media rules
 

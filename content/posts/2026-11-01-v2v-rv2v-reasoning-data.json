@@ -6,13 +6,13 @@
   ],
   "tags": [
     "video-reasoning",
-    "dataset-engineering",
-    "research-notes",
-    "evaluation"
+    "ai",
+    "benchmark",
+    "multi-model"
   ],
   "title": {
-    "zh": "Video 2 Video 与 Reference Video to Video：把源视频变成可训练的视频对",
-    "en": "Video 2 Video and Reference Video to Video: turning source clips into trainable video pairs"
+    "zh": "Video to Video 与 Reference Video to Video：把源视频变成可训练的视频对",
+    "en": "Video to Video and Reference Video to Video: turning source clips into trainable video pairs"
   },
   "summary": {
     "zh": "两套视频推理数据集的工程做法：一条样本长什么样、为什么确定性别名是环境属性、闸门之间谁做什么，以及十六个走完正式审核的任务。",

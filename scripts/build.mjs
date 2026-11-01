@@ -132,13 +132,16 @@ if (posts.some(post => post.slug === 'building-petassistant')) {
   await fs.writeFile('dist/writing/swiftui-caption-state/index.html', layout({ titleEn: 'PetAssistant — Raelynn', titleZh: 'PetAssistant — Raelynn', description: 'Read the complete PetAssistant project record.', route, body, redirectTo: route }));
 }
 // The sample catalogue is a page of its own: the artefacts, one entry per
-// task and one entry per generator. The articles carry the method; this page
-// carries the material, and it is the page that can be shared on its own.
+// task and one entry per generator. The articles carry the method; these
+// pages carry the material, and each page can be shared on its own.
 const sampleEntries = JSON.parse(await fs.readFile(path.join('content', 'v2v-task-samples.json'), 'utf8'));
 const generatorEntries = JSON.parse(await fs.readFile(path.join('content', 'counterfactual-samples.json'), 'utf8'));
+const appendix480 = JSON.parse(await fs.readFile(path.join('content', 'v2v-task-480-appendix.json'), 'utf8'));
 for (const entry of sampleEntries) {
   if (!/^\d{3}$/.test(entry.id)) throw new Error('Invalid sample id: ' + entry.id);
   if (!entry.prompt || !entry.prompt.trim()) throw new Error('Sample ' + entry.id + ' has no prompt');
+  if (!entry.prompt_zh || !entry.prompt_zh.trim()) throw new Error('Sample ' + entry.id + ' has no Chinese prompt');
+  if (!entry.name_zh || !entry.title_en) throw new Error('Sample ' + entry.id + ' has no bilingual title');
   if (entry.media && !entry.media_files) throw new Error('Sample ' + entry.id + ' is marked as media but has no files');
   if (entry.media_files && !entry.posters) throw new Error('Sample ' + entry.id + ' has no poster');
 }
@@ -147,31 +150,41 @@ for (const entry of generatorEntries) {
   if (!entry.media_files) throw new Error('Generator ' + entry.id + ' has no media');
 }
 const MODALITY = {
-  v2v: b('Video 2 Video', '视频到视频'),
+  v2v: b('Video to Video', '视频到视频'),
   rv2v: b('Reference Video to Video', '参考视频到视频')
 };
+// Every clip sits in the same box on the page, so a reference asset and an
+// input clip read as the same object and the frames are never cropped.
 const videoFigure = (file, poster, label) => '<figure class="sample-figure"><video controls preload="metadata" playsinline muted poster="/'
   + poster.replace(/^\//, '') + '" src="/' + file.replace(/^\//, '') + '"></video><figcaption>' + label + '</figcaption></figure>';
+const promptBlock = (promptEn, promptZh) => '<div class="prompt-block">'
+  + '<div class="en prompt-label">Prompt</div><div class="zh prompt-label">提示词</div>'
+  + '<pre class="en prompt-text" lang="en">' + esc(promptEn) + '</pre>'
+  + '<pre class="zh prompt-text" lang="zh-CN">' + esc(promptZh) + '</pre></div>';
+const playButton = group => '<button type="button" class="sample-play" data-play="' + group + '">'
+  + b('Play together', '同时播放') + '</button>';
 const sampleCard = entry => {
   const kind = MODALITY[entry.modality];
-  const head = '<div class="sample-head"><div><span class="kind">Task ' + entry.id + ' · ' + kind + '</span>'
-    + '<h2>' + esc(entry.name) + '</h2></div></div>';
+  const head = '<div class="sample-head"><span class="sample-id">' + entry.id + '</span>'
+    + '<div class="sample-headtext"><h2>' + b(entry.title_en, entry.name_zh) + '</h2>'
+    + '<p class="sample-slug">' + esc(entry.name) + '</p></div>'
+    + '<span class="sample-kind">' + kind + '</span>' + playButton('task-' + entry.id) + '</div>';
   const description = '<p class="sample-desc">' + b(entry.description.en, entry.description.zh) + '</p>';
   let media;
   if (entry.media) {
     const reference = entry.media_files.reference
-      ? '<div class="sample-reference">' + videoFigure(entry.media_files.reference, entry.posters.reference,
+      ? '<div class="sample-row sample-row--reference">' + videoFigure(entry.media_files.reference, entry.posters.reference,
           b('Reference asset', '参考素材') + ' · ' + esc(entry.reference_files.join(', '))) + '</div>'
       : '';
     media = '<div class="sample-media">' + reference
-      + '<div class="sample-pair">'
+      + '<div class="sample-row sample-row--pair">'
       + videoFigure(entry.media_files.input, entry.posters.input, b('Input', '输入'))
       + videoFigure(entry.media_files.target, entry.posters.target, b('Target', '目标'))
       + '</div></div>';
   } else {
     media = '<p class="sample-note">' + b(entry.note ? entry.note.en : '', entry.note ? entry.note.zh : '') + '</p>';
   }
-  const prompt = '<div class="prompt-block"><div class="prompt-label">Prompt</div><pre lang="en">' + esc(entry.prompt) + '</pre></div>';
+  const prompt = promptBlock(entry.prompt, entry.prompt_zh);
   const facts = [];
   if (entry.frames) facts.push(entry.frames + ' frames');
   if (entry.fps) facts.push(entry.fps + ' fps');
@@ -185,57 +198,125 @@ const sampleCard = entry => {
     : esc(entry.licence);
   facts.push(b('Licence: ', '授权：') + licence);
   if (entry.citation) facts.push(b('Cite as: ', '引用：') + esc(entry.citation));
-  const meta = '<p class="sample-meta">' + facts.join(' · ') + '</p>';
+  const more = entry.id === '480'
+    ? '<a class="sample-more" href="/sample-of-work/task-480/">' + b('Eight samples of this task →', '这一任务的八条样本 →') + '</a>'
+    : '';
+  const meta = '<p class="sample-meta">' + facts.join(' · ') + more + '</p>';
   return '<article class="sample-card" id="task-' + entry.id + '">' + head + description + media + prompt + meta + '</article>';
 };
 const generatorCard = entry => {
-  const head = '<div class="sample-head"><div><span class="kind">' + b('Counterfactual generator', '反事实生成器') + '</span>'
-    + '<h2>' + b(entry.title.en, entry.title.zh) + '</h2></div></div>';
+  const head = '<div class="sample-head"><span class="sample-id">' + esc(entry.id.replace(/^pr\d+-/, '')) + '</span>'
+    + '<div class="sample-headtext"><h2>' + b(entry.title.en, entry.title.zh) + '</h2>'
+    + '<p class="sample-slug">' + esc(entry.phenomenon) + '</p></div>'
+    + '<span class="sample-kind">' + b('Counterfactual generator', '反事实生成器') + '</span></div>';
   const description = '<p class="sample-desc">' + b(entry.description.en, entry.description.zh) + '</p>';
-  const media = '<div class="sample-media"><div class="sample-pair">'
+  const media = '<div class="sample-media"><div class="sample-row sample-row--pair">'
     + videoFigure(entry.media_files.true, entry.posters.true, b('True', '真值'))
     + videoFigure(entry.media_files.counterfactual, entry.posters.counterfactual, b('Counterfactual', '反事实'))
     + '</div></div>';
   const meta = '<p class="sample-meta">' + b('Phenomenon: ', '现象标识：') + esc(entry.phenomenon) + '</p>';
   return '<article class="sample-card generator-card" id="generator-' + entry.id + '">' + head + description + media + meta + '</article>';
 };
-const sampleIndex = '<div class="sample-index">' + sampleEntries.map(entry =>
+const sampleIndex = entries => '<div class="sample-index">' + entries.map(entry =>
   '<a href="#task-' + entry.id + '">' + entry.id + '</a>').join('') + '</div>';
-const generatorIndex = '<div class="sample-index">' + generatorEntries.map(entry =>
+const generatorIndex = entries => '<div class="sample-index">' + entries.map(entry =>
   '<a href="#generator-' + entry.id + '">' + entry.id.replace(/^pr\d+-/, '') + '</a>').join('') + '</div>';
-const playAllScript = `<script>
+const tocRow = items => '<nav class="sample-toc">' + items.map(item =>
+  '<a href="' + item.href + '"><span class="n">' + item.n + '</span><span class="t">' + item.en
+  + '</span><span class="tz">' + item.zh + '</span></a>').join('') + '</nav>';
+const v2vTasks = sampleEntries.filter(entry => entry.modality === 'v2v');
+const rv2vTasks = sampleEntries.filter(entry => entry.modality === 'rv2v');
+const sampleToc = tocRow([
+  { n: '01', en: 'Video to Video', zh: '视频到视频', href: '#video-to-video' },
+  { n: '02', en: 'Reference Video to Video', zh: '参考视频到视频', href: '#reference-video-to-video' },
+  { n: '03', en: 'Counterfactual generators', zh: '反事实生成器', href: '/counterfactual-samples/' },
+  { n: 'A', en: 'Appendix — Task 480', zh: '附录——480 号任务', href: '/sample-of-work/task-480/' }
+]);
+const playScript = `<script>
 (() => {
-  const list = () => Array.from(document.querySelectorAll('main video'));
-  const play = document.getElementById('playAll');
+  const all = () => Array.from(document.querySelectorAll('main video'));
   const pause = document.getElementById('pauseAll');
-  if (!play || !pause) return;
-  play.addEventListener('click', () => {
-    for (const video of list()) {
-      video.currentTime = 0;
-      const started = video.play();
-      if (started && started.catch) started.catch(() => {});
-    }
-  });
-  pause.addEventListener('click', () => { for (const video of list()) video.pause(); });
+  if (pause) pause.addEventListener('click', () => { for (const video of all()) video.pause(); });
+  for (const button of document.querySelectorAll('[data-play]')) {
+    button.addEventListener('click', () => {
+      const scope = button.closest('.sample-card') || document;
+      const videos = Array.from(scope.querySelectorAll('video'));
+      for (const video of videos) {
+        video.currentTime = 0;
+        const started = video.play();
+        if (started && started.catch) started.catch(() => {});
+      }
+    });
+  }
 })();
 </script>`;
 const sampleBody = '<main id="main" class="wrap"><header class="article-header"><a class="back" href="/#writing">← '
   + b('All notes', '全部文章') + '</a><div class="article-meta">' + b('Sample of work', '作品样本') + ' · '
   + sampleEntries.length + ' ' + b('tasks', '个任务') + ' · ' + generatorEntries.length + ' '
   + b('generators', '个生成器') + '</div><h1>' + b('Sample of work', '作品样本')
-  + '</h1><p class="article-deck">' + b('One real sample per task and per counterfactual generator: the videos, the prompt that defines the task, the source dataset and the licence.',
-      '每个任务、每个反事实生成器一条真实样本：视频、定义任务的提示词、来源数据集与授权。')
-  + '</p><div class="sample-toolbar"><button type="button" id="playAll" class="sample-button">' + b('Play all at once', '同时播放') + '</button>'
-  + '<button type="button" id="pauseAll" class="sample-button">' + b('Pause all', '全部暂停') + '</button></div></header>'
-  + '<section id="tasks" class="sample-section"><div class="kicker">01 — ' + b('Video reasoning tasks', '视频推理任务') + '</div>'
+  + '</h1><p class="article-deck">' + b('One real sample per task: the videos, the prompt that defines the task, the source dataset and the licence.',
+      '每个任务一条真实样本：视频、定义任务的提示词、来源数据集与授权。')
+  + '</p><div class="sample-toolbar"><button type="button" id="pauseAll" class="sample-button">' + b('Pause all', '全部暂停') + '</button></div></header>'
+  + sampleToc
+  + '<section id="video-to-video" class="sample-section"><div class="kicker">01 — ' + b('Video to Video', '视频到视频') + '</div>'
   + '<h2 class="sec">' + b('One sample per task', '每个任务一条样本') + '</h2>'
-  + '<div class="sample-list">' + sampleIndex + sampleEntries.map(sampleCard).join('') + '</div></section>'
-  + '<section id="generators" class="sample-section"><div class="kicker">02 — ' + b('Counterfactual generators', '反事实生成器') + '</div>'
-  + '<h2 class="sec">' + b('One sample per generator', '每个生成器一条样本') + '</h2>'
-  + '<div class="sample-list">' + generatorIndex + generatorEntries.map(generatorCard).join('') + '</div></section>'
-  + '<div class="article-end"><a class="back" href="/#writing">← ' + b('Back to the notebook', '回到文章列表') + '</a></div></main>' + playAllScript;
+  + '<div class="sample-list">' + sampleIndex(v2vTasks) + v2vTasks.map(sampleCard).join('') + '</div></section>'
+  + '<section id="reference-video-to-video" class="sample-section"><div class="kicker">02 — ' + b('Reference Video to Video', '参考视频到视频') + '</div>'
+  + '<h2 class="sec">' + b('One sample per task', '每个任务一条样本') + '</h2>'
+  + '<div class="sample-list">' + sampleIndex(rv2vTasks) + rv2vTasks.map(sampleCard).join('') + '</div></section>'
+  + '<section id="more-pages" class="sample-section"><div class="kicker">03 — ' + b('More pages', '更多页面') + '</div>'
+  + '<h2 class="sec">' + b('The rest of the material', '剩下的材料') + '</h2>'
+  + '<div class="sample-links">'
+  + '<a class="sample-link" href="/counterfactual-samples/"><span>' + b('Counterfactual generators', '反事实生成器') + '</span><em>'
+  + b(generatorEntries.length + ' generators, one clip pair each', generatorEntries.length + ' 个生成器，每个一条真值与反事实对照') + '</em></a>'
+  + '<a class="sample-link" href="/sample-of-work/task-480/"><span>' + b('Appendix — Task 480', '附录——480 号任务') + '</span><em>'
+  + b('Eight samples of one task, side by side', '同一个任务的八条样本并排比较') + '</em></a>'
+  + '</div></section>'
+  + '<div class="article-end"><a class="back" href="/#writing">← ' + b('Back to the notebook', '回到文章列表') + '</a></div></main>' + playScript;
 await fs.mkdir('dist/sample-of-work', { recursive: true });
-await fs.writeFile('dist/sample-of-work/index.html', layout({ titleEn: 'Sample of work — Raelynn', titleZh: '作品样本 — Raelynn', description: '每个视频推理任务与每个反事实生成器的一条真实样本。', route: '/sample-of-work/', body: sampleBody }));
+await fs.writeFile('dist/sample-of-work/index.html', layout({ titleEn: 'Sample of work — Raelynn', titleZh: '作品样本 — Raelynn', description: '每个视频推理任务的一条真实样本。', route: '/sample-of-work/', body: sampleBody }));
+// The counterfactual generators live on their own page.
+const generatorBody = '<main id="main" class="wrap"><header class="article-header"><a class="back" href="/sample-of-work/">← '
+  + b('Sample of work', '作品样本') + '</a><div class="article-meta">' + b('Counterfactual generators', '反事实生成器') + ' · '
+  + generatorEntries.length + ' ' + b('generators', '个生成器') + '</div><h1>' + b('Counterfactual generators', '反事实生成器')
+  + '</h1><p class="article-deck">' + b('One pair of clips per generator: the true run and the counterfactual run, where one physical law is changed.',
+      '每个生成器一对视频：真值一遍，反事实一遍，中间只改一条物理规律。')
+  + '</p></header>'
+  + tocRow([{ n: '01', en: 'Counterfactual generators', zh: '反事实生成器', href: '#generators' },
+      { n: 'A', en: 'Video reasoning tasks', zh: '视频推理任务', href: '/sample-of-work/' }])
+  + '<section id="generators" class="sample-section"><div class="sample-list">'
+  + generatorIndex(generatorEntries) + generatorEntries.map(generatorCard).join('') + '</div></section>'
+  + '<div class="article-end"><a class="back" href="/sample-of-work/">← ' + b('Back to the samples', '回到作品样本') + '</a></div></main>' + playScript;
+await fs.mkdir('dist/counterfactual-samples', { recursive: true });
+await fs.writeFile('dist/counterfactual-samples/index.html', layout({ titleEn: 'Counterfactual generators — Raelynn', titleZh: '反事实生成器 — Raelynn', description: '每个反事实生成器的一条真值与反事实对照样本。', route: '/counterfactual-samples/', body: generatorBody }));
+// The appendix: eight samples of one task, so the variety is visible.
+const appendixCard = (row, index) => '<article class="sample-card appendix-card" id="sample-' + row.index + '">'
+  + '<div class="sample-head"><span class="sample-id">' + String(row.index).padStart(2, '0') + '</span>'
+  + '<div class="sample-headtext"><h2>' + b('Sample ' + row.index, '样本 ' + row.index) + '</h2>'
+  + '<p class="sample-slug">' + esc(row.dataset) + ' · ' + esc(row.source_sample) + '</p></div>'
+  + playButton('sample-' + row.index) + '</div>'
+  + '<div class="sample-media"><div class="sample-row sample-row--pair">'
+  + videoFigure(row.media_files.input, row.posters.input, b('Input', '输入'))
+  + videoFigure(row.media_files.target, row.posters.target, b('Target', '目标'))
+  + '</div></div>'
+  + '<p class="sample-meta">' + [row.resolution, row.fps + ' fps', row.frames + ' frames',
+      b('Source: ', '来源：') + esc(row.dataset),
+      b('Licence: ', '授权：') + '<a href="' + esc(appendix480.licence_url) + '" rel="noopener">' + esc(appendix480.licence) + '</a>',
+      b('Cite as: ', '引用：') + esc(appendix480.citation)].join(' · ') + '</p></article>';
+const appendixBody = '<main id="main" class="wrap"><header class="article-header"><a class="back" href="/sample-of-work/">← '
+  + b('Sample of work', '作品样本') + '</a><div class="article-meta">' + b('Appendix', '附录') + ' · Task 480 · '
+  + appendix480.samples.length + ' ' + b('samples', '条样本') + '</div><h1>' + b(appendix480.title.en, appendix480.title.zh)
+  + '</h1><p class="article-deck">' + b(appendix480.intro.en, appendix480.intro.zh) + '</p>'
+  + '<div class="sample-toolbar"><button type="button" id="pauseAll" class="sample-button">' + b('Pause all', '全部暂停') + '</button></div></header>'
+  + tocRow([{ n: '01', en: 'Video to Video', zh: '视频到视频', href: '/sample-of-work/#video-to-video' },
+      { n: 'A', en: 'Task 480, eight samples', zh: '480 号任务，八条样本', href: '#samples' }])
+  + '<section id="samples" class="sample-section"><div class="sample-list">'
+  + '<div class="sample-index">' + appendix480.samples.map(row => '<a href="#sample-' + row.index + '">'
+    + String(row.index).padStart(2, '0') + '</a>').join('') + '</div>'
+  + appendix480.samples.map(appendixCard).join('') + '</div></section>'
+  + '<div class="article-end"><a class="back" href="/sample-of-work/">← ' + b('Back to the samples', '回到作品样本') + '</a></div></main>' + playScript;
+await fs.mkdir('dist/sample-of-work/task-480', { recursive: true });
+await fs.writeFile('dist/sample-of-work/task-480/index.html', layout({ titleEn: 'Appendix — Task 480 — Raelynn', titleZh: '附录——480 号任务 — Raelynn', description: '480 号任务的八条真实样本。', route: '/sample-of-work/task-480/', body: appendixBody }));
 // The former address stays usable and points at the new page.
 await fs.mkdir('dist/v2v-task-samples', { recursive: true });
 await fs.writeFile('dist/v2v-task-samples/index.html', layout({ titleEn: 'Sample of work — Raelynn', titleZh: '作品样本 — Raelynn', description: '作品样本页。', route: '/sample-of-work/', body: '<main id="main" class="wrap"><section><h1 class="sec">' + b('This page moved to the sample of work page.', '这一页已并入作品样本页。')
@@ -247,7 +328,7 @@ const notFound = '<main id="main" class="wrap"><section><div class="kicker">404<
 await fs.writeFile('dist/404.html', layout({ titleEn: 'Page not found — Raelynn', titleZh: '页面不存在 — Raelynn', description: 'Return to Raelynn’s notebook.', route: '/404.html', body: notFound }));
 await fs.writeFile('dist/.nojekyll', '');
 await fs.writeFile('dist/robots.txt', 'User-agent: *\nAllow: /\nSitemap: ' + origin + '/sitemap.xml\n');
-const routes = ['/', '/sample-of-work/', ...posts.map(post => '/writing/' + post.slug + '/')];
+const routes = ['/', '/sample-of-work/', '/counterfactual-samples/', '/sample-of-work/task-480/', ...posts.map(post => '/writing/' + post.slug + '/')];
 await fs.writeFile('dist/sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
   + routes.map(route => '<url><loc>' + origin + route + '</loc></url>').join('') + '</urlset>');
 await fs.writeFile('dist/feed.xml', '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Raelynn — 项目与技术笔记</title><link>' + origin
