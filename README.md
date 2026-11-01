@@ -83,18 +83,40 @@ the label map in scripts/build.mjs.
 ## Sample pages
 
 A sample page is a page of its own, not a section inside an article. The article carries the method
-and the lessons; the sample page carries the artefacts, one entry per task, so it can be shared on
-its own.
+and the lessons; the sample page carries the artefacts, one entry per task and one entry per
+generator, so it can be shared on its own.
 
-- The catalogue lives in content/v2v-task-samples.json, and scripts/build.mjs renders it at
-  /v2v-task-samples/. Every entry has an id, the task name, the modality, a one-line description in
-  both languages, the prompt, the source dataset and the licence.
-- An entry shows the input video, the target video and the prompt. A reference-to-video task also
-  shows its reference asset.
+- The catalogue lives in content/v2v-task-samples.json and content/counterfactual-samples.json, and
+  scripts/build.mjs renders both at /sample-of-work/. Every entry has an id, a name, a modality or a
+  phenomenon id, a one-line description in both languages, the source dataset, the licence and the
+  line to cite it by.
+- A task entry shows the input video, the target video and the prompt. A Reference Video to Video
+  task also shows its reference asset, on its own labelled row above the input and target pair.
+- A generator entry shows the true clip beside the counterfactual clip, plus the phenomenon id.
+- The page never states whether a task is finished, passed or pending.
+- The page has one play-all control that starts every clip at once and one that pauses them all.
+
+### Media rules
+
+- Publish at the quality the host allows. GitHub Pages serves the files as they are, so clips are
+  kept at their native resolution and never downscaled for the web; only the container is changed
+  (faststart), or the pixel format when a browser cannot decode the original.
+- Every clip gets a poster image so the page shows a real frame before playback.
 - Footage that may not be redistributed is not published: the entry then shows the prompt and the
   task definition only, and says so in one line.
-- Clips live under assets/v2v-samples/, re-encoded to 480 pixels wide, H.264, yuv420p, faststart.
-- The page never states whether a task is finished, passed or pending.
+- Clips live under assets/v2v-samples/ (tasks) and assets/generator-samples/ (generators), H.264,
+  yuv420p, faststart, no audio.
+
+### Licence rules
+
+- Check the licence of the source dataset before publishing any frame of it. The licence, its link
+  and a ready-to-use citation line travel with every entry.
+- Redistributable sources (Apache-2.0, MIT, CC BY, CC BY-SA, public domain) are published with the
+  attribution they require.
+- Non-commercial sources (CC BY-NC) are published only with the non-commercial term stated, because
+  the page is not a commercial product but the term still binds anyone reusing the clip.
+- Sources that restrict redistribution, stock footage without a recorded clearance, and sources whose
+  licence is not recorded are not published as frames.
 
 ## What a research write-up contains
 

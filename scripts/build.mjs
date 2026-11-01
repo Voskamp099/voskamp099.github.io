@@ -54,7 +54,7 @@ const header = '<a class="skip" href="#main">' + b('Skip to content', '跳到正
   + '<header class="topbar"><a class="path" href="/">~/<b>raelynn</b> / notes</a>'
   + '<nav id="siteNav" aria-label="Main navigation">'
   + '<a href="/#writing">' + b('writing', '文章') + '</a><a href="/#projects">' + b('projects', '项目') + '</a>'
-  + '<a href="/v2v-task-samples/">' + b('samples', '样本') + '</a><a href="/#about">' + b('about', '关于') + '</a><a href="https://github.com/Voskamp099">GitHub ↗</a></nav>'
+  + '<a href="/sample-of-work/">' + b('samples', '样本') + '</a><a href="/#about">' + b('about', '关于') + '</a><a href="https://github.com/Voskamp099">GitHub ↗</a></nav>'
   + '<button class="toggle" id="themeBtn" type="button" aria-label="切换到深色模式">◐</button>'
   + '<button class="toggle" id="langBtn" type="button" aria-label="Switch to English">EN</button>'
   + '<button class="toggle menu-toggle" id="menuBtn" type="button" aria-label="导航菜单" aria-controls="siteNav" aria-expanded="false">☰</button></header>';
@@ -74,13 +74,6 @@ function layout({ titleEn, titleZh, description, route = '/', body, article = fa
     + '<link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/blog.css"><script src="/assets/site.js" defer></script></head><body>'
     + header + body + footer + '</body></html>';
 }
-const sampleEntries = JSON.parse(await fs.readFile(path.join('content', 'v2v-task-samples.json'), 'utf8'));
-for (const entry of sampleEntries) {
-  if (!/^\d{3}$/.test(entry.id)) throw new Error('Invalid sample id: ' + entry.id);
-  if (!entry.prompt || !entry.prompt.trim()) throw new Error('Sample ' + entry.id + ' has no prompt');
-  if (entry.media && !entry.media_files) throw new Error('Sample ' + entry.id + ' is marked as media but has no files');
-}
-
 const usedCategories = new Set(posts.flatMap(post => post.categories));
 const filterButtons = ['all', ...CATEGORY_ORDER.filter(id => usedCategories.has(id))].map(id => id === 'all'
   ? '<button class="filter" data-filter="all" aria-pressed="true">' + b('All', '全部') + '</button>'
@@ -138,45 +131,115 @@ if (posts.some(post => post.slug === 'building-petassistant')) {
   await fs.mkdir('dist/writing/swiftui-caption-state', { recursive: true });
   await fs.writeFile('dist/writing/swiftui-caption-state/index.html', layout({ titleEn: 'PetAssistant — Raelynn', titleZh: 'PetAssistant — Raelynn', description: 'Read the complete PetAssistant project record.', route, body, redirectTo: route }));
 }
-// The sample catalogue is a page of its own: one entry per task, with the
-// input video, the target video and the prompt that defines the task.
-const videoFigure = (file, label) => '<figure class="sample-figure"><video controls preload="metadata" playsinline muted src="/'
-  + file.replace(/^\//, '') + '"></video><figcaption>' + label + '</figcaption></figure>';
+// The sample catalogue is a page of its own: the artefacts, one entry per
+// task and one entry per generator. The articles carry the method; this page
+// carries the material, and it is the page that can be shared on its own.
+const sampleEntries = JSON.parse(await fs.readFile(path.join('content', 'v2v-task-samples.json'), 'utf8'));
+const generatorEntries = JSON.parse(await fs.readFile(path.join('content', 'counterfactual-samples.json'), 'utf8'));
+for (const entry of sampleEntries) {
+  if (!/^\d{3}$/.test(entry.id)) throw new Error('Invalid sample id: ' + entry.id);
+  if (!entry.prompt || !entry.prompt.trim()) throw new Error('Sample ' + entry.id + ' has no prompt');
+  if (entry.media && !entry.media_files) throw new Error('Sample ' + entry.id + ' is marked as media but has no files');
+  if (entry.media_files && !entry.posters) throw new Error('Sample ' + entry.id + ' has no poster');
+}
+for (const entry of generatorEntries) {
+  if (!entry.id || !entry.phenomenon) throw new Error('Invalid generator entry: ' + entry.id);
+  if (!entry.media_files) throw new Error('Generator ' + entry.id + ' has no media');
+}
+const MODALITY = {
+  v2v: b('Video 2 Video', '视频到视频'),
+  rv2v: b('Reference Video to Video', '参考视频到视频')
+};
+const videoFigure = (file, poster, label) => '<figure class="sample-figure"><video controls preload="metadata" playsinline muted poster="/'
+  + poster.replace(/^\//, '') + '" src="/' + file.replace(/^\//, '') + '"></video><figcaption>' + label + '</figcaption></figure>';
 const sampleCard = entry => {
-  const kind = entry.modality === 'rv2v' ? b('Reference to video', '参考到视频') : b('Video to video', '视频到视频');
+  const kind = MODALITY[entry.modality];
   const head = '<div class="sample-head"><div><span class="kind">Task ' + entry.id + ' · ' + kind + '</span>'
     + '<h2>' + esc(entry.name) + '</h2></div></div>';
   const description = '<p class="sample-desc">' + b(entry.description.en, entry.description.zh) + '</p>';
-  const media = entry.media
-    ? '<div class="video-row">' + (entry.media_files.reference ? videoFigure(entry.media_files.reference, b('Reference', '参考')) : '')
-      + videoFigure(entry.media_files.input, b('Input', '输入'))
-      + videoFigure(entry.media_files.target, b('Target', '目标')) + '</div>'
-    : '<p class="sample-note">' + b('The source footage of this task is not published here, so this entry shows the prompt and the task definition only.',
-        '这个任务的原始画面不在这里公开，所以这一条只给出提示词与任务定义。') + '</p>';
-  const reference = entry.reference_files && entry.reference_files.length
-    ? '<p class="sample-meta">' + b('Reference asset: ', '参考素材：') + entry.reference_files.join(', ') + '</p>'
-    : '';
+  let media;
+  if (entry.media) {
+    const reference = entry.media_files.reference
+      ? '<div class="sample-reference">' + videoFigure(entry.media_files.reference, entry.posters.reference,
+          b('Reference asset', '参考素材') + ' · ' + esc(entry.reference_files.join(', '))) + '</div>'
+      : '';
+    media = '<div class="sample-media">' + reference
+      + '<div class="sample-pair">'
+      + videoFigure(entry.media_files.input, entry.posters.input, b('Input', '输入'))
+      + videoFigure(entry.media_files.target, entry.posters.target, b('Target', '目标'))
+      + '</div></div>';
+  } else {
+    media = '<p class="sample-note">' + b(entry.note ? entry.note.en : '', entry.note ? entry.note.zh : '') + '</p>';
+  }
   const prompt = '<div class="prompt-block"><div class="prompt-label">Prompt</div><pre lang="en">' + esc(entry.prompt) + '</pre></div>';
   const facts = [];
   if (entry.frames) facts.push(entry.frames + ' frames');
   if (entry.fps) facts.push(entry.fps + ' fps');
   if (entry.resolution) facts.push(entry.resolution);
-  facts.push(b('Source: ', '来源：') + esc(entry.source));
-  facts.push(b('Licence: ', '授权：') + esc(entry.licence));
+  const source = entry.source_url
+    ? '<a href="' + esc(entry.source_url) + '" rel="noopener">' + esc(entry.source) + '</a>'
+    : esc(entry.source);
+  facts.push(b('Source: ', '来源：') + source);
+  const licence = entry.licence_url
+    ? '<a href="' + esc(entry.licence_url) + '" rel="noopener">' + esc(entry.licence) + '</a>'
+    : esc(entry.licence);
+  facts.push(b('Licence: ', '授权：') + licence);
+  if (entry.citation) facts.push(b('Cite as: ', '引用：') + esc(entry.citation));
   const meta = '<p class="sample-meta">' + facts.join(' · ') + '</p>';
-  return '<article class="sample-card" id="task-' + entry.id + '">' + head + description + media + reference + prompt + meta + '</article>';
+  return '<article class="sample-card" id="task-' + entry.id + '">' + head + description + media + prompt + meta + '</article>';
+};
+const generatorCard = entry => {
+  const head = '<div class="sample-head"><div><span class="kind">' + b('Counterfactual generator', '反事实生成器') + '</span>'
+    + '<h2>' + b(entry.title.en, entry.title.zh) + '</h2></div></div>';
+  const description = '<p class="sample-desc">' + b(entry.description.en, entry.description.zh) + '</p>';
+  const media = '<div class="sample-media"><div class="sample-pair">'
+    + videoFigure(entry.media_files.true, entry.posters.true, b('True', '真值'))
+    + videoFigure(entry.media_files.counterfactual, entry.posters.counterfactual, b('Counterfactual', '反事实'))
+    + '</div></div>';
+  const meta = '<p class="sample-meta">' + b('Phenomenon: ', '现象标识：') + esc(entry.phenomenon) + '</p>';
+  return '<article class="sample-card generator-card" id="generator-' + entry.id + '">' + head + description + media + meta + '</article>';
 };
 const sampleIndex = '<div class="sample-index">' + sampleEntries.map(entry =>
   '<a href="#task-' + entry.id + '">' + entry.id + '</a>').join('') + '</div>';
+const generatorIndex = '<div class="sample-index">' + generatorEntries.map(entry =>
+  '<a href="#generator-' + entry.id + '">' + entry.id.replace(/^pr\d+-/, '') + '</a>').join('') + '</div>';
+const playAllScript = `<script>
+(() => {
+  const list = () => Array.from(document.querySelectorAll('main video'));
+  const play = document.getElementById('playAll');
+  const pause = document.getElementById('pauseAll');
+  if (!play || !pause) return;
+  play.addEventListener('click', () => {
+    for (const video of list()) {
+      video.currentTime = 0;
+      const started = video.play();
+      if (started && started.catch) started.catch(() => {});
+    }
+  });
+  pause.addEventListener('click', () => { for (const video of list()) video.pause(); });
+})();
+</script>`;
 const sampleBody = '<main id="main" class="wrap"><header class="article-header"><a class="back" href="/#writing">← '
   + b('All notes', '全部文章') + '</a><div class="article-meta">' + b('Sample of work', '作品样本') + ' · '
-  + sampleEntries.length + ' ' + b('tasks', '个任务') + '</div><h1>' + b('Video reasoning task samples', '视频推理任务样本')
-  + '</h1><p class="article-deck">' + b('One real sample per task: the video the model reads, the video it has to produce, and the prompt that defines the task.',
-      '每个任务一条真实样本：模型读到的输入视频、它要生成的目标视频，以及定义任务的提示词。')
-  + '</p></header><div class="sample-list">' + sampleIndex + sampleEntries.map(sampleCard).join('') + '</div>'
-  + '<div class="article-end"><a class="back" href="/#writing">← ' + b('Back to the notebook', '回到文章列表') + '</a></div></main>';
+  + sampleEntries.length + ' ' + b('tasks', '个任务') + ' · ' + generatorEntries.length + ' '
+  + b('generators', '个生成器') + '</div><h1>' + b('Sample of work', '作品样本')
+  + '</h1><p class="article-deck">' + b('One real sample per task and per counterfactual generator: the videos, the prompt that defines the task, the source dataset and the licence.',
+      '每个任务、每个反事实生成器一条真实样本：视频、定义任务的提示词、来源数据集与授权。')
+  + '</p><div class="sample-toolbar"><button type="button" id="playAll" class="sample-button">' + b('Play all at once', '同时播放') + '</button>'
+  + '<button type="button" id="pauseAll" class="sample-button">' + b('Pause all', '全部暂停') + '</button></div></header>'
+  + '<section id="tasks" class="sample-section"><div class="kicker">01 — ' + b('Video reasoning tasks', '视频推理任务') + '</div>'
+  + '<h2 class="sec">' + b('One sample per task', '每个任务一条样本') + '</h2>'
+  + '<div class="sample-list">' + sampleIndex + sampleEntries.map(sampleCard).join('') + '</div></section>'
+  + '<section id="generators" class="sample-section"><div class="kicker">02 — ' + b('Counterfactual generators', '反事实生成器') + '</div>'
+  + '<h2 class="sec">' + b('One sample per generator', '每个生成器一条样本') + '</h2>'
+  + '<div class="sample-list">' + generatorIndex + generatorEntries.map(generatorCard).join('') + '</div></section>'
+  + '<div class="article-end"><a class="back" href="/#writing">← ' + b('Back to the notebook', '回到文章列表') + '</a></div></main>' + playAllScript;
+await fs.mkdir('dist/sample-of-work', { recursive: true });
+await fs.writeFile('dist/sample-of-work/index.html', layout({ titleEn: 'Sample of work — Raelynn', titleZh: '作品样本 — Raelynn', description: '每个视频推理任务与每个反事实生成器的一条真实样本。', route: '/sample-of-work/', body: sampleBody }));
+// The former address stays usable and points at the new page.
 await fs.mkdir('dist/v2v-task-samples', { recursive: true });
-await fs.writeFile('dist/v2v-task-samples/index.html', layout({ titleEn: 'Video reasoning task samples — Raelynn', titleZh: '视频推理任务样本 — Raelynn', description: '每个视频推理任务的一条真实样本：输入视频、目标视频与提示词。', route: '/v2v-task-samples/', body: sampleBody }));
+await fs.writeFile('dist/v2v-task-samples/index.html', layout({ titleEn: 'Sample of work — Raelynn', titleZh: '作品样本 — Raelynn', description: '作品样本页。', route: '/sample-of-work/', body: '<main id="main" class="wrap"><section><h1 class="sec">' + b('This page moved to the sample of work page.', '这一页已并入作品样本页。')
+  + '</h1><a class="btn btn--solid" href="/sample-of-work/">' + b('Open the sample of work page →', '打开作品样本页 →') + '</a></section></main>', redirectTo: '/sample-of-work/' }));
 
 const notFound = '<main id="main" class="wrap"><section><div class="kicker">404</div><h1 class="sec">' + b('This page is not here.', '这一页还不存在。') + '</h1><p class="sec-sub">'
   + b('The link may have moved. Head back to the notebook.', '链接可能已经变化，回主页看看最新的文章吧。') + '</p><a class="btn btn--solid" href="/">'
@@ -184,7 +247,7 @@ const notFound = '<main id="main" class="wrap"><section><div class="kicker">404<
 await fs.writeFile('dist/404.html', layout({ titleEn: 'Page not found — Raelynn', titleZh: '页面不存在 — Raelynn', description: 'Return to Raelynn’s notebook.', route: '/404.html', body: notFound }));
 await fs.writeFile('dist/.nojekyll', '');
 await fs.writeFile('dist/robots.txt', 'User-agent: *\nAllow: /\nSitemap: ' + origin + '/sitemap.xml\n');
-const routes = ['/', '/v2v-task-samples/', ...posts.map(post => '/writing/' + post.slug + '/')];
+const routes = ['/', '/sample-of-work/', ...posts.map(post => '/writing/' + post.slug + '/')];
 await fs.writeFile('dist/sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
   + routes.map(route => '<url><loc>' + origin + route + '</loc></url>').join('') + '</urlset>');
 await fs.writeFile('dist/feed.xml', '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Raelynn — 项目与技术笔记</title><link>' + origin

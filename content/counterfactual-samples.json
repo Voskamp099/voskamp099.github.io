@@ -1,0 +1,693 @@
+[
+  {
+    "id": "case6a-feather",
+    "title": {
+      "en": "A feather that loses its air drag",
+      "zh": "羽毛的空气阻力被去掉"
+    },
+    "description": {
+      "en": "A silver iron ball and a white feather are released together in still air. The true clip keeps the feather's drag so it drifts down slowly; the counterfactual removes that drag and the feather lands within a few frames of the ball.",
+      "zh": "银铁球和白羽毛从同一高度同时释放。真值里空气阻力让羽毛慢慢飘落，铁球先落地；反事实里羽毛的空气阻力在介入帧被去掉，它掉得和铁球一样快，几帧之内先后落地。"
+    },
+    "phenomenon": "free_fall_feather_iron_air_drag",
+    "figure": "/assets/research/counterfactual/case6a-feather.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/case6a-feather-true.mp4",
+      "counterfactual": "assets/generator-samples/case6a-feather-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/case6a-feather-true.jpg",
+      "counterfactual": "assets/generator-samples/case6a-feather-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "case6b-feather",
+    "title": {
+      "en": "An iron ball with an anomalous gravitational acceleration",
+      "zh": "真空舱里铁球拿到异常大的重力加速度"
+    },
+    "description": {
+      "en": "Inside an evacuated chamber the ball and the feather fall straight down and land in the same frame or the next. The counterfactual gives the iron ball an anomalously larger gravitational acceleration, so it lands first while the feather is still in the air.",
+      "zh": "透明真空舱里铁球和羽毛从同一高度同时释放。真值里几乎没有空气阻力，两者直直落下、几乎同时落地。反事实里铁球得到异常大的重力加速度，抢先落地，羽毛还在上面。"
+    },
+    "phenomenon": "free_fall_feather_iron_near_vacuum",
+    "figure": "/assets/research/counterfactual/case6b-feather.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/case6b-feather-true.mp4",
+      "counterfactual": "assets/generator-samples/case6b-feather-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/case6b-feather-true.jpg",
+      "counterfactual": "assets/generator-samples/case6b-feather-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr680-buckle",
+    "title": {
+      "en": "A side-release buckle that unlocks under a sideways pull",
+      "zh": "插扣扣合之后横向拉不动"
+    },
+    "description": {
+      "en": "Two halves of a nylon belt buckle seat and latch. In the true clip a sideways pull cannot separate them; in the counterfactual the lock never takes and the halves slide apart under the same pull.",
+      "zh": "尼龙腰带两半先沿插合轴推进，钩鼻让弹簧臂缩回、再卡到肩台后面扣合；真值里随后横向一拉，两半保持扣住、高度不变。反事实里锁止没有生效，横向一拉两半就错开脱开。"
+    },
+    "phenomenon": "backpack_side_release_buckle_locked_extraction",
+    "figure": "/assets/research/counterfactual/pr680-buckle.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr680-buckle-true.mp4",
+      "counterfactual": "assets/generator-samples/pr680-buckle-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr680-buckle-true.jpg",
+      "counterfactual": "assets/generator-samples/pr680-buckle-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr681-towel",
+    "title": {
+      "en": "A towel that no longer drapes over the ball it lands on",
+      "zh": "毛巾盖到球上，接触的隆起消失"
+    },
+    "description": {
+      "en": "A thick towel is released above a solid ball. The true clip keeps a visible raised bump above the ball; the counterfactual lets the towel pass through and settle under it.",
+      "zh": "厚毛巾落到实心球上。真值里布面在球顶撑出一个明显的隆起，四角垂到桌面。反事实里毛巾直接穿过球，铺在球下面，接触该产生的隆起没有了。"
+    },
+    "phenomenon": "towel_sphere_contact_bump_suppression",
+    "figure": "/assets/research/counterfactual/pr681-towel.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr681-towel-true.mp4",
+      "counterfactual": "assets/generator-samples/pr681-towel-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr681-towel-true.jpg",
+      "counterfactual": "assets/generator-samples/pr681-towel-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr682-can",
+    "title": {
+      "en": "A thin aluminium can that wrinkles under axial load",
+      "zh": "薄壁铝罐在轴向压力下长出皱褶"
+    },
+    "description": {
+      "en": "A thin-wall can sits between two plates under sustained axial load. Below the buckling threshold the wall stays unchanged; the counterfactual shows Yoshimura-pattern diamond folds appearing in the same wall.",
+      "zh": "薄壁铝罐夹在两块压板之间受持续的轴向压力。真值里载荷低于临界屈曲，罐壁基本不变形、松开后恢复原状。反事实里同样的载荷让罐壁长出吉村型的菱形皱褶，而罐仍然是完整的。"
+    },
+    "phenomenon": "thin_wall_aluminum_can_axial_buckling",
+    "figure": "/assets/research/counterfactual/pr682-can.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr682-can-true.mp4",
+      "counterfactual": "assets/generator-samples/pr682-can-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr682-can-true.jpg",
+      "counterfactual": "assets/generator-samples/pr682-can-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr683-cotton",
+    "title": {
+      "en": "A cotton strip that suddenly loses its axial stiffness",
+      "zh": "棉布条突然失去轴向刚度"
+    },
+    "description": {
+      "en": "A tensile frame slowly pulls a low-extension woven cotton strip. The true clip shows a small extension; the counterfactual shows the strip losing most of its axial stiffness, stretching far further and narrowing in the middle.",
+      "zh": "机架缓慢拉一条低伸长织棉布并保持住。真值里只有轻微伸长。反事实里棉条突然失去大部分轴向刚度，显著拉长，下夹具跟着下降更多，中部随伸长而收窄。"
+    },
+    "phenomenon": "cotton_strip_axial_compliance_failure",
+    "figure": "/assets/research/counterfactual/pr683-cotton.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr683-cotton-true.mp4",
+      "counterfactual": "assets/generator-samples/pr683-cotton-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr683-cotton-true.jpg",
+      "counterfactual": "assets/generator-samples/pr683-cotton-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr684-accordion",
+    "title": {
+      "en": "A pleated paper bridge that loses its bending stiffness",
+      "zh": "手风琴折纸桥失去抗弯刚度"
+    },
+    "description": {
+      "en": "A flat paper card and an equally pleated card carry the same small weight. The pleated one stays almost straight in the true clip; in the counterfactual it suddenly loses the bending stiffness of its folds and sags as deep as the flat card.",
+      "zh": "同样纸做的平板和手风琴折纸桥各架在两组支座上，放上同样重的小砝码。真值里平板塌下去，折纸桥几乎不弯。反事实里折纸桥突然失去折叠带来的抗弯刚度，塌到和平板一样深——没有展开、没有撕裂、支座也没动。"
+    },
+    "phenomenon": "accordion_paper_bridge_section_rigidity_failure",
+    "figure": "/assets/research/counterfactual/pr684-accordion.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr684-accordion-true.mp4",
+      "counterfactual": "assets/generator-samples/pr684-accordion-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr684-accordion-true.jpg",
+      "counterfactual": "assets/generator-samples/pr684-accordion-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr685-faraday",
+    "title": {
+      "en": "An electroscope shielded by a grounded mesh cage",
+      "zh": "接地铁网笼里的验电器不该被带电棒影响"
+    },
+    "description": {
+      "en": "A charged rod approaches two leaf electroscopes, one inside a grounded fine mesh cage. In the true clip the outside leaves spread while the shielded inside leaves stay closed; in the counterfactual the shielding fails and the inside leaves spread as well.",
+      "zh": "带电棒靠近两只叶验电器：一只在接地的细金属网笼里，一只在外面。真值里笼外那副叶片张开，笼内那副保持闭合；反事实里屏蔽失效，笼内的叶片也跟着张开。"
+    },
+    "phenomenon": "grounded_faraday_cage_electroscope_shielding_failure",
+    "figure": "/assets/research/counterfactual/pr685-faraday.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr685-faraday-true.mp4",
+      "counterfactual": "assets/generator-samples/pr685-faraday-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr685-faraday-true.jpg",
+      "counterfactual": "assets/generator-samples/pr685-faraday-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr686-claw",
+    "title": {
+      "en": "A claw that closes before it reaches the doll",
+      "zh": "夹娃娃的爪在够到之前就合拢"
+    },
+    "description": {
+      "en": "The three jaws of an arcade claw drop over a plush doll. In the true clip they pause above it, close and lift it clear of the glass; in the counterfactual the grab cycle fires early, the jaws shut in the air, and the doll stays on the platform.",
+      "zh": "爪机的三爪下降罩住布娃娃。真值里爪在娃娃上方停住，三个带垫的爪合拢并把娃娃夹离玻璃台面。反事实里抓取循环提前触发，爪在空中合拢、从未碰到娃娃，空爪升起，娃娃整段留在台面上。"
+    },
+    "phenomenon": "claw_machine_doll_lift_failure",
+    "figure": "/assets/research/counterfactual/pr686-claw.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr686-claw-true.mp4",
+      "counterfactual": "assets/generator-samples/pr686-claw-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr686-claw-true.jpg",
+      "counterfactual": "assets/generator-samples/pr686-claw-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr687-typewriter",
+    "title": {
+      "en": "A typewriter whose carriage never returns",
+      "zh": "打字机回车之后不回行"
+    },
+    "description": {
+      "en": "The carriage of a typewriter reaches the right margin and the return lever is pushed. In the true clip the draw band pulls it back to the left margin and the paper steps up a line; in the counterfactual the linkage travels and moves nothing.",
+      "zh": "打字机的字车随输入向右爬，到右边距停下，回车杆被按下。真值里拉带把字车拉回左边距，擒纵机构把纸升一行，落在新的书写位置。反事实里连杆空转，字车不回、纸不升，两样都停在原地。"
+    },
+    "phenomenon": "typewriter_carriage_return_failure",
+    "figure": "/assets/research/counterfactual/pr687-typewriter.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr687-typewriter-true.mp4",
+      "counterfactual": "assets/generator-samples/pr687-typewriter-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr687-typewriter-true.jpg",
+      "counterfactual": "assets/generator-samples/pr687-typewriter-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr688-curie",
+    "title": {
+      "en": "A nickel tab that stays magnetised past the Curie point",
+      "zh": "镍摆片过了居里点仍然吸住磁铁"
+    },
+    "description": {
+      "en": "A nickel pendulum tab is heated past the Curie point of roughly 354 °C while it rests against a fixed magnet. In the true clip the attraction weakens until the tab separates and swings; in the counterfactual it wrongly keeps its strong ferromagnetic grip.",
+      "zh": "一片镍摆片贴在固定磁铁上，正面的电阻加热器把它加热到超过约 354 °C 的居里点，旁边有高温计读数。真值里磁性变弱，摆片脱开磁铁、在重力下摆动。反事实里高温下错误地保持强铁磁性，摆片仍然贴在磁铁上。"
+    },
+    "phenomenon": "counterfactual_high_temperature_ferromagnetic_retention",
+    "figure": "/assets/research/counterfactual/pr688-curie.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr688-curie-true.mp4",
+      "counterfactual": "assets/generator-samples/pr688-curie-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr688-curie-true.jpg",
+      "counterfactual": "assets/generator-samples/pr688-curie-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr689-book",
+    "title": {
+      "en": "A page block that shears backwards under the press",
+      "zh": "书页受压却朝书脊方向错动"
+    },
+    "description": {
+      "en": "A motor-driven pad presses the outer edge of a clamped book. The page block shears away from the spine in the true clip; in the counterfactual the page block and the top cover shear back toward the spine, against the press.",
+      "zh": "一本书平放在台上，背封被两个夹爪压平，电机压垫压住封面外缘。真值里书页朝远离书脊的方向错动。反事实里书页与封面朝书脊方向错动，和压的方向正好相反，而底封和夹爪保持完整。"
+    },
+    "phenomenon": "book_page_shear_response_reversal",
+    "figure": "/assets/research/counterfactual/pr689-book.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr689-book-true.mp4",
+      "counterfactual": "assets/generator-samples/pr689-book-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr689-book-true.jpg",
+      "counterfactual": "assets/generator-samples/pr689-book-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr690-string",
+    "title": {
+      "en": "The upper string breaks first under a fast pull",
+      "zh": "快速下拉时先断的是上面那根绳"
+    },
+    "description": {
+      "en": "A weight hangs from two equally strong strings. In the true clip the lower string reaches its breaking tension first and the weight stays suspended from the upper one; in the counterfactual the upper string breaks first and the weight falls with the lower string intact.",
+      "zh": "一个重物用两根强度相同的绳吊住，上面一根、下面一根。真值里快速下拉，先到极限的是下面那根：它先断，安全扣释放，重物仍然吊在上面那根绳上。反事实里只有下绳达到极限，却先断的是上绳，重物带着完好的下绳一起掉下去。"
+    },
+    "phenomenon": "quick_pull_two_string_upper_first_fracture",
+    "figure": "/assets/research/counterfactual/pr690-string.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr690-string-true.mp4",
+      "counterfactual": "assets/generator-samples/pr690-string-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr690-string-true.jpg",
+      "counterfactual": "assets/generator-samples/pr690-string-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr691-ruler",
+    "title": {
+      "en": "A newspaper's transient air resistance under a ruler",
+      "zh": "报纸压尺的瞬态气阻失效"
+    },
+    "description": {
+      "en": "A ruler under a flat newspaper lifts its covered end only a few millimetres because the sealed air pocket resists. In the counterfactual that transient resistance is gone and the paper comes up clear of the table.",
+      "zh": "直尺压在平摊的报纸下面，一端伸出桌沿，对露出的一端做一次短促下压。真值里报纸下面那层被封住的空气给出短暂的压差阻力，抬起的一端只起来几毫米就被压回去。反事实里这层瞬态阻力消失，报纸明显抬起、离开桌面。"
+    },
+    "phenomenon": "newspaper_ruler_transient_pressure_resistance_failure",
+    "figure": "/assets/research/counterfactual/pr691-ruler.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr691-ruler-true.mp4",
+      "counterfactual": "assets/generator-samples/pr691-ruler-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr691-ruler-true.jpg",
+      "counterfactual": "assets/generator-samples/pr691-ruler-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr694-motor",
+    "title": {
+      "en": "A motor whose torque stays wrong after the supply is reversed",
+      "zh": "电源反接之后转矩方向还是错的"
+    },
+    "description": {
+      "en": "A cutaway brushed DC motor is reconnected with the opposite supply polarity. In the true clip the rotor decelerates through zero and reverses; in the counterfactual the torque acts the wrong way and the rotor keeps turning in its original direction.",
+      "zh": "剖视的永磁有刷直流电机由电池供电，一个看得见的双极开关断开触点再以相反极性接回，定子磁铁不动。真值里转子减速穿过零速然后反向转，不会在零速停住。反事实里反接之后电磁转矩方向仍然错，转子继续按原来的方向转。"
+    },
+    "phenomenon": "counterfactual_reversed_supply_wrong_torque",
+    "figure": "/assets/research/counterfactual/pr694-motor.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr694-motor-true.mp4",
+      "counterfactual": "assets/generator-samples/pr694-motor-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr694-motor-true.jpg",
+      "counterfactual": "assets/generator-samples/pr694-motor-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr732-suction",
+    "title": {
+      "en": "A suction cup that leaks and never grips",
+      "zh": "吸盘漏气，玻璃板抬不起来"
+    },
+    "description": {
+      "en": "Two manual vacuum cups sit on a glass plate under a lever. In the true clip they bite the glass and the return spring lifts the plate clear of the bench; in the counterfactual the rims leak, the cord never goes taut and the plate never leaves the bench.",
+      "zh": "两个手动吸盘扣在玻璃板顶面靠近一边的位置，用杠杆连到吸盘柱塞。真值里按下杠杆，杯腔扩大、压力下降，两个吸盘咬住玻璃，松手后回弹弹簧收绳把板吊离台面。反事实里杯口漏气、建立不起低压，绳始终不绷紧，玻璃板一直躺在台面上。"
+    },
+    "phenomenon": "suction_cup_glass_lift_failure",
+    "figure": "/assets/research/counterfactual/pr732-suction.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr732-suction-true.mp4",
+      "counterfactual": "assets/generator-samples/pr732-suction-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr732-suction-true.jpg",
+      "counterfactual": "assets/generator-samples/pr732-suction-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr745-pendulum",
+    "title": {
+      "en": "A row of pendulums whose phase cascade runs backwards",
+      "zh": "一排单摆的相位级联方向反转"
+    },
+    "description": {
+      "en": "A row of pendulums with steadily increasing string length is released at the same angle. The true clip falls out of step in one direction along the rail; in the counterfactual the bobs exchange their rates and the progression runs the other way.",
+      "zh": "横杆上挂着一排单摆，绳长从一端到另一端逐个变长，同时从同一角度释放。真值里短绳摆得快、长绳摆得慢，整排错步沿着杆按一个方向推进。反事实里各摆交换了自己的摆率，级联方向整体倒过来。"
+    },
+    "phenomenon": "pendulum_phase_cascade_direction_reversal",
+    "figure": "/assets/research/counterfactual/pr745-pendulum.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr745-pendulum-true.mp4",
+      "counterfactual": "assets/generator-samples/pr745-pendulum-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr745-pendulum-true.jpg",
+      "counterfactual": "assets/generator-samples/pr745-pendulum-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr746-coin",
+    "title": {
+      "en": "A coin that is not deflected by the turning table",
+      "zh": "转盘上的硬币不再被科里奥利偏转"
+    },
+    "description": {
+      "en": "A coin is released on a steadily turning turntable. In the true clip the turning surface bends its path and it sweeps around the hub before resting on the rim; in the counterfactual it runs straight along the marked release radius.",
+      "zh": "硬币靠在一个可收回的小柱上，转盘已经匀速转动；柱退开，硬币朝边缘的矮环滑出。真值里转动的台面把硬币的路径拉弯，绕着轴扫向一边停在边缘。反事实里台面完全不弯折路径，硬币沿释放半径走一条直线。"
+    },
+    "phenomenon": "turntable_coin_coriolis_deflection_reversal",
+    "figure": "/assets/research/counterfactual/pr746-coin.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr746-coin-true.mp4",
+      "counterfactual": "assets/generator-samples/pr746-coin-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr746-coin-true.jpg",
+      "counterfactual": "assets/generator-samples/pr746-coin-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr747-pencil",
+    "title": {
+      "en": "A pencil that topples to the other side",
+      "zh": "铅笔笔尖倒向相反的一侧"
+    },
+    "description": {
+      "en": "A pencil stands on its tip in a socket and is held by a slim arm while the platform turns. In the true clip it goes over downhill with its point still in the socket; in the counterfactual the platform turns the other way and the point ends up on the opposite side.",
+      "zh": "铅笔以削尖的一端站在圆台中央的小窝里，靠一根细支撑臂扶着，台面上画着黄色的下坡箭头。真值里台面转向箭头落下的一侧，铅笔顺着它倒下去，笔尖仍留在窝里。反事实里台面朝另一侧转，笔尖倒向相反的方向。"
+    },
+    "phenomenon": "pencil_tip_balance_topple_direction_reversal",
+    "figure": "/assets/research/counterfactual/pr747-pencil.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr747-pencil-true.mp4",
+      "counterfactual": "assets/generator-samples/pr747-pencil-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr747-pencil-true.jpg",
+      "counterfactual": "assets/generator-samples/pr747-pencil-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr748-mousetrap",
+    "title": {
+      "en": "A mousetrap that never releases",
+      "zh": "扣杆没有释放，钢球没有被打出去"
+    },
+    "description": {
+      "en": "A steel ball rests in a cradle beside a mousetrap held by a red latch. In the true clip the latch opens and the bar clips the ball out of its cradle; in the counterfactual nothing is released and the ball stays in the cradle.",
+      "zh": "钢球搁在柱子上的小托架里，旁边是扣杆被红色闩挡住的捕鼠夹。真值里闩打开，扣杆在扭簧作用下扫下，把球从托架里打出去，落点离夹子有一段距离。反事实里闩没有打开，扣杆不动、弹簧不释放，球一直待在托架上。"
+    },
+    "phenomenon": "mousetrap_snap_bar_launch_reversal",
+    "figure": "/assets/research/counterfactual/pr748-mousetrap.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr748-mousetrap-true.mp4",
+      "counterfactual": "assets/generator-samples/pr748-mousetrap-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr748-mousetrap-true.jpg",
+      "counterfactual": "assets/generator-samples/pr748-mousetrap-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr749-rubber",
+    "title": {
+      "en": "A rubber band that never unwinds",
+      "zh": "橡皮筋没有解开，车没有动"
+    },
+    "description": {
+      "en": "A toy car carries a rubber band wound around its rear axle and held by a catch. In the true clip the catch lifts and the band unwinds to drive the car down the track; in the counterfactual the catch never lifts and the car stays parked.",
+      "zh": "小玩具车的后轴上缠着几圈红色橡皮筋，用红色扣子卡住轴。真值里扣子抬起，橡皮筋解缠到轴上、驱动后轮，车被推着沿轨道走，橡皮筋放完后靠惯性滑行一段停下。反事实里扣子不抬，橡皮筋保持缠紧，车停在起点。"
+    },
+    "phenomenon": "rubber_band_stored_energy_car_drive_reversal",
+    "figure": "/assets/research/counterfactual/pr749-rubber.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr749-rubber-true.mp4",
+      "counterfactual": "assets/generator-samples/pr749-rubber-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr749-rubber-true.jpg",
+      "counterfactual": "assets/generator-samples/pr749-rubber-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr750-freewheel",
+    "title": {
+      "en": "A freewheel that turns the pedals instead",
+      "zh": "滑行的后轮反过来带动脚踏"
+    },
+    "description": {
+      "en": "A rear wheel spins up on a roller stand while a dog clutch beside the sprocket is open. In the true clip the clutch engages the freewheel hub and the crank stays still while the wheel coasts; in the counterfactual it locks the sprocket to the wheel and the crank is back-driven.",
+      "zh": "自行车后轮在滚筒架上加速，链条松着，牙盘旁边有一个可接通的狗牙离合器。真值里离合器接的是花鼓上的棘轮，滑行时棘轮空转，曲柄和脚踏几乎不动。反事实里离合器把牙盘直接锁在轮上，滑行的轮子反过来驱动曲柄，踏板自己转起来。"
+    },
+    "phenomenon": "bicycle_freewheel_coast_drag_reversal",
+    "figure": "/assets/research/counterfactual/pr750-freewheel.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr750-freewheel-true.mp4",
+      "counterfactual": "assets/generator-samples/pr750-freewheel-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr750-freewheel-true.jpg",
+      "counterfactual": "assets/generator-samples/pr750-freewheel-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr751-diving",
+    "title": {
+      "en": "A diving board that bounces faster than it should",
+      "zh": "起跳板的回弹周期变短了"
+    },
+    "description": {
+      "en": "A diver bounces on a springy board whose knee brace is left free. In the true clip the brace gives way and the bounce is deep and slow; in the counterfactual the brace locks, the bounce turns quick and shallow, and the cycle shortens.",
+      "zh": "运动员站在支点上的弹性跳板末端，板下有一个没锁死的黄色膝托。真值里膝托让开，运动员的重量压在板上，回弹又深又慢，一个周期明显超过一秒。反事实里膝托锁死、重量被架高，回弹变浅变快，周期明显变短。"
+    },
+    "phenomenon": "diving_board_bounce_frequency_mass_reversal",
+    "figure": "/assets/research/counterfactual/pr751-diving.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr751-diving-true.mp4",
+      "counterfactual": "assets/generator-samples/pr751-diving-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr751-diving-true.jpg",
+      "counterfactual": "assets/generator-samples/pr751-diving-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr752-shuttle",
+    "title": {
+      "en": "A shuttlecock that is not caught by the drag spike",
+      "zh": "羽毛球不再被阻力尖峰拽住"
+    },
+    "description": {
+      "en": "A shuttlecock is struck low and flat. In the true clip the skirt bellies out, the shuttle meets the air broadside and is pulled up short; in the counterfactual it never meets the air broadside and sails the length of the court.",
+      "zh": "羽毛球被低平击出，橡木头领先一小段后羽裙张开，正面迎风。真值里空气阻力出现尖峰，把球拽住：球只爬升一点就落回场内，离球拍只有几米。反事实里羽裙不张开，球一路飞穿球场，落在远端。"
+    },
+    "phenomenon": "badminton_shuttlecock_drag_spike_reversal",
+    "figure": "/assets/research/counterfactual/pr752-shuttle.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr752-shuttle-true.mp4",
+      "counterfactual": "assets/generator-samples/pr752-shuttle-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr752-shuttle-true.jpg",
+      "counterfactual": "assets/generator-samples/pr752-shuttle-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr753-needle",
+    "title": {
+      "en": "A steel needle that sinks",
+      "zh": "钢针沉进水里"
+    },
+    "description": {
+      "en": "A thin steel needle is laid flat on perfectly still water. In the true clip it floats where it was put for the whole clip; in the counterfactual nothing holds it up and it sinks straight through the surface to the bottom.",
+      "zh": "一根细钢针平放在玻璃缸里完全静止的水面上，离缸壁半厘米。真值里水面始终平静，针一直浮在原处，只在水面投下一点阴影。反事实里没有表面张力托住它，针直接穿过水面，慢慢下沉，最后躺在缸底。"
+    },
+    "phenomenon": "needle_surface_tension_float_failure",
+    "figure": "/assets/research/counterfactual/pr753-needle.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr753-needle-true.mp4",
+      "counterfactual": "assets/generator-samples/pr753-needle-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr753-needle-true.jpg",
+      "counterfactual": "assets/generator-samples/pr753-needle-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr754-airjet",
+    "title": {
+      "en": "An air jet that can no longer hold the ball up",
+      "zh": "气流托不住乒乓球"
+    },
+    "description": {
+      "en": "A nozzle blows a steady column of air straight up with a ping-pong ball in it. In the true clip the blower stays at full flow and the ball bobs inside the column; in the counterfactual the flow weakens and the ball drops into the tray.",
+      "zh": "工作台上的喷嘴向上吹一道稳定气流柱，乒乓球停在气流里。真值里风机维持全速，气柱一直托得住球，球在柱里上下晃动、整段不落地。反事实里气流衰减到托不住，球脱出气流，掉进下面的接球盘。"
+    },
+    "phenomenon": "air_jet_ping_pong_ball_lift_failure",
+    "figure": "/assets/research/counterfactual/pr754-airjet.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr754-airjet-true.mp4",
+      "counterfactual": "assets/generator-samples/pr754-airjet-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr754-airjet-true.jpg",
+      "counterfactual": "assets/generator-samples/pr754-airjet-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr755-iceloop",
+    "title": {
+      "en": "A string loop that slips on the ice",
+      "zh": "棉线环在冰块上打滑"
+    },
+    "description": {
+      "en": "A loop of string is draped over a block of ice with a brass weight on its ends. In the true clip the string grips and lifts the block clear of the bench; in the counterfactual it slides down both faces and the block never lifts.",
+      "zh": "棉线环搭在工作台上的冰块上，两个垂下的线头挂着铜配重。真值里配重把线压紧在冰块上，线咬住冰面，冰块被干净地提离台面。反事实里完全没有摩擦，线顺着冰块两面滑到底并从远端脱开，冰块始终没动。"
+    },
+    "phenomenon": "ice_loop_regelation_string_lift_reversal",
+    "figure": "/assets/research/counterfactual/pr755-iceloop.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr755-iceloop-true.mp4",
+      "counterfactual": "assets/generator-samples/pr755-iceloop-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr755-iceloop-true.jpg",
+      "counterfactual": "assets/generator-samples/pr755-iceloop-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr756-sand",
+    "title": {
+      "en": "A sand cone that refuses to slump",
+      "zh": "砂堆不再坍塌"
+    },
+    "description": {
+      "en": "Dry sand is poured into a steep cone next to a marked straightedge that shows the angle. In the true clip the cone cannot hold that face and slumps to the shallow angle of repose; in the counterfactual it keeps its steep sides and height from first frame to last.",
+      "zh": "干砂经漏斗堆到浅托盘上，堆成一个明显超过砂子休止角的陡锥；旁边立着一把带刻度的直尺和水平基准杆，量出锥面的角度。真值里锥体站不住，自己塌下去，锥顶下降、底部摊开，最后停在浅角度上。反事实里锥体从第一帧到最后一帧一直保持原来的陡面。"
+    },
+    "phenomenon": "sand_pile_angle_of_repose_slope_reversal",
+    "figure": "/assets/research/counterfactual/pr756-sand.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr756-sand-true.mp4",
+      "counterfactual": "assets/generator-samples/pr756-sand-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr756-sand-true.jpg",
+      "counterfactual": "assets/generator-samples/pr756-sand-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr757-plane",
+    "title": {
+      "en": "A paper plane that unfolds by itself",
+      "zh": "纸飞机自己摊开了"
+    },
+    "description": {
+      "en": "A folded paper dart rests on a dark mat while two wing grips release. In the true clip it keeps its nose, body and wings; in the counterfactual the folded structure suddenly loosens in one burst and spreads into a flat sheet.",
+      "zh": "折好的纸飞机放在深色桌垫上，两个小夹翼爪松开并退开。真值里飞机保持机头、机身和两翼，整段不变。反事实里没有任何操作，折叠结构突然一下松开，摊成桌垫上的一张纸。"
+    },
+    "phenomenon": "paper_airplane_spontaneous_unfolding",
+    "figure": "/assets/research/counterfactual/pr757-plane.jpg",
+    "media_files": {
+      "true": "assets/generator-samples/pr757-plane-true.mp4",
+      "counterfactual": "assets/generator-samples/pr757-plane-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr757-plane-true.jpg",
+      "counterfactual": "assets/generator-samples/pr757-plane-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr762-picture",
+    "title": {
+      "en": "A picture that settles crooked the other way",
+      "zh": "挂画向相反的一侧歪过去"
+    },
+    "description": {
+      "en": "A framed picture hangs from a single hook and is not balanced on it. In the true clip its weight sits to the right and it rests with the right-hand corner lower; in the counterfactual it rests with the left-hand corner lower.",
+      "zh": "一幅带画的框用短铁丝挂在墙上的一个钩子下面。真值里画的重心在钩子右边，放开时它绕钩子转过去，右下角明显更低。反事实里重心在另一边，最后变成左下角更低。"
+    },
+    "phenomenon": "hanging_picture_hook_tilt_reversal",
+    "figure": "/assets/research/counterfactual/pr762-picture.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr762-picture-true.mp4",
+      "counterfactual": "assets/generator-samples/pr762-picture-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr762-picture-true.jpg",
+      "counterfactual": "assets/generator-samples/pr762-picture-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr763-flag",
+    "title": {
+      "en": "A banner the wind lifts up the pole",
+      "zh": "风把旗子吹上了杆"
+    },
+    "description": {
+      "en": "A stiff banner is laced to a tall pole. In the true clip a steady wind streams it away from the pole and down; in the counterfactual the wind lifts it on the other side so the free edge rises above the lacing and the banner points up the pole.",
+      "zh": "一面硬质长方形旗面绑在高杆上，旁边是工作台。真值里稳风把旗面顺风拉向地面，斜挂着，一道浅波纹从杆传向自由边。反事实里风从另一侧掀起旗面，自由边抬到系点之上，旗子指向杆顶，杆本身不动。"
+    },
+    "phenomenon": "wind_flag_deflection_reversal",
+    "figure": "/assets/research/counterfactual/pr763-flag.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr763-flag-true.mp4",
+      "counterfactual": "assets/generator-samples/pr763-flag-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr763-flag-true.jpg",
+      "counterfactual": "assets/generator-samples/pr763-flag-counterfactual.jpg"
+    }
+  },
+  {
+    "id": "pr764-balloon",
+    "title": {
+      "en": "A charged balloon that loses its grip on the wall",
+      "zh": "带电气球从墙上掉下来了"
+    },
+    "description": {
+      "en": "A rubber balloon is held on a plaster wall by its static charge. In the true clip a draught only rocks it and it keeps its grip; in the counterfactual the dry air strips the charge, it lets go and falls the height of the wall.",
+      "zh": "一只橡胶气球靠静电贴在墙面上，贴着漆的那面被压平。真值里过堂风扫过时气球只是歪一点、在接触斑上晃两下，仍然挂在墙上。反事实里干风剥走橡胶上的电荷，气球先倾倒、再脱开，被风横向带着沉下去，最后落在地板上。"
+    },
+    "phenomenon": "static_balloon_wall_stick_failure",
+    "figure": "/assets/research/counterfactual/pr764-balloon.jpg",
+    "criteria": true,
+    "media_files": {
+      "true": "assets/generator-samples/pr764-balloon-true.mp4",
+      "counterfactual": "assets/generator-samples/pr764-balloon-counterfactual.mp4"
+    },
+    "posters": {
+      "true": "assets/generator-samples/pr764-balloon-true.jpg",
+      "counterfactual": "assets/generator-samples/pr764-balloon-counterfactual.jpg"
+    }
+  }
+]

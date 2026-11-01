@@ -19,7 +19,7 @@ for (const file of files) {
   if (!file.endsWith('.html')) continue;
   const isStaticPage = STATIC_PAGES.includes(path.relative(root, file));
   if (!isStaticPage && (!text.includes('lang="zh-CN"') || !text.includes('lang="en"'))) throw new Error('Missing bilingual markup in ' + file);
-  for (const match of text.matchAll(/(?:href|src)="([^"]+)"/g)) {
+  for (const match of text.matchAll(/(?:href|src|poster)="([^"]+)"/g)) {
     const href = match[1];
     if (/^(https?:|mailto:|data:)/.test(href)) continue;
     const url = new URL(href.replaceAll('&amp;', '&'), 'https://example.test/' + path.relative(root, file));

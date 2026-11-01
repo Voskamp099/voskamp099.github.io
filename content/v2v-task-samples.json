@@ -1,19 +1,26 @@
 [
   {
     "id": "278",
-    "name": "action-conditioned_gameplay_stutter_repair",
+    "name": "action_conditioned_gameplay_stutter_repair",
     "modality": "v2v",
     "description": {
       "en": "A stretch of the footage is frozen; the model has to restore the real motion for that interval.",
       "zh": "操作序列里有一段画面被冻住了，模型要把这段补回真实的运动。"
     },
     "source": "acvlab/ABot-World-Explorer-500h",
+    "source_url": "https://huggingface.co/datasets/acvlab/ABot-World-Explorer-500h",
     "licence": "Apache-2.0",
+    "licence_url": "https://huggingface.co/datasets/acvlab/ABot-World-Explorer-500h",
+    "citation": "acvlab/ABot-World-Explorer-500h, Apache-2.0",
     "prompt": "Repair the frozen interval at zero-based frames 16-27, inclusive. During this interval, the move-right and look-right controls are held (keys: D+L), so restore the missing character, camera, and scene motion. Preserve all other frames and return the same 81-frame, 30 fps, 1920x1080 timeline.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/278-input.mp4",
       "target": "assets/v2v-samples/278-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/278-input.jpg",
+      "target": "assets/v2v-samples/278-target.jpg"
     },
     "frames": 81,
     "fps": 30.0,
@@ -28,13 +35,21 @@
       "zh": "给一段辅助参考视频，模型要还原双手操作的完整过程面板。"
     },
     "source": "nvidia/video-to-data-robot-dexterity-task-library-and-dataset",
+    "source_url": "https://huggingface.co/datasets/nvidia/video-to-data-robot-dexterity-task-library-and-dataset",
     "licence": "CC BY 4.0",
+    "licence_url": "https://huggingface.co/datasets/nvidia/video-to-data-robot-dexterity-task-library-and-dataset",
+    "citation": "NVIDIA Video to Data: Robot Dexterity Task Library and Dataset, CC BY 4.0",
     "prompt": "Use the input video and the synchronized auxiliary reference video to identify which listed object each hand is interacting with or approaching. Left and right refer to the robot’s own anatomical sides, not the sides of the screen. Select the corresponding object name for each hand.\n\nFor each selected hand–object pair, choose one grasp status:\n- GRASPING: The fingers visibly wrap around or pinch the object or its handle, forming a grasp. The object does not need to be lifted or moving.\n- NOT GRASPING: The hand is clearly visible and is not forming a grasp—for example, an open hand touching or resting against the object, or a hand separated from it.\nTouching an object alone does not imply GRASPING. NOT GRASPING does not require a gap between the hand and the object.\n\nFor each hand, mark exactly one object option and one grasp-status option with warm-yellow check marks and highlights.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/328-input.mp4",
       "target": "assets/v2v-samples/328-target.mp4",
       "reference": "assets/v2v-samples/328-reference.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/328-input.jpg",
+      "target": "assets/v2v-samples/328-target.jpg",
+      "reference": "assets/v2v-samples/328-reference.jpg"
     },
     "reference_files": [
       "auxiliary.mp4"
@@ -51,13 +66,20 @@
       "en": "In the egocentric view the tool is marked orange and the interaction target blue, with everything else untouched.",
       "zh": "在第一视角里把工具标成橙色、交互目标标成蓝色，其余画面保持不变。"
     },
-    "source": "NVIDIA Video to Data: Robot Dexterity Task Library and Dataset",
+    "source": "nvidia/video-to-data-robot-dexterity-task-library-and-dataset",
+    "source_url": "https://huggingface.co/datasets/nvidia/video-to-data-robot-dexterity-task-library-and-dataset",
     "licence": "CC BY 4.0",
+    "licence_url": "https://huggingface.co/datasets/nvidia/video-to-data-robot-dexterity-task-library-and-dataset",
+    "citation": "NVIDIA Video to Data: Robot Dexterity Task Library and Dataset, CC BY 4.0",
     "prompt": "Highlight the manipulated tool in orange and the interaction target in blue. Preserve the robot motion, object poses, camera, scene, timing, and all other content.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/331-input.mp4",
       "target": "assets/v2v-samples/331-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/331-input.jpg",
+      "target": "assets/v2v-samples/331-target.jpg"
     },
     "frames": 100,
     "fps": 30.0,
@@ -72,12 +94,23 @@
       "zh": "按一段文字镜头计划，把同一个视角重排成三个镜头。"
     },
     "source": "KlingTeam/MultiCamVideo-Dataset",
+    "source_url": "https://huggingface.co/datasets/KlingTeam/MultiCamVideo-Dataset",
     "licence": "Apache-2.0",
+    "licence_url": "https://huggingface.co/datasets/KlingTeam/MultiCamVideo-Dataset",
+    "citation": "KlingTeam/MultiCamVideo-Dataset, Apache-2.0",
     "prompt": "Create one synchronized 81-frame, 15-fps target video from the input, following this 3-shot plan.\n\nShot 1, frames 1–31:\nBalanced full-body performer view, slightly low angle.\nUse a smooth descending crane move while noticeably reorienting the view with a gradual ease-out.\nHard cut before frame 32.\n\nShot 2, frames 32–57:\nBalanced full-body performer view, gently elevated angle.\nHold a locked-off viewpoint at a steady pace.\nHard cut before frame 58.\n\nShot 3, frames 58–81:\nBalanced full-body performer view, eye-level angle.\nUse a smooth lateral track toward camera-right while noticeably reorienting the view at a steady pace.\n\nPreserve subject identity, scene, action, chronology, and frame timing; change only camera viewpoint, framing, and movement. Keep one full-frame view throughout; use only the listed hard cuts. No invented or reordered events; no duplicated, dropped, or interpolated frames; no slow motion, mosaics, split screens, option grids, labels, borders, or UI.",
     "media": true,
+    "note": {
+      "en": "The upstream dataset declares Apache-2.0 and credits Fab and Mixamo for the 3D assets; the footage is rendered in Unreal Engine 5, so no real person is shown.",
+      "zh": "上游数据集声明 Apache-2.0，3D 素材来自 Fab 与 Mixamo；画面由 Unreal Engine 5 渲染，没有真人出镜。"
+    },
     "media_files": {
       "input": "assets/v2v-samples/334-input.mp4",
       "target": "assets/v2v-samples/334-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/334-input.jpg",
+      "target": "assets/v2v-samples/334-target.jpg"
     },
     "frames": 81,
     "fps": 15.0,
@@ -92,12 +125,19 @@
       "zh": "按场景里物体之间的关系约束，补全被遮住的部分。"
     },
     "source": "nepfaff/scenesmith-example-scenes",
+    "source_url": "https://huggingface.co/datasets/nepfaff/scenesmith-example-scenes",
     "licence": "Apache-2.0",
+    "licence_url": "https://huggingface.co/datasets/nepfaff/scenesmith-example-scenes",
+    "citation": "nepfaff/scenesmith-example-scenes, Apache-2.0",
     "prompt": "This is a 3D scene of a medium-sized bedroom featuring a queen-size bed with a nightstand on each side.\nRestore exactly 3 missing objects:\n1. A bedroom bench on the floor directly at the foot of the visible bed.\n2. A glossy magazine lying flat on the left-center of the bench seat.\n3. A throw blanket folded on the right side of the bench seat.\nLeft and right use the Input opening-frame camera; nearer and farther use that camera's depth.\nKeep everything else unchanged, including room structure, materials, lighting, timing, framing, and camera motion.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/390-input.mp4",
       "target": "assets/v2v-samples/390-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/390-input.jpg",
+      "target": "assets/v2v-samples/390-target.jpg"
     },
     "frames": 48,
     "fps": 8.0,
@@ -111,14 +151,22 @@
       "en": "The language names the objects to grasp and how; the model generates the matching grasp video.",
       "zh": "用语言指定要抓的物体和抓法，生成对应的抓取视频。"
     },
-    "source": "DexYCB (dex-ycb-20210415)",
+    "source": "DexYCB, release dex-ycb-20210415",
+    "source_url": "https://dex-ycb.github.io/",
     "licence": "CC BY-NC 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "citation": "DexYCB (dex-ycb-20210415), CC BY-NC 4.0",
     "prompt": "Continue the scene by reaching for the blue cylindrical food can, grasping it, and lifting it from the table.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/391-input.mp4",
       "target": "assets/v2v-samples/391-target.mp4",
       "reference": "assets/v2v-samples/391-reference.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/391-input.jpg",
+      "target": "assets/v2v-samples/391-target.jpg",
+      "reference": "assets/v2v-samples/391-reference.jpg"
     },
     "reference_files": [
       "alternate_view.mp4"
@@ -136,12 +184,19 @@
       "zh": "保持时间与动作一致，把背景和景物换掉。"
     },
     "source": "Procgen",
+    "source_url": "https://github.com/openai/procgen",
     "licence": "MIT",
+    "licence_url": "https://github.com/openai/procgen/blob/master/LICENSE",
+    "citation": "OpenAI Procgen, MIT",
     "prompt": "Edit only the background and static scenery. Replace the original Procgen scene with a stylized 2D cartoon dry desert landscape, matching the original video's simple animated aesthetic. Use pale blue sky with a bright sun and dry haze. Build layered tan and ochre sandstone mesas. Shape the middle distance as low rolling sand dunes. Use ochre cracked clay and wind-shaped sand. Add sparse dry shrubs, leafless branches, angular rocks and weathered crates. Remove the source scene's original background palette and static scenery silhouettes while leaving every character and interactive object unchanged. Keep all characters and interactive objects unchanged; preserve their positions, motion, layout, camera timing, and all 81 moments at 15 FPS (5.4 seconds).",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/428-input.mp4",
       "target": "assets/v2v-samples/428-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/428-input.jpg",
+      "target": "assets/v2v-samples/428-target.jpg"
     },
     "frames": 81,
     "fps": 15,
@@ -156,12 +211,19 @@
       "zh": "交接动作结束后，接收方接下来应该做什么。"
     },
     "source": "lmms-lab/EgoLife",
+    "source_url": "https://huggingface.co/datasets/lmms-lab/EgoLife",
     "licence": "MIT",
+    "licence_url": "https://huggingface.co/datasets/lmms-lab/EgoLife",
+    "citation": "lmms-lab/EgoLife, MIT",
     "prompt": "The recipient has just received a capped pen and is holding it beside the whiteboard; the cap is still on and the board is directly ahead. Predict in detail the recipient's next reasonable, goal-directed action with the handed-over object, using only the visible Input context. Continue immediately from the end of the input in the recipient's first-person viewpoint, showing this first action through its natural completion. Preserve the same people, object, setting, viewpoint, and physical continuity. Do not extend the continuation into unrelated activities.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/429-input.mp4",
       "target": "assets/v2v-samples/429-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/429-input.jpg",
+      "target": "assets/v2v-samples/429-target.jpg"
     },
     "frames": 80,
     "fps": 10.0,
@@ -175,13 +237,20 @@
       "en": "Locate the one detail in a cave video that does not make commonsense sense.",
       "zh": "洞穴视频里定位常识上说不通的那一处。"
     },
-    "source": "CAVE",
+    "source": "epfl-nlp/CAVE",
+    "source_url": "https://huggingface.co/datasets/epfl-nlp/CAVE",
     "licence": "CC BY 4.0",
+    "licence_url": "https://huggingface.co/datasets/epfl-nlp/CAVE",
+    "citation": "epfl-nlp/CAVE, CC BY 4.0",
     "prompt": "Identify every clearly visible physical, spatial, or everyday commonsense anomaly in the input video. An anomaly includes not only violations of physical expectations, but also violations of practical rules, social conventions, cultural norms, or normal object use. Annotate only anomalies that are directly visible and explainable from the video.\n\nUse the following definitions for the options in the right-side panel:\nA. Entity Presence: An object is present when it should not be.\nB. Entity Absence: An expected or necessary object is missing.\nC. Entity Attribute: An object has an anomalous property, such as its color, shape, label, orientation, or usage.\nD. Spatial Relation: An object is incorrectly positioned relative to another object or its surroundings.\nE. Uniformity Breach: An element breaks an expected uniform, symmetrical, or repeating pattern.\nF. Textual Anomaly: Visible text conveys an unexpected or contradictory message, including a mismatch between text and a depicted direction or instruction.\nG. No Clearly Supported Anomaly: No anomaly is clearly supported by what is visible in the video.\n\nFirst progressively draw one tight red bounding box around each clearly visible anomaly, tracking it with the scene. After the red box is fully drawn, progressively draw a yellow outline around its matching right-panel category. Keep both annotations visible thereafter. If no clear anomaly is supported, draw no red box and progressively outline G in yellow. Preserve the scene, panel text, timing, and frame count.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/480-input.mp4",
       "target": "assets/v2v-samples/480-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/480-input.jpg",
+      "target": "assets/v2v-samples/480-target.jpg"
     },
     "frames": 81,
     "fps": 24,
@@ -196,12 +265,19 @@
       "zh": "在游戏画面里找出常识错误，并说明为什么错。"
     },
     "source": "PhysGame/GameBench",
+    "source_url": "https://huggingface.co/datasets/PhysGame/GameBench",
     "licence": "Apache-2.0",
+    "licence_url": "https://huggingface.co/datasets/PhysGame/GameBench",
+    "citation": "PhysGame/GameBench, Apache-2.0",
     "prompt": "Find all clearly visible physical-commonsense anomalies in the gameplay clip. The number of anomalies is not limited: there may be multiple anomalies, one or two, or none at all.\n\nIn the Target video, draw one tight yellow bounding box around each affected object or region only while its anomaly is visible. Keep each box attached to the same semantic target as it moves.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/481-input.mp4",
       "target": "assets/v2v-samples/481-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/481-input.jpg",
+      "target": "assets/v2v-samples/481-target.jpg"
     },
     "frames": 81,
     "fps": 30.0,
@@ -215,13 +291,20 @@
       "en": "Turn an egocentric hand motion into a phase panel.",
       "zh": "把第一人称手部动作画成一张相位面板。"
     },
-    "source": "HumanEgo",
+    "source": "Leo-TX/HumanEgo",
+    "source_url": "https://huggingface.co/datasets/Leo-TX/HumanEgo",
     "licence": "CC BY-NC 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "citation": "Leo-TX/HumanEgo, CC BY-NC 4.0",
     "prompt": "The input video contains a fixed panel on the right with preprinted CAMERA PHASE options and empty LEFT HAND and RIGHT HAND boxes.\n\nFor each frame, mark the current egocentric camera-motion phase with a yellow box: STOP when the wearable camera remains stationary even if the hands are moving, FORWARD when the wearer and camera translate forward, ROTATE when the camera turns, TRANSITION while the camera changes between motion states, and FINISHED at the annotated end of the demonstration.\n\nIn each hand box, draw the 2D pose of the corresponding human hand when it is visibly present, showing its wrist, palm, and finger landmarks as a connected 21-point skeleton. The skeleton must match the hand’s location, orientation, finger bends, and handedness in the same RGB frame. Leave a hand box empty when that hand is not visible.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/483-input.mp4",
       "target": "assets/v2v-samples/483-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/483-input.jpg",
+      "target": "assets/v2v-samples/483-target.jpg"
     },
     "frames": 80,
     "fps": 30,
@@ -236,12 +319,19 @@
       "zh": "在街道场景里选出与给定条件对应的城市选项。"
     },
     "source": "BitRobot/FrodoBots-Mini-4K",
+    "source_url": "https://huggingface.co/datasets/BitRobot/FrodoBots-Mini-4K",
     "licence": "CC BY-SA 4.0",
+    "licence_url": "https://huggingface.co/datasets/BitRobot/FrodoBots-Mini-4K",
+    "citation": "BitRobot/FrodoBots-Mini-4K, CC BY-SA 4.0",
     "prompt": "Use the moving street scene and the four English city-and-country option cards at the bottom to identify where the scene was recorded. Return the complete input video unchanged, adding only a bright green rounded rectangular outline around the correct option card in every frame. Preserve the street scene, all four cards, all text, framing, timing, and every other visual detail. Do not remove, replace, blur, crop, recolor, or add anything else.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/552-input.mp4",
       "target": "assets/v2v-samples/552-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/552-input.jpg",
+      "target": "assets/v2v-samples/552-target.jpg"
     },
     "frames": 80,
     "fps": 10.0,
@@ -255,13 +345,20 @@
       "en": "Mark a rotating globe at the given coordinates.",
       "zh": "按给定的经纬度，在旋转的地球上做标记。"
     },
-    "source": "Natural Earth + GeoNames",
-    "licence": "Public domain + CC BY 4.0",
+    "source": "Natural Earth and GeoNames",
+    "source_url": "https://www.naturalearthdata.com/",
+    "licence": "Public domain and CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+    "citation": "Natural Earth (public domain) and GeoNames (CC BY 4.0)",
     "prompt": "Read the latitude and longitude shown in the input video. Copy the input exactly and draw a red hollow circle at that coordinate on the rotating Earth whenever it is visible. Hide the marker when the coordinate rotates behind the globe. Do not add or change any text.",
     "media": true,
     "media_files": {
       "input": "assets/v2v-samples/654-input.mp4",
       "target": "assets/v2v-samples/654-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/654-input.jpg",
+      "target": "assets/v2v-samples/654-target.jpg"
     },
     "frames": 80,
     "fps": 10,
@@ -276,9 +373,16 @@
       "zh": "双手操作之后，续写真实发生的那一段。"
     },
     "source": "kelvin34501/OakInk-v2",
-    "licence": "CC BY-SA 4.0",
+    "source_url": "https://huggingface.co/datasets/kelvin34501/OakInk-v2",
+    "licence": "CC BY-SA 4.0, redistribution restricted",
+    "licence_url": "https://huggingface.co/datasets/kelvin34501/OakInk-v2",
+    "citation": "kelvin34501/OakInk-v2, CC BY-SA 4.0",
     "prompt": "Continue the video as the person uses the left hand to unscrew the blue striped bottle cap from the blue striped bottle body.",
-    "media": false
+    "media": false,
+    "note": {
+      "en": "The source marks this footage as restricted to internal review, so no video is published here.",
+      "zh": "上游把这段素材限定为内部评审使用，所以这里不公开画面。"
+    }
   },
   {
     "id": "479",
@@ -288,10 +392,17 @@
       "en": "Transfer a makeup look step by step onto the target clip, guided by a reference.",
       "zh": "参考一段妆容，把妆容一步步迁移到目标画面上。"
     },
-    "source": "Pexels stock footage",
+    "source": "Stock footage, no recorded clearance",
+    "source_url": "",
     "licence": "No redistribution clearance recorded",
+    "licence_url": "",
+    "citation": "",
     "prompt": "Apply the reference makeup progressively: first the eye makeup, then the lip makeup, then reveal the remaining makeup and complexion result from left to right. Preserve identity and pose.",
-    "media": false
+    "media": false,
+    "note": {
+      "en": "The source is stock footage and no redistribution clearance is on record, so no video is published here.",
+      "zh": "来源是图库素材，没有可再分发的授权记录，所以这里不公开画面。"
+    }
   },
   {
     "id": "551",
@@ -302,8 +413,15 @@
       "zh": "对照一段参考，比较第一人称动作的差别。"
     },
     "source": "Not recorded in the task manifest",
+    "source_url": "",
     "licence": "Not recorded",
+    "licence_url": "",
+    "citation": "",
     "prompt": "Based on the expert reference video, compare the two synchronized 81-frame clips, A and B, displayed simultaneously in one input video, with A on the left and B on the right. Both clips show the same action. Choose the clip in which the person performs the action more skillfully.\n\nIn the target output, preserve every frame, the side-by-side layout, and the original timing of the input. Add a green rectangular outline to the winning clip only for the full 81-frame duration.",
-    "media": false
+    "media": false,
+    "note": {
+      "en": "Neither the source nor the licence is recorded for this task, so no video is published here.",
+      "zh": "这个任务的来源与授权都没有记录，所以这里不公开画面。"
+    }
   }
 ]
