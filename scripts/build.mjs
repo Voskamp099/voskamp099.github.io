@@ -9,6 +9,20 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({ '&':'&amp;', '
 const b = (en, zh) => '<span class="en" lang="en">' + esc(en) + '</span><span class="zh" lang="zh-CN">' + esc(zh) + '</span>';
 const library = JSON.parse(await fs.readFile(path.join('content', 'tag-library.json'), 'utf8'));
 const tagById = new Map(library.tags.map(tag => [tag.id, tag]));
+const CATEGORY_LABELS = {
+  research: { en: 'Research', zh: '研究' },
+  quant: { en: 'Quant', zh: '量化' },
+  ai: { en: 'AI collaboration', zh: 'AI 协作' },
+  macos: { en: 'macOS', zh: 'macOS' },
+  growth: { en: 'Growth', zh: '成长' }
+};
+const CATEGORY_ORDER = ['research', 'quant', 'ai', 'macos', 'growth'];
+const categoryLabel = id => CATEGORY_LABELS[id] || null;
+// A post body can ask for one or more clips with a %%VIDEO:path|path%% line.
+// The markdown renderer escapes raw HTML, so the request travels as plain text
+// and is turned into a video row here.
+const videoRow = files => '<div class="video-row">' + files.map(file =>
+  '<video controls preload="metadata" playsinline muted src="/' + file.replace(/^\//, '') + '"></video>').join('') + '</div>';
 const files = (await fs.readdir('content/posts')).filter(file => file.endsWith('.json')).sort().reverse();
 const posts = await Promise.all(files.map(async file => {
   const post = JSON.parse(await fs.readFile(path.join('content/posts', file), 'utf8'));
@@ -17,7 +31,8 @@ const posts = await Promise.all(files.map(async file => {
   for (const language of ['en', 'zh']) {
     if (!post.title[language] || !post.summary[language]) throw new Error('Missing translation: ' + file);
     if (!/^[a-z0-9.-]+\.md$/.test(post.body[language])) throw new Error('Invalid body path');
-    body[language] = md.render(await fs.readFile(path.join('content/posts', post.body[language]), 'utf8'));
+    body[language] = md.render(await fs.readFile(path.join('content/posts', post.body[language]), 'utf8'))
+      .replace(/<p>%%VIDEO:([^<]+)%%<\/p>/g, (match, files) => videoRow(files.split('|').map(file => file.trim()).filter(Boolean)));
   }
   const tags = post.tags.map(id => {
     const tag = tagById.get(id);
@@ -59,9 +74,13 @@ function layout({ titleEn, titleZh, description, route = '/', body, article = fa
     + '<link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/blog.css"><script src="/assets/site.js" defer></script></head><body>'
     + header + body + footer + '</body></html>';
 }
+const usedCategories = new Set(posts.flatMap(post => post.categories));
+const filterButtons = ['all', ...CATEGORY_ORDER.filter(id => usedCategories.has(id))].map(id => id === 'all'
+  ? '<button class="filter" data-filter="all" aria-pressed="true">' + b('All', '全部') + '</button>'
+  : '<button class="filter" data-filter="' + id + '" aria-pressed="false">' + b(categoryLabel(id).en, categoryLabel(id).zh) + '</button>').join('');
 const cards = posts.map(post => '<a class="article-card" data-article data-categories="' + esc(post.categories.join(' ')) + '" data-search="'
   + esc([post.title.en, post.title.zh, post.summary.en, post.summary.zh, ...post.tags.flatMap(tag => [tag.en, tag.zh])].join(' ')) + '" href="/writing/' + post.slug + '/">'
-  + '<time datetime="' + post.date + '">' + post.date + '</time><div><h3>' + b(post.title.en, post.title.zh) + '</h3><p>'
+  + '<time datetime="' + post.date + '">' + post.date + '</time><div>' + (categoryLabel(post.categories[0]) ? '<span class="kind">' + b(categoryLabel(post.categories[0]).en, categoryLabel(post.categories[0]).zh) + '</span>' : '') + '<h3>' + b(post.title.en, post.title.zh) + '</h3><p>'
   + b(post.summary.en, post.summary.zh) + '</p><div class="tags">' + post.tags.map(tag => '<span>' + b(tag.en, tag.zh) + '</span>').join('')
   + '</div></div><span class="arrow" aria-hidden="true">↗</span></a>').join('');
 const home = '<main id="main"><section class="hero"><div class="wrap hero-grid"><div>'
@@ -77,9 +96,9 @@ const home = '<main id="main"><section class="hero"><div class="wrap hero-grid">
   + '<div><span class="pr">$</span> cat process.md</div><div class="output">' + b('idea → build → test → write', '想法 → 实现 → 验证 → 记录') + '</div>'
   + '<div><span class="pr">$</span> <span class="blink" aria-hidden="true"></span></div><div class="terminal-note">' + b('A notebook for things in progress.', '把进行中的东西，慢慢记下来。') + '</div></aside></div></section>'
   + '<section id="writing"><div class="wrap"><div class="kicker">01 — ' + b('Writing', '文章') + '</div><div class="section-head"><div><h2 class="sec">'
-  + b('From the notebook', '最近写下的') + '</h2><p class="sec-sub">' + b('Specific problems, practical decisions, and lessons from building.', '具体的问题、实际的选择，以及做完以后学到的东西。') + '</p></div></div>'
+  + b('From the notebook', '最近写下的') + '</h2><p class="sec-sub">' + b('Project notes, research write-ups, and lessons from building.', '项目记录、研究笔记，以及做东西过程中学到的东西。') + '</p></div></div>'
   + '<div class="article-toolbar"><label class="search-field"><span aria-hidden="true">⌕</span><span class="visually-hidden">' + b('Search articles', '搜索文章') + '</span><input id="articleSearch" type="search" placeholder="搜索标题、内容简介或标签…"></label>'
-  + '<div class="filters" aria-label="Article categories"><button class="filter" data-filter="all" aria-pressed="true">' + b('All', '全部') + '</button><button class="filter" data-filter="macos" aria-pressed="false">macOS</button><button class="filter" data-filter="ai" aria-pressed="false">' + b('AI collaboration', 'AI 协作') + '</button></div></div>'
+  + '<div class="filters" aria-label="Article categories">' + filterButtons + '</div></div>'
   + '<div class="article-list">' + cards + '</div><p class="empty-state" id="searchEmpty" hidden>' + b('No matching notes. Try another keyword or category.', '没有找到匹配的文章，试试其他关键词或分类。') + '</p><p class="search-status" id="searchCount" aria-live="polite">'
   + posts.length + ' 篇文章</p></div></section>'
   + '<section id="projects"><div class="wrap"><div class="kicker">02 — ' + b('Projects', '项目') + '</div><h2 class="sec">' + b('Things taking shape', '正在做的东西') + '</h2><p class="sec-sub">'
