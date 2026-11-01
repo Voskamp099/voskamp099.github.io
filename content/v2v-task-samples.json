@@ -24,7 +24,10 @@
     },
     "frames": 81,
     "fps": 30.0,
-    "resolution": "1920x1080"
+    "resolution": "1920x1080",
+    "name_zh": "按操作修复游戏画面的卡顿",
+    "title_en": "Repairing a frozen stretch of gameplay",
+    "prompt_zh": "修复以零为起点的第 16–27 帧（含）这段被冻住的画面。这段时间里右移与右看操作键一直按住（按键：D+L），因此要补回缺失的人物运动、镜头运动与场景运动。其余帧保持不变，输出同样的 81 帧、30 fps、1920x1080 时间线。"
   },
   {
     "id": "328",
@@ -56,7 +59,10 @@
     ],
     "frames": 80,
     "fps": 30,
-    "resolution": "1024x512"
+    "resolution": "1024x512",
+    "name_zh": "双手操作的过程面板还原",
+    "title_en": "Rebuilding the process panel of a two-handed manipulation",
+    "prompt_zh": "结合输入视频与同步的辅助参考视频，判断清单中每只手正在交互或接近的是哪个物体。左右指的是机器人自身的解剖学左右侧，不是画面左右。为每只手选出对应的物体名称。\n\n对每个「手—物体」组合，选择一种抓取状态：\n- GRASPING（抓取中）：手指明显环握或捏住物体或把手，形成抓取。物体不必被抬起或移动。\n- NOT_GRASPING（未抓取）：手清晰可见且没有形成抓取，例如张开的手触碰或倚靠物体，或者手与物体分开。仅有触碰并不等于抓取。\n\n对每只手，用暖黄色对勾和高亮标出且仅标出一个物体选项与一个抓取状态选项。"
   },
   {
     "id": "331",
@@ -83,7 +89,10 @@
     },
     "frames": 100,
     "fps": 30.0,
-    "resolution": "640x480"
+    "resolution": "640x480",
+    "name_zh": "机器人工具与交互目标的语义高亮",
+    "title_en": "Colouring the tool and the interaction target",
+    "prompt_zh": "把被操作的工具高亮为橙色，把交互目标高亮为蓝色。保持机器人运动、物体位姿、镜头、场景、时间节奏以及其余全部内容不变。"
   },
   {
     "id": "334",
@@ -114,7 +123,10 @@
     },
     "frames": 81,
     "fps": 15.0,
-    "resolution": "1280x1280"
+    "resolution": "1280x1280",
+    "name_zh": "按镜头计划把一个视角重排成三个镜头",
+    "title_en": "Re-cutting one view into three shots",
+    "prompt_zh": "根据下面这个三镜头计划，从输入素材生成一条同步的 81 帧、15 fps 的目标视频。\n\n镜头 1，第 1–31 帧：\n平衡的全身表演者视角，略微仰拍。\n使用平滑下降的摇臂移动，同时明显地重新调整视角，并做渐出缓动。\n在第 32 帧之前硬切。\n\n镜头 2，第 32–57 帧：\n平衡的全身表演者视角，略微俯拍。\n保持固定机位，节奏平稳。\n在第 58 帧之前硬切。\n\n镜头 3，第 58–81 帧：\n平衡的全身表演者视角，平视角。\n使用平滑的横向移动，向镜头右侧推进，同时明显地重新调整视角，节奏平稳。\n\n保持主体身份、场景、动作、先后顺序与帧时序不变；只改变镜头视角、取景与运镜。始终保持单一满画面视角，只使用列出的硬切。不得杜撰或重排事件；不得重复、丢帧或插值帧；不要慢动作、马赛克、分屏、选项网格、标签、边框或界面元素。"
   },
   {
     "id": "390",
@@ -141,7 +153,10 @@
     },
     "frames": 48,
     "fps": 8.0,
-    "resolution": "512x512"
+    "resolution": "512x512",
+    "name_zh": "按物体关系补全被遮住的场景",
+    "title_en": "Completing a bedroom scene from object relations",
+    "prompt_zh": "这是一个中等大小卧室的三维场景，有一张大号床，床两侧各有一个床头柜。\n准确补回缺失的 3 件物品：\n1. 直接放在可见床尾地面上的卧室长凳。\n2. 平放在长凳座面偏左位置的一本光泽杂志。\n3. 折叠在长凳座面右侧的一条盖毯。\n左右以输入视频的首帧相机为准；远近以该相机的深度为准。\n其余内容全部保持不变，包括房间结构、材质、光照、时序、取景与镜头运动。"
   },
   {
     "id": "391",
@@ -173,7 +188,10 @@
     ],
     "frames": 16,
     "fps": 30,
-    "resolution": "512x384"
+    "resolution": "512x384",
+    "name_zh": "用语言指定的多物体抓取视频",
+    "title_en": "Generating a grasp from a language instruction",
+    "prompt_zh": "接着这个场景，伸手去拿那个蓝色圆柱形食品罐头，抓住它并从桌面上拿起。"
   },
   {
     "id": "428",
@@ -200,7 +218,10 @@
     },
     "frames": 81,
     "fps": 15,
-    "resolution": "512x512"
+    "resolution": "512x512",
+    "name_zh": "保持动作一致地替换背景与景物",
+    "title_en": "Replacing the background while the action stays",
+    "prompt_zh": "只编辑背景与静态景物。把原来的 Procgen 场景替换成风格化的 2D 卡通干荒漠景观，风格与原视频的简易动画美学一致。使用淡蓝色天空、明亮的太阳与干燥雾气。构建立体的棕黄与赭色砂岩台地。中景塑造成低缓起伏的沙丘。使用赭色开裂黏土与风蚀沙纹。加入稀疏的干灌木、光秃枝条、带棱角的岩石与风化木箱。移除原场景的背景配色与静态景物轮廓，同时保持所有角色与可交互物体不变。保持所有角色与可交互物体不变，保留它们的位置、运动、布局、镜头时序，以及 15 FPS 下的全部 81 个瞬间（5.4 秒）。"
   },
   {
     "id": "429",
@@ -227,7 +248,10 @@
     },
     "frames": 80,
     "fps": 10.0,
-    "resolution": "960x960"
+    "resolution": "960x960",
+    "name_zh": "交接之后接收方会做什么",
+    "title_en": "Continuing after the handover",
+    "prompt_zh": "接收方刚拿到一支带盖的笔，正把它拿在白板旁边；笔盖还没拔下，白板就在正前方。仅依据可见的输入上下文，细致预测接收方接下来会如何合理地、有目标地使用这支刚接手的笔。以接收方的第一人称视角，从输入的结尾处紧接着继续，呈现这一动作自然完成的全过程。保持同样的人、物体、场景、视角与物理连续性。不要把续写延伸到无关的活动里。"
   },
   {
     "id": "480",
@@ -254,7 +278,10 @@
     },
     "frames": 81,
     "fps": 24,
-    "resolution": "2048x1536"
+    "resolution": "2048x1536",
+    "name_zh": "洞穴视频里的常识异常定位",
+    "title_en": "Locating a commonsense anomaly in a cave video",
+    "prompt_zh": "找出输入视频里所有清晰可见的物理、空间或日常常识异常。异常不仅指违反物理预期的情况，也包括违反实用规则、社会习俗、文化规范或物品正常使用方式的情况。只标注视频中直接可见、且能从视频中解释的异常。\n\n右侧面板中的选项定义如下：\nA. 实体存在：本不该出现的物体出现了。\nB. 实体缺失：应当存在或必需的物体不见了。\nC. 实体属性：物体具有异常属性，例如颜色、形状、标签、朝向或使用方式。\nD. 空间关系：物体相对另一个物体或周围环境的位置不正确。\nE. 一致性破坏：某个元素打破了预期的统一、对称或重复规律。\nF. 文本异常：可见文字传达了意料之外或自相矛盾的信息，包括文字与画面所示方向或指令不一致。\nG. 没有明确支持的异常：视频可见内容中没有任何得到明确支持的异常。\n\n先逐个为每个清晰可见的异常逐帧绘制一个紧贴的红框，并跟随场景移动。红框完全绘出之后，再逐步用黄色描边标出右侧面板中与之对应的类别。此后两个标注都保持可见。如果没有明确支持的异常，就不画红框，改为逐步用黄色描边标出 G。保持场景、面板文字、时序与帧数不变。"
   },
   {
     "id": "481",
@@ -281,7 +308,10 @@
     },
     "frames": 81,
     "fps": 30.0,
-    "resolution": "1920x1080"
+    "resolution": "1920x1080",
+    "name_zh": "游戏画面的常识错误定位与解释",
+    "title_en": "Finding and explaining a gameplay commonsense error",
+    "prompt_zh": "找出这段游戏画面中所有清晰可见的物理常识异常。异常数量没有上限：可能存在多个异常、一两个，也可能完全没有。\n\n在目标视频中，只在异常可见的那段时间里，为每个受影响的物体或区域绘制一个紧贴的黄色框。框要始终跟随同一个语义目标。"
   },
   {
     "id": "483",
@@ -308,7 +338,10 @@
     },
     "frames": 80,
     "fps": 30,
-    "resolution": "1280x720"
+    "resolution": "1280x720",
+    "name_zh": "第一人称手部动作的相位面板",
+    "title_en": "Turning egocentric hand motion into a phase panel",
+    "prompt_zh": "输入视频右侧有一块固定面板，上面预印了 CAMERA PHASE 选项以及空的 LEFT HAND 与 RIGHT HAND 框。\n\n对每一帧，用黄色框标出当前的第一人称相机运动阶段：可穿戴相机保持静止时标 STOP（即使手在动），穿戴者与相机向前平移时标 FORWARD，相机转向时标 ROTATE，相机在运动状态之间切换时标 TRANSITION，演示标注结束处标 FINISHED。\n\n在每个手部框中，当该手清晰可见时，画出对应人手的 2D 姿态，显示手腕、手掌与手指关键点，构成连通的 21 点骨架。骨架必须与同一 RGB 帧中手的位置、朝向、手指弯曲与左右手性一致。手不可见时保持该框为空。"
   },
   {
     "id": "552",
@@ -335,7 +368,10 @@
     },
     "frames": 80,
     "fps": 10.0,
-    "resolution": "960x640"
+    "resolution": "960x640",
+    "name_zh": "街道场景对应的城市选项",
+    "title_en": "Choosing the city that matches a street scene",
+    "prompt_zh": "利用移动的街道场景与底部四张英文的城市与国家选项卡，判断场景的拍摄地。保持输入视频完全不变，只在每一帧中给正确的选项卡加一个亮绿色圆角矩形描边。保持街道场景、四张选项卡、所有文字、取景、时序以及其余一切视觉细节不变。不要删除、替换、模糊、裁剪、改色或添加任何其他内容。"
   },
   {
     "id": "654",
@@ -362,7 +398,10 @@
     },
     "frames": 80,
     "fps": 10,
-    "resolution": "640x360"
+    "resolution": "640x360",
+    "name_zh": "按经纬度在旋转地球上标记",
+    "title_en": "Marking a coordinate on a rotating globe",
+    "prompt_zh": "读出输入视频中显示的经纬度。精确复制输入视频，并在旋转的地球上该坐标处画一个红色空心圆；坐标转到地球背面时隐藏标记。不要添加或修改任何文字。"
   },
   {
     "id": "275",
@@ -374,15 +413,29 @@
     },
     "source": "kelvin34501/OakInk-v2",
     "source_url": "https://huggingface.co/datasets/kelvin34501/OakInk-v2",
-    "licence": "CC BY-SA 4.0, redistribution restricted",
+    "licence": "CC BY-SA 4.0",
     "licence_url": "https://huggingface.co/datasets/kelvin34501/OakInk-v2",
-    "citation": "kelvin34501/OakInk-v2, CC BY-SA 4.0",
+    "citation": "kelvin34501/OakInk-v2 (OakInk 2, CVPR 2024), CC BY-SA 4.0",
     "prompt": "Continue the video as the person uses the left hand to unscrew the blue striped bottle cap from the blue striped bottle body.",
-    "media": false,
+    "media": true,
     "note": {
-      "en": "The source marks this footage as restricted to internal review, so no video is published here.",
-      "zh": "上游把这段素材限定为内部评审使用，所以这里不公开画面。"
-    }
+      "en": "The upstream dataset card declares CC BY-SA 4.0, so the clip is published here with its attribution.",
+      "zh": "上游数据集卡片标注 CC BY-SA 4.0，所以这里按署名要求公开这段画面。"
+    },
+    "name_zh": "双手操作视频的续写",
+    "title_en": "Continuing a two-handed manipulation",
+    "prompt_zh": "接着这段视频：人物用左手拧开蓝色条纹瓶盖，与蓝色条纹瓶身分离。",
+    "media_files": {
+      "input": "assets/v2v-samples/275-input.mp4",
+      "target": "assets/v2v-samples/275-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/275-input.jpg",
+      "target": "assets/v2v-samples/275-target.jpg"
+    },
+    "frames": 81,
+    "fps": 30.0,
+    "resolution": "848x480"
   },
   {
     "id": "479",
@@ -402,7 +455,10 @@
     "note": {
       "en": "The source is stock footage and no redistribution clearance is on record, so no video is published here.",
       "zh": "来源是图库素材，没有可再分发的授权记录，所以这里不公开画面。"
-    }
+    },
+    "name_zh": "参考引导的妆容渐进迁移",
+    "title_en": "Transferring a makeup look step by step",
+    "prompt_zh": "按参考妆容逐步上妆：先眼妆，再唇妆，然后从左到右展现其余妆容与最终妆效。保持身份与姿态不变。"
   },
   {
     "id": "551",
@@ -422,6 +478,9 @@
     "note": {
       "en": "Neither the source nor the licence is recorded for this task, so no video is published here.",
       "zh": "这个任务的来源与授权都没有记录，所以这里不公开画面。"
-    }
+    },
+    "name_zh": "参考引导的第一人称动作技巧对比",
+    "title_en": "Comparing two clips against an expert reference",
+    "prompt_zh": "基于专家参考视频，比较同一条输入视频中并排显示的两段同步的 81 帧片段 A 与 B，A 在左、B 在右。两段片段展示的是同一个动作。选出其中动作完成得更熟练的一段。\n\n在目标输出中，保持输入的每一帧、并排排版与原始时序不变。只在完整的 81 帧时长内，为胜出的那一段加上绿色矩形描边。"
   }
 ]

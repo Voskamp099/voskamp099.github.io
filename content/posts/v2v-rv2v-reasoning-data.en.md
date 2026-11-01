@@ -1,12 +1,12 @@
 A video reasoning model has to learn one specific thing: given this clip, what happens next. For that signal to be learnable, the training data has to satisfy three conditions at once. The input is a video and the output is a video. The target video is decided by a rule the model can actually learn, not by whatever happened to look plausible. And every sample can be verified on its own instead of merely looking right.
 
-I spent the better part of a year on this, in two repositories that run side by side: one for Video 2 Video, and one for Reference Video to Video — the same thing with a set of reference assets attached. Below is the method, the evidence, and a few things that went wrong on the way.
+I spent the better part of a year on this, in two repositories that run side by side: one for Video to Video, and one for Reference Video to Video — the same thing with a set of reference assets attached. Below is the method, the evidence, and a few things that went wrong on the way.
 
 ## 1. The unit of work
 
 One sample is one directory with four files: the input video, the target video, a natural-language description of the task, and structured metadata. A Reference Video to Video sample adds a `reference/` directory, and every asset in it is declared in the metadata with its relative path, media type, byte size, SHA-256 digest and media properties.
 
-![The directory layout of one Video 2 Video sample and one Reference Video to Video sample](/assets/research/v2v/sample-contract.png)
+![The directory layout of one Video to Video sample and one Reference Video to Video sample](/assets/research/v2v/sample-contract.png)
 
 Two rules are worth stating on their own.
 
@@ -61,18 +61,18 @@ Below are the sixteen tasks I owned, covering continuation, repair, re-shooting,
 
 | Task | Modality | Task name | What the model has to do |
 | --- | --- | --- | --- |
-| 275 | Video 2 Video | action_conditioned_bimanual_manipulation_video_continuation | Continue the two-handed action with what actually happened next |
-| 278 | Video 2 Video | action_conditioned_gameplay_stutter_repair | Repair the stutter in the frames against the action sequence |
-| 331 | Video 2 Video | robot_tool_target_semantic_role_highlighting | Mark the roles of the tool and the target in an egocentric view |
-| 334 | Video 2 Video | prompt_guided_single_view_multishot_recinematography | Re-cut several shots of one view according to a written instruction |
-| 428 | Video 2 Video | same_time_background_and_scenery_replacement | Replace the background and the scenery while keeping the timing |
-| 552 | Video 2 Video | street_scene_city_option_selection | Pick the matching city option in a street scene |
-| 654 | Video 2 Video | gps_coordinate_conditioned_rotating_globe_marking | Mark a rotating globe by GPS coordinates |
-| 390 | Video 2 Video | relation_constrained_multi_object_scene_completion | Complete a scene under the relations between its objects |
-| 429 | Video 2 Video | post_handoff_recipient_action_rollout | What the receiving side does after a handover |
-| 480 | Video 2 Video | cave_video_commonsense_anomaly_localization | Locate a commonsense anomaly in cave video |
-| 481 | Video 2 Video | gameplay_commonsense_error_localization_and_explanation | Locate and explain a commonsense error in gameplay footage |
-| 483 | Video 2 Video | egocentric_hand_motion_phase_panel_visualization | A phase panel of egocentric hand motion |
+| 275 | Video to Video | action_conditioned_bimanual_manipulation_video_continuation | Continue the two-handed action with what actually happened next |
+| 278 | Video to Video | action_conditioned_gameplay_stutter_repair | Repair the stutter in the frames against the action sequence |
+| 331 | Video to Video | robot_tool_target_semantic_role_highlighting | Mark the roles of the tool and the target in an egocentric view |
+| 334 | Video to Video | prompt_guided_single_view_multishot_recinematography | Re-cut several shots of one view according to a written instruction |
+| 428 | Video to Video | same_time_background_and_scenery_replacement | Replace the background and the scenery while keeping the timing |
+| 552 | Video to Video | street_scene_city_option_selection | Pick the matching city option in a street scene |
+| 654 | Video to Video | gps_coordinate_conditioned_rotating_globe_marking | Mark a rotating globe by GPS coordinates |
+| 390 | Video to Video | relation_constrained_multi_object_scene_completion | Complete a scene under the relations between its objects |
+| 429 | Video to Video | post_handoff_recipient_action_rollout | What the receiving side does after a handover |
+| 480 | Video to Video | cave_video_commonsense_anomaly_localization | Locate a commonsense anomaly in cave video |
+| 481 | Video to Video | gameplay_commonsense_error_localization_and_explanation | Locate and explain a commonsense error in gameplay footage |
+| 483 | Video to Video | egocentric_hand_motion_phase_panel_visualization | A phase panel of egocentric hand motion |
 | 328 | Reference Video to Video | bimanual_manipulation_process_panel | Rebuild the process of a two-handed manipulation from a reference |
 | 391 | Reference Video to Video | language_grounded_multi_object_grasp_video_generation | Generate the video of a language-specified multi-object grasp |
 | 479 | Reference Video to Video | reference_guided_progressive_makeup_transfer | Progressive makeup transfer under a reference |
@@ -110,7 +110,7 @@ On the delivery side I hold to a few hard rules.
 
 ## 6. What the reference variant adds
 
-A Video 2 Video sample is four files. A Reference Video to Video sample adds the reference assets, and the extra engineering sits in two places.
+A Video to Video sample is four files. A Reference Video to Video sample adds the reference assets, and the extra engineering sits in two places.
 
 First, counting the references. Each asset is registered with its path, type, byte size, digest and media properties, the inventory is ordered by POSIX relative path, and the complete inventory takes part in the sample fingerprint.
 

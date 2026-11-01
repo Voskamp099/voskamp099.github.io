@@ -114,6 +114,24 @@
       "en": "Video generation",
       "zh": "视频生成",
       "kind": "topic"
+    },
+    {
+      "id": "ai",
+      "en": "AI",
+      "zh": "AI",
+      "kind": "topic"
+    },
+    {
+      "id": "benchmark",
+      "en": "Benchmark",
+      "zh": "基准评测",
+      "kind": "method"
+    },
+    {
+      "id": "multi-model",
+      "en": "Multi-model",
+      "zh": "多模型",
+      "kind": "topic"
     }
   ]
 }

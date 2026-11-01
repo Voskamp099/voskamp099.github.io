@@ -1,0 +1,152 @@
+{
+  "task": "480",
+  "title": {
+    "en": "Appendix — Task 480, eight samples",
+    "zh": "附录——480 号任务的八条样本"
+  },
+  "intro": {
+    "en": "Eight samples of the same task, from eight different source frames. The task, the prompt and the source stay the same; only the scene changes.",
+    "zh": "同一个任务的八条样本，来自八个不同的源画面。任务、提示词与来源都一样，只有场景不同。"
+  },
+  "licence": "CC BY 4.0",
+  "licence_url": "https://huggingface.co/datasets/epfl-nlp/CAVE",
+  "citation": "epfl-nlp/CAVE (CAVE: Commonsense Anomalies in Visual Environments), CC BY 4.0",
+  "samples": [
+    {
+      "index": 1,
+      "sample_id": "Task_480_cave_video_commonsense_anomaly_localization_000000001",
+      "source_sample": "108exx3",
+      "dataset": "epfl-nlp/CAVE",
+      "media_files": {
+        "input": "assets/v2v-samples/480-input.mp4",
+        "target": "assets/v2v-samples/480-target.mp4"
+      },
+      "posters": {
+        "input": "assets/v2v-samples/480-input.jpg",
+        "target": "assets/v2v-samples/480-target.jpg"
+      },
+      "frames": 81,
+      "fps": 24,
+      "resolution": "2048x1536"
+    },
+    {
+      "index": 2,
+      "sample_id": "Task_480_cave_video_commonsense_anomaly_localization_000000002",
+      "source_sample": "10ki2cu",
+      "dataset": "epfl-nlp/CAVE",
+      "media_files": {
+        "input": "assets/v2v-samples/480-s2-input.mp4",
+        "target": "assets/v2v-samples/480-s2-target.mp4"
+      },
+      "posters": {
+        "input": "assets/v2v-samples/480-s2-input.jpg",
+        "target": "assets/v2v-samples/480-s2-target.jpg"
+      },
+      "frames": 81,
+      "fps": 24,
+      "resolution": "2048x1536"
+    },
+    {
+      "index": 3,
+      "sample_id": "Task_480_cave_video_commonsense_anomaly_localization_000000003",
+      "source_sample": "10knleh",
+      "dataset": "epfl-nlp/CAVE",
+      "media_files": {
+        "input": "assets/v2v-samples/480-s3-input.mp4",
+        "target": "assets/v2v-samples/480-s3-target.mp4"
+      },
+      "posters": {
+        "input": "assets/v2v-samples/480-s3-input.jpg",
+        "target": "assets/v2v-samples/480-s3-target.jpg"
+      },
+      "frames": 81,
+      "fps": 24,
+      "resolution": "2048x1536"
+    },
+    {
+      "index": 4,
+      "sample_id": "Task_480_cave_video_commonsense_anomaly_localization_000000004",
+      "source_sample": "10l27zs",
+      "dataset": "epfl-nlp/CAVE",
+      "media_files": {
+        "input": "assets/v2v-samples/480-s4-input.mp4",
+        "target": "assets/v2v-samples/480-s4-target.mp4"
+      },
+      "posters": {
+        "input": "assets/v2v-samples/480-s4-input.jpg",
+        "target": "assets/v2v-samples/480-s4-target.jpg"
+      },
+      "frames": 81,
+      "fps": 24,
+      "resolution": "2048x1536"
+    },
+    {
+      "index": 5,
+      "sample_id": "Task_480_cave_video_commonsense_anomaly_localization_000000005",
+      "source_sample": "10om7la",
+      "dataset": "epfl-nlp/CAVE",
+      "media_files": {
+        "input": "assets/v2v-samples/480-s5-input.mp4",
+        "target": "assets/v2v-samples/480-s5-target.mp4"
+      },
+      "posters": {
+        "input": "assets/v2v-samples/480-s5-input.jpg",
+        "target": "assets/v2v-samples/480-s5-target.jpg"
+      },
+      "frames": 81,
+      "fps": 24,
+      "resolution": "2048x1536"
+    },
+    {
+      "index": 6,
+      "sample_id": "Task_480_cave_video_commonsense_anomaly_localization_000000006",
+      "source_sample": "10r2w7d",
+      "dataset": "epfl-nlp/CAVE",
+      "media_files": {
+        "input": "assets/v2v-samples/480-s6-input.mp4",
+        "target": "assets/v2v-samples/480-s6-target.mp4"
+      },
+      "posters": {
+        "input": "assets/v2v-samples/480-s6-input.jpg",
+        "target": "assets/v2v-samples/480-s6-target.jpg"
+      },
+      "frames": 81,
+      "fps": 24,
+      "resolution": "2048x1536"
+    },
+    {
+      "index": 7,
+      "sample_id": "Task_480_cave_video_commonsense_anomaly_localization_000000007",
+      "source_sample": "16mec42",
+      "dataset": "epfl-nlp/CAVE",
+      "media_files": {
+        "input": "assets/v2v-samples/480-s7-input.mp4",
+        "target": "assets/v2v-samples/480-s7-target.mp4"
+      },
+      "posters": {
+        "input": "assets/v2v-samples/480-s7-input.jpg",
+        "target": "assets/v2v-samples/480-s7-target.jpg"
+      },
+      "frames": 81,
+      "fps": 24,
+      "resolution": "2048x1536"
+    },
+    {
+      "index": 8,
+      "sample_id": "Task_480_cave_video_commonsense_anomaly_localization_000000008",
+      "source_sample": "1bcfsre",
+      "dataset": "epfl-nlp/CAVE",
+      "media_files": {
+        "input": "assets/v2v-samples/480-s8-input.mp4",
+        "target": "assets/v2v-samples/480-s8-target.mp4"
+      },
+      "posters": {
+        "input": "assets/v2v-samples/480-s8-input.jpg",
+        "target": "assets/v2v-samples/480-s8-target.jpg"
+      },
+      "frames": 81,
+      "fps": 24,
+      "resolution": "2048x1536"
+    }
+  ]
+}
