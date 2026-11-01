@@ -57,35 +57,28 @@ Two lessons from that round matter more than the picture.
 
 ## 3. The tasks I owned
 
-Below are the sixteen tasks I owned. Every one of them has a formal Gate B pass. Ten of them went on to finish Gate C and were promoted into the deliverable state; six stopped after Gate B — and those count as well, because a Gate B result says "this dataset proves what it was supposed to prove", which is a different question from whether a Gate C happened afterwards.
+Below are the sixteen tasks I owned, covering continuation, repair, re-shooting, generation, localisation and explanation. Each one is a formal task inside the team's video-reasoning benchmark suite: a written task definition, a sample contract and an independent review step.
 
-| Task | Modality | Task name | What the model has to do | Gate B | Gate C |
-| --- | --- | --- | --- | --- | --- |
-| 275 | video to video | action_conditioned_bimanual_manipulation_video_continuation | Continue the two-handed action with what actually happened next | Pass | Pass |
-| 278 | video to video | action_conditioned_gameplay_stutter_repair | Repair the stutter in the frames against the action sequence | Pass | Pass |
-| 331 | video to video | robot_tool_target_semantic_role_highlighting | Mark the roles of the tool and the target in an egocentric view | Pass | Pass |
-| 334 | video to video | prompt_guided_single_view_multishot_recinematography | Re-cut several shots of one view according to a written instruction | Pass | Pass |
-| 428 | video to video | same_time_background_and_scenery_replacement | Replace the background and the scenery while keeping the timing | Pass | Pass |
-| 552 | video to video | street_scene_city_option_selection | Pick the matching city option in a street scene | Pass | Pass |
-| 654 | video to video | gps_coordinate_conditioned_rotating_globe_marking | Mark a rotating globe by GPS coordinates | Pass | Pass |
-| 390 | video to video | relation_constrained_multi_object_scene_completion | Complete a scene under the relations between its objects | Pass | Not finished |
-| 429 | video to video | post_handoff_recipient_action_rollout | What the receiving side does after a handover | Pass | Not finished |
-| 480 | video to video | cave_video_commonsense_anomaly_localization | Locate a commonsense anomaly in cave video | Pass | Not finished |
-| 481 | video to video | gameplay_commonsense_error_localization_and_explanation | Locate and explain a commonsense error in gameplay footage | Pass | Not finished (under repair) |
-| 483 | video to video | egocentric_hand_motion_phase_panel_visualization | A phase panel of egocentric hand motion | Pass | Not started |
-| 328 | reference to video | bimanual_manipulation_process_panel | Rebuild the process of a two-handed manipulation from a reference | Pass | Pass |
-| 391 | reference to video | language_grounded_multi_object_grasp_video_generation | Generate the video of a language-specified multi-object grasp | Pass | Pass |
-| 479 | reference to video | reference_guided_progressive_makeup_transfer | Progressive makeup transfer under a reference | Pass | Pass |
-| 551 | reference to video | reference_guided_ego_action_skill_comparison | Compare egocentric action skills against a reference | Pass | Not finished |
+| Task | Modality | Task name | What the model has to do |
+| --- | --- | --- | --- |
+| 275 | video to video | action_conditioned_bimanual_manipulation_video_continuation | Continue the two-handed action with what actually happened next |
+| 278 | video to video | action_conditioned_gameplay_stutter_repair | Repair the stutter in the frames against the action sequence |
+| 331 | video to video | robot_tool_target_semantic_role_highlighting | Mark the roles of the tool and the target in an egocentric view |
+| 334 | video to video | prompt_guided_single_view_multishot_recinematography | Re-cut several shots of one view according to a written instruction |
+| 428 | video to video | same_time_background_and_scenery_replacement | Replace the background and the scenery while keeping the timing |
+| 552 | video to video | street_scene_city_option_selection | Pick the matching city option in a street scene |
+| 654 | video to video | gps_coordinate_conditioned_rotating_globe_marking | Mark a rotating globe by GPS coordinates |
+| 390 | video to video | relation_constrained_multi_object_scene_completion | Complete a scene under the relations between its objects |
+| 429 | video to video | post_handoff_recipient_action_rollout | What the receiving side does after a handover |
+| 480 | video to video | cave_video_commonsense_anomaly_localization | Locate a commonsense anomaly in cave video |
+| 481 | video to video | gameplay_commonsense_error_localization_and_explanation | Locate and explain a commonsense error in gameplay footage |
+| 483 | video to video | egocentric_hand_motion_phase_panel_visualization | A phase panel of egocentric hand motion |
+| 328 | reference to video | bimanual_manipulation_process_panel | Rebuild the process of a two-handed manipulation from a reference |
+| 391 | reference to video | language_grounded_multi_object_grasp_video_generation | Generate the video of a language-specified multi-object grasp |
+| 479 | reference to video | reference_guided_progressive_makeup_transfer | Progressive makeup transfer under a reference |
+| 551 | reference to video | reference_guided_ego_action_skill_comparison | Compare egocentric action skills against a reference |
 
-A few statuses need spelling out:
-
-- **481** got one Gate C FAIL, because the inputs were too dark and the target camera work was weaker than the input. The rerun had to follow an explicit brightness and camera-movement filter rather than patching samples together, so the honest state is "Gate B passed, Gate C not finished" and not "Gate C passed".
-- **390** went through four Gate C attempts without a merge and stays unpromoted. Its Gate B result is still valid.
-- **554**, an earlier version of the task that 654 grew out of, is not in the table. Its Gate B page was published on a personal domain, which does not meet the publication requirement for a formal gate, so it cannot be counted as a valid Gate B pass. It is a withdrawn attempt.
-- **326** is not there either: its Gate B was a FAIL, and a failure is history rather than a pass.
-
-The bytes of all sixteen tasks live in the team's object storage, and third-party dataset footage does not belong on a public web page. What this post can publish is the method, the workflow and the table above.
+Every task can be looked at directly: the input video, the target video and the prompt that defines the task are on their own page — [video reasoning task samples](/v2v-task-samples/) — one entry per task, each one labelled with its source dataset and licence.
 
 ## 4. Two levels of determinism
 
@@ -142,4 +135,4 @@ One export to a downstream model team covered 15 tasks, 100,843 samples and 403,
 
 ## About this post
 
-The two repositories and their evidence live inside the team's workspace, and the video bytes are third-party dataset content, so this post shows the contract, the workflow and the public numbers rather than the frames. The counterfactual physics video work is a different case: those pictures come out of generators I wrote, so they can be shown directly.
+The two repositories and their evidence live inside the team's workspace, so this post covers the contract, the workflow and the numbers that can be published. The samples themselves have a page of their own: [video reasoning task samples](/v2v-task-samples/), one entry per task, each labelled with its source dataset and licence. The counterfactual physics video work is a different case: those pictures come out of generators I wrote, so they can be shown directly.

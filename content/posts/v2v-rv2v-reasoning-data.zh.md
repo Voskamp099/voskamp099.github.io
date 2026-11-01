@@ -57,35 +57,28 @@
 
 ## 三、我做过的任务
 
-下面是我自己负责的十六个任务，全部拿到过正式 Gate B 的通过结论。其中十个已经走完 Gate C 并被提升为可交付状态，另外六个停在 Gate B 之后——后者同样算数：闸门 B 的结论是"这条数据证明了它该证明的那件事"，这件事和后面还有没有闸门 C 是两回事。
+下面是我自己负责的十六个任务，覆盖续写、修复、重拍、生成、定位与解释等不同类型。每一个都是团队视频推理基准套件里的正式任务：有明确的任务定义、样本契约和独立的评审环节。
 
-| 任务 | 模态 | 任务名 | 要求模型做什么 | Gate B | Gate C |
-| --- | --- | --- | --- | --- | --- |
-| 275 | 视频到视频 | action_conditioned_bimanual_manipulation_video_continuation | 双手动作之后，续写真实发生的那一段 | 通过 | 通过 |
-| 278 | 视频到视频 | action_conditioned_gameplay_stutter_repair | 按操作序列修掉画面里的卡顿 | 通过 | 通过 |
-| 331 | 视频到视频 | robot_tool_target_semantic_role_highlighting | 在第一视角里标出工具和目标物的角色 | 通过 | 通过 |
-| 334 | 视频到视频 | prompt_guided_single_view_multishot_recinematography | 按文字指令重排同一视角下的多个镜头 | 通过 | 通过 |
-| 428 | 视频到视频 | same_time_background_and_scenery_replacement | 保持时间一致，换掉背景和场景 | 通过 | 通过 |
-| 552 | 视频到视频 | street_scene_city_option_selection | 街道场景里选出对应的城市选项 | 通过 | 通过 |
-| 654 | 视频到视频 | gps_coordinate_conditioned_rotating_globe_marking | 按 GPS 坐标在旋转的地球上做标记 | 通过 | 通过 |
-| 390 | 视频到视频 | relation_constrained_multi_object_scene_completion | 按物体之间的关系约束补全场景 | 通过 | 未完成 |
-| 429 | 视频到视频 | post_handoff_recipient_action_rollout | 交接之后接收方该有的动作 | 通过 | 未完成 |
-| 480 | 视频到视频 | cave_video_commonsense_anomaly_localization | 洞穴视频里定位常识性异常 | 通过 | 未完成 |
-| 481 | 视频到视频 | gameplay_commonsense_error_localization_and_explanation | 定位并解释画面里的常识错误 | 通过 | 未完成（复核中） |
-| 483 | 视频到视频 | egocentric_hand_motion_phase_panel_visualization | 第一人称手部动作的相位面板 | 通过 | 未开始 |
-| 328 | 参考到视频 | bimanual_manipulation_process_panel | 借助参考素材还原双手操作的过程 | 通过 | 通过 |
-| 391 | 参考到视频 | language_grounded_multi_object_grasp_video_generation | 用语言指定的多物体抓取，生成对应视频 | 通过 | 通过 |
-| 479 | 参考到视频 | reference_guided_progressive_makeup_transfer | 参考引导的渐进式妆容迁移 | 通过 | 通过 |
-| 551 | 参考到视频 | reference_guided_ego_action_skill_comparison | 参考引导的第一人称动作技能对比 | 通过 | 未完成 |
+| 任务 | 模态 | 任务名 | 要求模型做什么 |
+| --- | --- | --- | --- |
+| 275 | 视频到视频 | action_conditioned_bimanual_manipulation_video_continuation | 双手动作之后，续写真实发生的那一段 |
+| 278 | 视频到视频 | action_conditioned_gameplay_stutter_repair | 按操作序列修掉画面里的卡顿 |
+| 331 | 视频到视频 | robot_tool_target_semantic_role_highlighting | 在第一视角里标出工具和目标物的角色 |
+| 334 | 视频到视频 | prompt_guided_single_view_multishot_recinematography | 按文字指令重排同一视角下的多个镜头 |
+| 428 | 视频到视频 | same_time_background_and_scenery_replacement | 保持时间一致，换掉背景和场景 |
+| 552 | 视频到视频 | street_scene_city_option_selection | 街道场景里选出对应的城市选项 |
+| 654 | 视频到视频 | gps_coordinate_conditioned_rotating_globe_marking | 按 GPS 坐标在旋转的地球上做标记 |
+| 390 | 视频到视频 | relation_constrained_multi_object_scene_completion | 按物体之间的关系约束补全场景 |
+| 429 | 视频到视频 | post_handoff_recipient_action_rollout | 交接之后接收方该有的动作 |
+| 480 | 视频到视频 | cave_video_commonsense_anomaly_localization | 洞穴视频里定位常识性异常 |
+| 481 | 视频到视频 | gameplay_commonsense_error_localization_and_explanation | 定位并解释画面里的常识错误 |
+| 483 | 视频到视频 | egocentric_hand_motion_phase_panel_visualization | 第一人称手部动作的相位面板 |
+| 328 | 参考到视频 | bimanual_manipulation_process_panel | 借助参考素材还原双手操作的过程 |
+| 391 | 参考到视频 | language_grounded_multi_object_grasp_video_generation | 用语言指定的多物体抓取，生成对应视频 |
+| 479 | 参考到视频 | reference_guided_progressive_makeup_transfer | 参考引导的渐进式妆容迁移 |
+| 551 | 参考到视频 | reference_guided_ego_action_skill_comparison | 参考引导的第一人称动作技能对比 |
 
-有几个状态要写清楚：
-
-- **481** 的 Gate C 判过一次 FAIL，原因是输入过暗、目标运镜弱于输入；随后按"亮度与运镜必须可筛选、不能临时拼凑"的标准重做，所以它现在是"闸门 B 通过、闸门 C 未完成"，不是"闸门 C 通过"。
-- **390** 的闸门 C 试了四版都没有合并，任务留在未提升状态；闸门 B 的结论仍然是有效的。
-- **554**（和 654 同源的一个早期任务）不在这张表里：它的闸门 B 页面当时发布在个人域名下，不符合正式闸门的发布要求，因此不能算作有效的 Gate B 通过，只能算一次被撤回的尝试。
-- **326** 也不在：它的闸门 B 判的是 FAIL，属于失败记录，不是通过。
-
-十六个任务里，样本字节都在团队的对象存储里，第三方数据集的画面不适合放到公开网页上。这一篇能公开的是方法、流程和上面的状态表。
+每个任务都可以直接看：输入视频、目标视频和那条定义任务的提示词放在另一页——[视频推理任务样本](/v2v-task-samples/)——一条一个任务，逐条标注来源数据集与授权。
 
 ## 四、确定性的两个层次
 
@@ -142,4 +135,4 @@ TV2V 的样本是四个文件，RV2V 多一组参考素材，后者的工程量�
 
 ## 关于这篇
 
-两套仓库和它们的证据都在团队的内部空间里，视频字节本身是第三方数据集的内容，不适合放在公开网页上，所以这篇只展示契约、流程和可公开的量级数字。反事实物理视频那一篇是另一件事：那些画面是我自己的生成器渲出来的，可以直接看。
+两套仓库和它们的证据都在团队的内部空间里，所以这篇讲的是契约、流程和可公开的量级数字。样本本身另有一页：[视频推理任务样本](/v2v-task-samples/)，每个任务一条，逐条标注来源数据集与授权。反事实物理视频那一篇是另一件事：那些画面是我自己的生成器渲出来的，可以直接看。
