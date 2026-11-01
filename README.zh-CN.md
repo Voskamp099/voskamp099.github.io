@@ -83,9 +83,11 @@ npm run dev
 
 - 清单放在 content/v2v-task-samples.json 和 content/counterfactual-samples.json，由 scripts/build.mjs
   渲染。每条有 id、名称、模态或现象标识、中英文一句话说明、来源数据集、授权和引用方式。
-- 样本分页面放，每一页都有自己的目录：/sample-of-work/ 放视频推理任务，/counterfactual-samples/
-  放反事实生成器，/sample-of-work/task-480/ 放 480 号任务的附录。一个任务值得多条样本时，单独
-  给它一页附录，并在条目上留链接。
+- /sample-of-work/ 是目录，不是一页很长的清单。目录行的排版跟 writing 那节的列表一样：左边一个编号，
+  一个胶囊标签，一个标题，一行说明，然后跳出去。每条样本点进去是它自己的一页：任务
+  /sample-of-work/task-<编号>/，反事实生成器 /sample-of-work/generator-<标识>/，480 号任务的附录
+  /sample-of-work/appendix-task-480/。
+- 目录页上要直接看得到生成器那一节；只给一个跳转链接的不算一节。
 - 两种模态对读者写全称：Video to Video 与 Reference Video to Video，缩写不出现在读者可见的正文里。
 - 每条都要有中文任务名和中文提示词，跟英文版并排，因为读者先看中文页。
 - 任务条目给出输入视频、目标视频和提示词；参考视频到视频的任务另外给出参考素材，参考素材单独占一
