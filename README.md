@@ -132,6 +132,18 @@ generator, so it can be shared on its own.
 - Sources that restrict redistribution, stock footage without a recorded clearance, and sources whose
   licence is not recorded are not published as frames.
 
+## Design and templates
+
+- The site's colours live in the CSS custom properties at the top of assets/site.css. A new template means new
+  values for those properties plus the handful of component rules that carry the template's character
+  (corner radius, borders, top bar).
+- Before a template is published it is built locally and looked at as a whole site, not as one page. The
+  preview lives outside the repository and is served over http://127.0.0.1:4177/.
+- Each template gets its own copy of the built site with the template stylesheet linked last, so the
+  comparison is the real pages in a new palette.
+- Colour and arrangement are reviewed separately: the palette first, then the layout. Changing the layout
+  does not carry a new palette along with it.
+
 ## What a research write-up contains
 
 - One real sample per generator or per task, not a description of the idea.
