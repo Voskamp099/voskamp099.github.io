@@ -1,0 +1,25 @@
+{
+  "slug": "codex-cli-one-workspace-per-project",
+  "date": "2026-11-01",
+  "categories": [
+    "ai"
+  ],
+  "tags": [
+    "ai",
+    "ai-collaboration",
+    "automation",
+    "project-log"
+  ],
+  "title": {
+    "zh": "Codex CLI：一个项目一个工作区",
+    "en": "Codex CLI: one workspace per project"
+  },
+  "summary": {
+    "zh": "把每个项目目录当成一个独立工作区：目录内可写、目录外只读、审批不回弹，再按仓库拆分 GitHub 身份。记录这套配置怎么搭、实测结果和五个坑。",
+    "en": "Every project folder becomes its own workspace: writable inside, read-only outside, no approval prompt ever comes back, and the GitHub identity split per repository. How the setup is built, what it measured, and the five things that bit back."
+  },
+  "body": {
+    "zh": "codex-cli-one-workspace-per-project.zh.md",
+    "en": "codex-cli-one-workspace-per-project.en.md"
+  }
+}
