@@ -6,7 +6,7 @@ The two clips are pixel-identical until the violation starts. So the only differ
 
 The second clip also carries a pixel-level mask that says where the violating object is and from which frame the violation becomes visible. Plus a pair of prompts: two ways of describing the same scene, one of which obeys the physics and one of which does not.
 
-This post is about how that data is produced, and about the twenty-nine generators I wrote, each with a real sample.
+This post is about how that data is produced, and about the thirty generators I wrote, each with a real sample.
 
 ### Three clips first
 
@@ -92,7 +92,7 @@ The physics can be right and the frame still be worthless. Everything in this se
 
 ## 6. The gallery
 
-Below are twenty-nine real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip.
+Below are thirty real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip.
 
 ### A side-release buckle that unlocks under a sideways pull
 
@@ -133,6 +133,14 @@ A flat paper card and an equally pleated card carry the same small weight. The p
 ![A pleated paper bridge that loses its bending stiffness: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr684-accordion.jpg)
 
 *Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `accordion_paper_bridge_section_rigidity_failure`. *
+
+### An electroscope shielded by a grounded mesh cage
+
+A charged rod approaches two leaf electroscopes, one inside a grounded fine mesh cage. In the true clip the outside leaves spread while the shielded inside leaves stay closed; in the counterfactual the shielding fails and the inside leaves spread as well.
+
+![An electroscope shielded by a grounded mesh cage: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr685-faraday.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `grounded_faraday_cage_electroscope_shielding_failure`. *
 
 ### A claw that closes before it reaches the doll
 
