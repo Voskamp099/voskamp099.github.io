@@ -8,27 +8,27 @@ The second clip also carries a pixel-level mask that says where the violating ob
 
 This post is about how that data is produced, and about the thirty-two generators I wrote, each with a real sample.
 
-### Three clips first
+### One case, four streams
 
-True on the left, counterfactual on the right. All three are the delivered streams, not screen grabs.
+Every case ships four streams: the true clip, the counterfactual clip, the formal binary mask, and the QA overlay that marks the region the generator changed. Here they are in one row, in the order they are delivered, taken from the versions merged into main.
 
-**A needle that floats / a needle that sinks**
+**A side-release buckle that unlocks under a sideways pull**
 
-%%VIDEO:/assets/research/counterfactual/pr753-needle-true.mp4|/assets/research/counterfactual/pr753-needle-counterfactual.mp4%%
+%%PANELS:/assets/generator-samples/pr680-buckle-true.mp4|/assets/generator-samples/pr680-buckle-counterfactual.mp4|/assets/generator-samples/pr680-buckle-mask.mp4|/assets/generator-samples/pr680-buckle-overlay.mp4%%
 
-Surface tension holds the needle in the true clip. In the counterfactual nothing holds it and it sinks through the surface to the bottom of the tank.
+Two halves of a nylon belt buckle seat and latch. In the true clip a sideways pull cannot separate them; in the counterfactual the lock never takes and the halves slide apart under the same pull.
 
-**A claw that lifts the doll / an empty claw rising**
+**A cotton strip that suddenly loses its axial stiffness**
 
-%%VIDEO:/assets/research/counterfactual/pr686-claw-true.mp4|/assets/research/counterfactual/pr686-claw-counterfactual.mp4%%
+%%PANELS:/assets/generator-samples/pr683-cotton-true.mp4|/assets/generator-samples/pr683-cotton-counterfactual.mp4|/assets/generator-samples/pr683-cotton-mask.mp4|/assets/generator-samples/pr683-cotton-overlay.mp4%%
 
-The claw pauses above the doll, closes and lifts it clear of the platform. In the counterfactual the grab cycle fires early and the jaws shut in the air, so the doll stays where it was.
+A tensile frame slowly pulls a low-extension woven cotton strip. The true clip shows a small extension; the counterfactual shows the strip losing most of its axial stiffness, stretching far further and narrowing in the middle.
 
-**A balloon on the wall / a balloon on the floor**
+**A page block that shears backwards under the press**
 
-%%VIDEO:/assets/research/counterfactual/pr764-balloon-true.mp4|/assets/research/counterfactual/pr764-balloon-counterfactual.mp4%%
+%%PANELS:/assets/generator-samples/pr689-book-true.mp4|/assets/generator-samples/pr689-book-counterfactual.mp4|/assets/generator-samples/pr689-book-mask.mp4|/assets/generator-samples/pr689-book-overlay.mp4%%
 
-A draught only rocks the balloon and the static charge keeps it on the wall. In the counterfactual the dry air strips the charge, the balloon lets go and falls the height of the wall.
+A motor-driven pad presses the outer edge of a clamped book. The page block shears away from the spine in the true clip; in the counterfactual the page block and the top cover shear back toward the spine, against the press.
 
 ## 1. One generator, one phenomenon
 
@@ -92,7 +92,7 @@ The physics can be right and the frame still be worthless. Everything in this se
 
 ## 6. The gallery
 
-Below are thirty-two real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip. The same thirty-two generators are also on the [sample of work page](/sample-of-work/), where the true clip and the counterfactual clip play side by side.
+Below are thirty-two real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip. The same thirty-two generators are also on the [sample of work page](/sample-of-work/); where a generator has the full four-stream delivery, the same four clips play in one row there.
 
 ### A feather that loses its air drag
 
@@ -180,7 +180,7 @@ A nickel pendulum tab is heated past the Curie point of roughly 354 °C while it
 
 ![A nickel tab that stays magnetised past the Curie point: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr688-curie.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `counterfactual_high_temperature_ferromagnetic_retention`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `curie_pendulum_high_temperature_attraction_persistence`. *
 
 ### A page block that shears backwards under the press
 

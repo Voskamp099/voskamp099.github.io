@@ -8,27 +8,27 @@
 
 这一篇写的是这套数据的生产方法，以及我做的 32 个生成器，每个配一条真实样本。
 
-### 先看三段
+### 一条样本，四路
 
-左边是真值，右边是反事实。三段都是正式交付的那一路，不是截图。
+每个样本交付四路：真值、反事实、正式二值掩膜，以及标出生成器改动区域的 QA 叠加层。下面按交付顺序排成一行，取的是合入 main 的那一版。
 
-**钢针浮在水面 / 钢针沉到缸底**
+**插扣扣合之后横向拉不动**
 
-%%VIDEO:/assets/research/counterfactual/pr753-needle-true.mp4|/assets/research/counterfactual/pr753-needle-counterfactual.mp4%%
+%%PANELS:/assets/generator-samples/pr680-buckle-true.mp4|/assets/generator-samples/pr680-buckle-counterfactual.mp4|/assets/generator-samples/pr680-buckle-mask.mp4|/assets/generator-samples/pr680-buckle-overlay.mp4%%
 
-真值里表面张力托住那根钢针，它一直浮着；反事实里没有东西托住它，针直接穿过水面沉到缸底。
+尼龙腰带两半先扣合。真值里随后横向一拉，两半保持扣住；反事实里锁止没有生效，同样的拉力就把两半错开脱开。
 
-**爪机夹起娃娃 / 空爪升起**
+**棉条突然失去轴向刚度**
 
-%%VIDEO:/assets/research/counterfactual/pr686-claw-true.mp4|/assets/research/counterfactual/pr686-claw-counterfactual.mp4%%
+%%PANELS:/assets/generator-samples/pr683-cotton-true.mp4|/assets/generator-samples/pr683-cotton-counterfactual.mp4|/assets/generator-samples/pr683-cotton-mask.mp4|/assets/generator-samples/pr683-cotton-overlay.mp4%%
 
-真值里爪在娃娃上方停住、合拢、把它夹离台面；反事实里抓取循环提前触发，爪在空中合拢，娃娃整段留在台面上。
+拉伸机慢慢拉一条低延伸的机织棉条。真值里只拉长一点点；反事实里棉条丢掉了大部分轴向刚度，拉得更长，中段也变细。
 
-**气球贴在墙上 / 气球掉到地上**
+**书页受压却朝书脊方向错动**
 
-%%VIDEO:/assets/research/counterfactual/pr764-balloon-true.mp4|/assets/research/counterfactual/pr764-balloon-counterfactual.mp4%%
+%%PANELS:/assets/generator-samples/pr689-book-true.mp4|/assets/generator-samples/pr689-book-counterfactual.mp4|/assets/generator-samples/pr689-book-mask.mp4|/assets/generator-samples/pr689-book-overlay.mp4%%
 
-真值里过堂风只让气球晃两下，静电仍然吸着它；反事实里干风剥走了电荷，气球脱开、被吹着沉下去，最后落在地板上。
+电机压垫压住夹紧书本的外缘。真值里书页朝远离书脊的方向错动；反事实里书页与封面朝书脊方向错动，和压的方向正好相反。
 
 ## 一、一个生成器只讲一个现象
 
@@ -92,7 +92,7 @@
 
 ## 六、样本馆
 
-下面 32 条，每条一个生成器、一条真实样本。每个样本四栏：真值、反事实、正式二值掩膜、红色 QA 叠加层。上排是第一帧能证明违例的画面，下排是片段最后一帧。同样这 32 个生成器也在[作品样本页](/sample-of-work/)，那里真值与反事实两条片子并排播放。
+下面 32 条，每条一个生成器、一条真实样本。每个样本四栏：真值、反事实、正式二值掩膜、红色 QA 叠加层。上排是第一帧能证明违例的画面，下排是片段最后一帧。同样这 32 个生成器也在[作品样本页](/sample-of-work/)；交付了完整四路的生成器，在那一页也是四路并排播放。
 
 ### 羽毛的空气阻力被去掉
 
@@ -180,7 +180,7 @@
 
 ![镍摆片过了居里点仍然吸住磁铁：真值 / 反事实 / 正式二值掩膜 / 红色叠加层](/assets/research/counterfactual/pr688-curie.jpg)
 
-*上排：第一帧能证明违例的画面；下排：片段最后一帧。现象标识 `counterfactual_high_temperature_ferromagnetic_retention`。*
+*上排：第一帧能证明违例的画面；下排：片段最后一帧。现象标识 `curie_pendulum_high_temperature_attraction_persistence`。*
 
 ### 书页受压却朝书脊方向错动
 

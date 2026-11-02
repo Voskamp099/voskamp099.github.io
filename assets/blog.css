@@ -173,6 +173,11 @@ html.theme-dark .project-glyph{background:#0b0b0d; border:1px solid var(--line)}
 .article-body img { max-width:100%; height:auto; border-radius:12px; }
 .article-body .video-row { display:flex; gap:14px; flex-wrap:wrap; margin:22px 0 10px; }
 .article-body .video-row video { width:100%; max-width:340px; border-radius:12px; background:#000; }
+/* The four delivered streams of one case, in one row inside an article. */
+.article-body .panel-row { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:12px; margin:22px 0 10px; }
+.article-body .panel-cell { margin:0; min-width:0; }
+.article-body .panel-cell video { width:100%; height:200px; object-fit:contain; border-radius:12px; background:#000; display:block; }
+.article-body .panel-cell figcaption { font:11px var(--mono); color:var(--muted); letter-spacing:.05em; margin-top:7px; }
 .article-body h3 + p + .video-row { margin-top:8px; }
 .article-body hr { border:none; border-top:1px solid var(--line); margin:35px 0; }
 .article-end { border-top:1px solid var(--line); padding-top:24px; margin-top:38px; }
@@ -259,6 +264,11 @@ main > .sample-directory { margin-top:26px; }
 .sample-meta { font:12px/1.8 var(--mono); color:var(--muted); margin:14px 0 0; }
 .sample-media { margin:22px 0 0; }
 .sample-row { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:0 0 16px; }
+/* The delivered four-stream set of one case, in one row: true, counterfactual,
+   formal binary mask, QA overlay. Four columns of equal width so the panels
+   read as one strip. */
+.sample-row--quad { grid-template-columns:repeat(4, minmax(0, 1fr)); gap:14px; }
+.sample-row--quad .sample-figure video { height:210px; }
 .sample-row:last-child { margin-bottom:0; }
 .sample-row--reference .sample-figure { grid-column:1; }
 .sample-figure { margin:0; min-width:0; }
@@ -281,8 +291,14 @@ main > .sample-directory { margin-top:26px; }
 @media(max-width:980px) {
   .sample-toc { grid-template-columns:1fr 1fr; }
 }
+@media(max-width:980px) {
+  .sample-row--quad { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .article-body .panel-row { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+}
 @media(max-width:780px) {
   .sample-row { grid-template-columns:1fr; }
+  .sample-row--quad { grid-template-columns:1fr; }
+  .article-body .panel-row { grid-template-columns:1fr; }
   .sample-figure video { height:auto; }
   .sample-directory .article-card { grid-template-columns:64px minmax(0,1fr) 18px; gap:12px; padding:18px 16px 18px 22px; }
   .sample-directory .article-card::before { left:7px; }

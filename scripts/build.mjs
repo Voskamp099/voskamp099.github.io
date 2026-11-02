@@ -29,6 +29,12 @@ const categoryLabel = id => CATEGORY_LABELS[id] || null;
 // and is turned into a video row here.
 const videoRow = files => '<div class="video-row">' + files.map(file =>
   '<video controls preload="metadata" playsinline muted src="/' + file.replace(/^\//, '') + '"></video>').join('') + '</div>';
+// The delivered set of one case: the true clip, the counterfactual clip, the
+// formal binary mask and the QA overlay, in one row. The caption of each
+// column is the same label the review page uses, in both languages.
+const panelRow = files => '<div class="panel-row">' + files.map((file, index) =>
+  '<figure class="panel-cell"><video controls preload="metadata" playsinline muted src="/' + file.replace(/^\//, '') + '"></video>'
+  + '<figcaption>' + [b('True', '真值'), b('Counterfactual', '反事实'), b('Formal Mask', '正式掩膜'), b('QA overlay', '审核叠加层')][index] + '</figcaption></figure>').join('') + '</div>';
 const files = (await fs.readdir('content/posts')).filter(file => file.endsWith('.json')).sort().reverse();
 const posts = await Promise.all(files.map(async file => {
   const post = JSON.parse(await fs.readFile(path.join('content/posts', file), 'utf8'));
@@ -38,7 +44,8 @@ const posts = await Promise.all(files.map(async file => {
     if (!post.title[language] || !post.summary[language]) throw new Error('Missing translation: ' + file);
     if (!/^[a-z0-9.-]+\.md$/.test(post.body[language])) throw new Error('Invalid body path');
     body[language] = md.render(await fs.readFile(path.join('content/posts', post.body[language]), 'utf8'))
-      .replace(/<p>%%VIDEO:([^<]+)%%<\/p>/g, (match, files) => videoRow(files.split('|').map(file => file.trim()).filter(Boolean)));
+      .replace(/<p>%%VIDEO:([^<]+)%%<\/p>/g, (match, files) => videoRow(files.split('|').map(file => file.trim()).filter(Boolean)))
+      .replace(/<p>%%PANELS:([^<]+)%%<\/p>/g, (match, files) => panelRow(files.split('|').map(file => file.trim()).filter(Boolean)));
   }
   const tags = post.tags.map(id => {
     const tag = tagById.get(id);
@@ -331,10 +338,20 @@ const taskPage = entry => {
 // and the QA overlay marking the region it changed, so the change can be
 // read directly instead of inferred by watching the two clips side by side.
 const generatorPage = entry => {
-  const media = '<div class="sample-media"><div class="sample-row sample-row--pair">'
-    + videoFigure(entry.media_files.true, entry.posters.true, b('True', '真值'))
-    + videoFigure(entry.media_files.counterfactual, entry.posters.counterfactual, b('Counterfactual', '反事实'))
-    + '</div></div>';
+  // A generator that reached main carries the delivered four-stream set, and
+  // the page shows all four in one row: the true clip, the counterfactual
+  // clip, the formal binary mask and the QA overlay.
+  const PANEL_LABELS = [b('True', '真值'), b('Counterfactual', '反事实'),
+    b('Formal Mask', '正式掩膜'), b('QA overlay', '审核叠加层')];
+  const panelStream = entry.panels && entry.media_files.mask && entry.media_files.overlay
+    ? '<div class="sample-row sample-row--quad">'
+      + entry.panels.map((panel, index) => videoFigure(entry.media_files[panel], entry.posters[panel], PANEL_LABELS[index])).join('')
+      + '</div>'
+    : '<div class="sample-row sample-row--pair">'
+      + videoFigure(entry.media_files.true, entry.posters.true, b('True', '真值'))
+      + videoFigure(entry.media_files.counterfactual, entry.posters.counterfactual, b('Counterfactual', '反事实'))
+      + '</div>';
+  const media = '<div class="sample-media">' + panelStream + '</div>';
   const panels = entry.figure
     ? '<figure class="sample-panels"><img src="/' + entry.figure.replace(/^\//, '') + '" alt="'
       + esc('Four panels for the same clip: the true frame, the counterfactual frame, the binary mask the generator applied, and the QA overlay marking the changed region.')

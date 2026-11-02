@@ -18,8 +18,8 @@ matter.
 | Path | What | Size |
 |---|---|---|
 | `assets/v2v-samples/` | OmniReason task clips (`<id>-input.mp4`, `-target.mp4`, plus `-reference.mp4` for the RV2V modality) and their poster frames | ~43 MB |
-| `assets/generator-samples/` | Counterfactual generator clips (`<id>-true.mp4`, `-counterfactual.mp4`) and posters | ~11 MB |
-| `assets/research/counterfactual/` | The four-panel figures: true, counterfactual, binary mask, QA overlay | ~1 MB |
+| `assets/generator-samples/` | Counterfactual generator clips (`<id>-true.mp4`, `-counterfactual.mp4`, plus `-mask.mp4` and `-overlay.mp4` for the generators that reached main) and posters | ~12 MB |
+| `assets/research/counterfactual/` | The static four-panel figures used by the article: true, counterfactual, binary mask, QA overlay | ~1 MB |
 | `assets/research/v2v/` | Diagrams used in the articles | <1 MB |
 
 `content/v2v-task-samples.json`, `content/counterfactual-samples.json` and
@@ -33,7 +33,7 @@ From GitHub's Pages documentation:
 
 | Limit | Value | Kind | Where we stand |
 |---|---|---|---|
-| Published site size | 1 GB | hard | 51 MB — 5% used |
+| Published site size | 1 GB | hard | 52 MB — 5% used |
 | Source repository size | 1 GB | recommended | 123 MB |
 | Bandwidth | 100 GB / month | soft | Needs ~2,000 full-site visits a month to hit it |
 | Builds | 10 / hour | soft | Not applicable, deployment runs on GitHub Actions |
@@ -44,6 +44,28 @@ but at this traffic level it would take thousands of visits a month to matter.
 
 **Site size is the constraint.** It is a hard limit, and every new batch of
 samples adds to it. This is the number to watch.
+
+## The four-stream set of a generator
+
+A generator that reached main ships four streams for one case: the true clip, the
+counterfactual clip, the formal binary mask and the QA overlay that marks the
+region the generator changed. The site shows all four in one row, in that order,
+and takes them from the version that was merged into main — the delivered
+artefact, not a working copy.
+
+Two things about that set are easy to get wrong, so they are written down here.
+
+**The names in the merged delivery are not always in the delivered order.** In the
+approved36 batches the file called `case_XX_counterfactual.mp4` holds the binary
+mask and the one called `case_XX_mask.mp4` holds the counterfactual clip. The
+panels on this site are taken from the review page of the merged head, which
+labels them correctly, and the mask panel is compared against the merged file
+byte for byte before it is published.
+
+**The mask panel has to stay binary.** It is encoded losslessly, so the label
+stays a strict black-and-white mask instead of picking up compression ringing.
+The overlay is the red-tinted copy from the same delivery, and it is the panel
+that makes the change readable without watching the two clips side by side.
 
 ## Keeping the size down
 

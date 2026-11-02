@@ -111,7 +111,10 @@ generator, so it can be shared on its own.
   task also shows its reference asset, on its own labelled row above the input and target pair.
 - Every clip on the page is rendered in the same box, so a reference asset and an input clip read as
   the same object and no frame is ever cropped.
-- A generator entry shows the true clip beside the counterfactual clip, plus the phenomenon id.
+- A generator that reached main carries the delivered four-stream set, and the page shows all four in
+  one row: True, Counterfactual, Formal Mask, QA overlay. The clips are the ones from the version
+  that was merged into main, so the page shows the delivered artefact and not a working copy. A
+  generator without that delivery keeps the true and counterfactual pair, plus the phenomenon id.
 - The page never states whether a task is finished, passed or pending.
 - Every task card carries its own "play together" control that starts that task's clips at once;
   the page keeps one "pause all" control above the entries.
@@ -126,6 +129,10 @@ generator, so it can be shared on its own.
   task definition only, and says so in one line.
 - Clips live under assets/v2v-samples/ (tasks) and assets/generator-samples/ (generators), H.264,
   yuv420p, faststart, no audio.
+- The four-stream set of a generator is named `<id>-true`, `<id>-counterfactual`, `<id>-mask` and
+  `<id>-overlay`, and the article shows the same four clips in one row when it uses a case. The mask
+  panel is encoded losslessly so it stays a strict black-and-white label, and the overlay is the
+  red-tinted copy from the same delivery.
 
 ### Licence rules
 
