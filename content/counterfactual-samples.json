@@ -13,12 +13,22 @@
     "figure": "/assets/research/counterfactual/case6a-feather.jpg",
     "media_files": {
       "true": "assets/generator-samples/case6a-feather-true.mp4",
-      "counterfactual": "assets/generator-samples/case6a-feather-counterfactual.mp4"
+      "counterfactual": "assets/generator-samples/case6a-feather-counterfactual.mp4",
+      "mask": "assets/generator-samples/case6a-feather-mask.mp4",
+      "overlay": "assets/generator-samples/case6a-feather-overlay.mp4"
     },
     "posters": {
       "true": "assets/generator-samples/case6a-feather-true.jpg",
-      "counterfactual": "assets/generator-samples/case6a-feather-counterfactual.jpg"
-    }
+      "counterfactual": "assets/generator-samples/case6a-feather-counterfactual.jpg",
+      "mask": "assets/generator-samples/case6a-feather-mask.jpg",
+      "overlay": "assets/generator-samples/case6a-feather-overlay.jpg"
+    },
+    "panels": [
+      "true",
+      "counterfactual",
+      "mask",
+      "overlay"
+    ]
   },
   {
     "id": "case6b-feather",
@@ -34,12 +44,22 @@
     "figure": "/assets/research/counterfactual/case6b-feather.jpg",
     "media_files": {
       "true": "assets/generator-samples/case6b-feather-true.mp4",
-      "counterfactual": "assets/generator-samples/case6b-feather-counterfactual.mp4"
+      "counterfactual": "assets/generator-samples/case6b-feather-counterfactual.mp4",
+      "mask": "assets/generator-samples/case6b-feather-mask.mp4",
+      "overlay": "assets/generator-samples/case6b-feather-overlay.mp4"
     },
     "posters": {
       "true": "assets/generator-samples/case6b-feather-true.jpg",
-      "counterfactual": "assets/generator-samples/case6b-feather-counterfactual.jpg"
-    }
+      "counterfactual": "assets/generator-samples/case6b-feather-counterfactual.jpg",
+      "mask": "assets/generator-samples/case6b-feather-mask.jpg",
+      "overlay": "assets/generator-samples/case6b-feather-overlay.jpg"
+    },
+    "panels": [
+      "true",
+      "counterfactual",
+      "mask",
+      "overlay"
+    ]
   },
   {
     "id": "pr680-buckle",
@@ -55,12 +75,22 @@
     "figure": "/assets/research/counterfactual/pr680-buckle.jpg",
     "media_files": {
       "true": "assets/generator-samples/pr680-buckle-true.mp4",
-      "counterfactual": "assets/generator-samples/pr680-buckle-counterfactual.mp4"
+      "counterfactual": "assets/generator-samples/pr680-buckle-counterfactual.mp4",
+      "mask": "assets/generator-samples/pr680-buckle-mask.mp4",
+      "overlay": "assets/generator-samples/pr680-buckle-overlay.mp4"
     },
     "posters": {
       "true": "assets/generator-samples/pr680-buckle-true.jpg",
-      "counterfactual": "assets/generator-samples/pr680-buckle-counterfactual.jpg"
-    }
+      "counterfactual": "assets/generator-samples/pr680-buckle-counterfactual.jpg",
+      "mask": "assets/generator-samples/pr680-buckle-mask.jpg",
+      "overlay": "assets/generator-samples/pr680-buckle-overlay.jpg"
+    },
+    "panels": [
+      "true",
+      "counterfactual",
+      "mask",
+      "overlay"
+    ]
   },
   {
     "id": "pr681-towel",
@@ -118,12 +148,22 @@
     "figure": "/assets/research/counterfactual/pr683-cotton.jpg",
     "media_files": {
       "true": "assets/generator-samples/pr683-cotton-true.mp4",
-      "counterfactual": "assets/generator-samples/pr683-cotton-counterfactual.mp4"
+      "counterfactual": "assets/generator-samples/pr683-cotton-counterfactual.mp4",
+      "mask": "assets/generator-samples/pr683-cotton-mask.mp4",
+      "overlay": "assets/generator-samples/pr683-cotton-overlay.mp4"
     },
     "posters": {
       "true": "assets/generator-samples/pr683-cotton-true.jpg",
-      "counterfactual": "assets/generator-samples/pr683-cotton-counterfactual.jpg"
-    }
+      "counterfactual": "assets/generator-samples/pr683-cotton-counterfactual.jpg",
+      "mask": "assets/generator-samples/pr683-cotton-mask.jpg",
+      "overlay": "assets/generator-samples/pr683-cotton-overlay.jpg"
+    },
+    "panels": [
+      "true",
+      "counterfactual",
+      "mask",
+      "overlay"
+    ]
   },
   {
     "id": "pr684-accordion",
@@ -160,12 +200,22 @@
     "figure": "/assets/research/counterfactual/pr685-faraday.jpg",
     "media_files": {
       "true": "assets/generator-samples/pr685-faraday-true.mp4",
-      "counterfactual": "assets/generator-samples/pr685-faraday-counterfactual.mp4"
+      "counterfactual": "assets/generator-samples/pr685-faraday-counterfactual.mp4",
+      "mask": "assets/generator-samples/pr685-faraday-mask.mp4",
+      "overlay": "assets/generator-samples/pr685-faraday-overlay.mp4"
     },
     "posters": {
       "true": "assets/generator-samples/pr685-faraday-true.jpg",
-      "counterfactual": "assets/generator-samples/pr685-faraday-counterfactual.jpg"
-    }
+      "counterfactual": "assets/generator-samples/pr685-faraday-counterfactual.jpg",
+      "mask": "assets/generator-samples/pr685-faraday-mask.jpg",
+      "overlay": "assets/generator-samples/pr685-faraday-overlay.jpg"
+    },
+    "panels": [
+      "true",
+      "counterfactual",
+      "mask",
+      "overlay"
+    ]
   },
   {
     "id": "pr686-claw",
@@ -221,16 +271,26 @@
       "en": "A nickel pendulum tab is heated past the Curie point of roughly 354 °C while it rests against a fixed magnet. In the true clip the attraction weakens until the tab separates and swings; in the counterfactual it wrongly keeps its strong ferromagnetic grip.",
       "zh": "一片镍摆片贴在固定磁铁上，正面的电阻加热器把它加热到超过约 354 °C 的居里点，旁边有高温计读数。真值里磁性变弱，摆片脱开磁铁、在重力下摆动。反事实里高温下错误地保持强铁磁性，摆片仍然贴在磁铁上。"
     },
-    "phenomenon": "counterfactual_high_temperature_ferromagnetic_retention",
+    "phenomenon": "curie_pendulum_high_temperature_attraction_persistence",
     "figure": "/assets/research/counterfactual/pr688-curie.jpg",
     "media_files": {
       "true": "assets/generator-samples/pr688-curie-true.mp4",
-      "counterfactual": "assets/generator-samples/pr688-curie-counterfactual.mp4"
+      "counterfactual": "assets/generator-samples/pr688-curie-counterfactual.mp4",
+      "mask": "assets/generator-samples/pr688-curie-mask.mp4",
+      "overlay": "assets/generator-samples/pr688-curie-overlay.mp4"
     },
     "posters": {
       "true": "assets/generator-samples/pr688-curie-true.jpg",
-      "counterfactual": "assets/generator-samples/pr688-curie-counterfactual.jpg"
-    }
+      "counterfactual": "assets/generator-samples/pr688-curie-counterfactual.jpg",
+      "mask": "assets/generator-samples/pr688-curie-mask.jpg",
+      "overlay": "assets/generator-samples/pr688-curie-overlay.jpg"
+    },
+    "panels": [
+      "true",
+      "counterfactual",
+      "mask",
+      "overlay"
+    ]
   },
   {
     "id": "pr689-book",
@@ -246,12 +306,22 @@
     "figure": "/assets/research/counterfactual/pr689-book.jpg",
     "media_files": {
       "true": "assets/generator-samples/pr689-book-true.mp4",
-      "counterfactual": "assets/generator-samples/pr689-book-counterfactual.mp4"
+      "counterfactual": "assets/generator-samples/pr689-book-counterfactual.mp4",
+      "mask": "assets/generator-samples/pr689-book-mask.mp4",
+      "overlay": "assets/generator-samples/pr689-book-overlay.mp4"
     },
     "posters": {
       "true": "assets/generator-samples/pr689-book-true.jpg",
-      "counterfactual": "assets/generator-samples/pr689-book-counterfactual.jpg"
-    }
+      "counterfactual": "assets/generator-samples/pr689-book-counterfactual.jpg",
+      "mask": "assets/generator-samples/pr689-book-mask.jpg",
+      "overlay": "assets/generator-samples/pr689-book-overlay.jpg"
+    },
+    "panels": [
+      "true",
+      "counterfactual",
+      "mask",
+      "overlay"
+    ]
   },
   {
     "id": "pr690-string",
@@ -267,12 +337,22 @@
     "figure": "/assets/research/counterfactual/pr690-string.jpg",
     "media_files": {
       "true": "assets/generator-samples/pr690-string-true.mp4",
-      "counterfactual": "assets/generator-samples/pr690-string-counterfactual.mp4"
+      "counterfactual": "assets/generator-samples/pr690-string-counterfactual.mp4",
+      "mask": "assets/generator-samples/pr690-string-mask.mp4",
+      "overlay": "assets/generator-samples/pr690-string-overlay.mp4"
     },
     "posters": {
       "true": "assets/generator-samples/pr690-string-true.jpg",
-      "counterfactual": "assets/generator-samples/pr690-string-counterfactual.jpg"
-    }
+      "counterfactual": "assets/generator-samples/pr690-string-counterfactual.jpg",
+      "mask": "assets/generator-samples/pr690-string-mask.jpg",
+      "overlay": "assets/generator-samples/pr690-string-overlay.jpg"
+    },
+    "panels": [
+      "true",
+      "counterfactual",
+      "mask",
+      "overlay"
+    ]
   },
   {
     "id": "pr691-ruler",
