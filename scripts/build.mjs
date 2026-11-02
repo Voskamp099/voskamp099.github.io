@@ -333,10 +333,10 @@ const taskPage = entry => {
     description: entry.description.zh, descriptionEn: entry.description.en, route: taskPath(entry), body: '<main id="main" class="wrap">' + head + '</main>' + playScript });
 };
 // One page per counterfactual generator.
-// The videos show the true clip and the counterfactual one. The four-panel
-// figure adds what the videos cannot: the binary mask the generator applied
-// and the QA overlay marking the region it changed, so the change can be
-// read directly instead of inferred by watching the two clips side by side.
+// One page per counterfactual generator.
+// The clips carry the whole delivery: the true one, the counterfactual one,
+// the formal binary mask and the QA overlay. They are all playable, so the
+// change can be read by watching rather than from a still.
 const generatorPage = entry => {
   // A generator that reached main carries the delivered four-stream set, and
   // the page shows all four in one row: the true clip, the counterfactual
@@ -352,16 +352,6 @@ const generatorPage = entry => {
       + videoFigure(entry.media_files.counterfactual, entry.posters.counterfactual, b('Counterfactual', '反事实'))
       + '</div>';
   const media = '<div class="sample-media">' + panelStream + '</div>';
-  const panels = entry.figure
-    ? '<figure class="sample-panels"><img src="/' + entry.figure.replace(/^\//, '') + '" alt="'
-      + esc('Four panels for the same clip: the true frame, the counterfactual frame, the binary mask the generator applied, and the QA overlay marking the changed region.')
-      + '" data-alt-en="'
-      + esc('Four panels for the same clip: the true frame, the counterfactual frame, the binary mask the generator applied, and the QA overlay marking the changed region.')
-      + '" data-alt-zh="' + esc('同一个片段的四格对照：真值画面、反事实画面、生成器施加的二值掩膜，以及标出变化区域的审核叠加层。')
-      + '" loading="lazy"><figcaption>'
-      + b('True · Counterfactual · Mask · QA overlay', '真值 · 反事实 · 掩膜 · 审核叠加层')
-      + '</figcaption></figure>'
-    : '';
   const head = '<header class="article-header"><a class="back" href="/sample-of-work/counterfactuals/#generator-' + entry.id + '">← '
     + b('Counterfactual generators', '反事实生成器') + '</a><div class="article-meta">' + b('Counterfactual generator', '反事实生成器')
     + '</div><h1>' + b(entry.title.en, entry.title.zh) + '</h1>'
@@ -372,7 +362,6 @@ const generatorPage = entry => {
     + '<button type="button" id="pauseAll" class="sample-button">' + b('Pause all', '全部暂停') + '</button></div>'
     + '<article class="sample-card generator-card" id="generator-' + entry.id + '">'
     + media
-    + panels
     + '<p class="sample-meta">' + b('Phenomenon: ', '现象标识：') + esc(entry.phenomenon) + '</p>'
     + '</article>'
     + '<div class="article-end"><a class="back" href="/sample-of-work/counterfactuals/">← ' + b('Back to the generators', '回到生成器列表') + '</a></div>';
