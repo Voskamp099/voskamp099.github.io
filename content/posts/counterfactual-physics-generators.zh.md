@@ -18,18 +18,6 @@
 
 尼龙腰带两半先扣合。真值里随后横向一拉，两半保持扣住；反事实里锁止没有生效，同样的拉力就把两半错开脱开。
 
-**棉条突然失去轴向刚度**
-
-%%PANELS:/assets/generator-samples/pr683-cotton-true.mp4|/assets/generator-samples/pr683-cotton-counterfactual.mp4|/assets/generator-samples/pr683-cotton-mask.mp4|/assets/generator-samples/pr683-cotton-overlay.mp4%%
-
-拉伸机慢慢拉一条低延伸的机织棉条。真值里只拉长一点点；反事实里棉条丢掉了大部分轴向刚度，拉得更长，中段也变细。
-
-**书页受压却朝书脊方向错动**
-
-%%PANELS:/assets/generator-samples/pr689-book-true.mp4|/assets/generator-samples/pr689-book-counterfactual.mp4|/assets/generator-samples/pr689-book-mask.mp4|/assets/generator-samples/pr689-book-overlay.mp4%%
-
-电机压垫压住夹紧书本的外缘。真值里书页朝远离书脊的方向错动；反事实里书页与封面朝书脊方向错动，和压的方向正好相反。
-
 ## 一、一个生成器只讲一个现象
 
 一个生成器 = 一个场景 + 一条被破坏的规律。球在墙上反弹（场景）配穿墙（规律），就是"穿墙"这一个现象；自由落体配"冻结"，就是"冻结"。场景和规律是两个独立零件，可以换着配。
