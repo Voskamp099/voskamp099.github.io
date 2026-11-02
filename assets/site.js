@@ -50,6 +50,12 @@
     for (const element of document.querySelectorAll('[data-tip-en][data-tip-zh]')) {
       element.setAttribute('title', element.dataset[language === 'zh' ? 'tipZh' : 'tipEn']);
     }
+    // An image alt is one string, so the Chinese wording ships alongside and
+    // is written in when the page is in Chinese.
+    for (const element of document.querySelectorAll('img[alt][data-alt-zh]')) {
+      if (!element.dataset.altEn) element.dataset.altEn = element.getAttribute('alt');
+      element.setAttribute('alt', language === 'zh' ? element.dataset.altZh : element.dataset.altEn);
+    }
     for (const element of document.querySelectorAll('meta[data-content-en][data-content-zh]')) {
       element.setAttribute('content', element.dataset[language === 'zh' ? 'contentZh' : 'contentEn']);
     }
