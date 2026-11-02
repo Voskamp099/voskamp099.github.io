@@ -19,6 +19,12 @@ for (const file of files) {
   if (!file.endsWith('.html')) continue;
   const isStaticPage = STATIC_PAGES.includes(path.relative(root, file));
   if (!isStaticPage && (!text.includes('lang="zh-CN"') || !text.includes('lang="en"'))) throw new Error('Missing bilingual markup in ' + file);
+  // Every page must offer both languages for its title and description, so the
+  // client can switch them without a page load.
+  if (!isStaticPage && (!text.includes('data-title-en=') || !text.includes('data-title-zh=')
+    || !text.includes('data-desc-en=') || !text.includes('data-desc-zh='))) {
+    throw new Error('Missing bilingual title/description pair in ' + file);
+  }
   for (const match of text.matchAll(/(?:href|src|poster)="([^"]+)"/g)) {
     const href = match[1];
     if (/^(https?:|mailto:|data:)/.test(href)) continue;
