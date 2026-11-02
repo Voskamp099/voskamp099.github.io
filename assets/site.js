@@ -72,3 +72,41 @@
   if (!['light', 'dark'].includes(theme)) theme = 'light';
   render();
 })();
+
+// ---- name card modal ----
+(() => {
+  const btn = document.getElementById('cardBtn');
+  const modal = document.getElementById('namecard');
+  if (!btn || !modal) return;
+  const closeBtn = modal.querySelector('#ncClose');
+  const backdrop = modal.querySelector('[data-nc-close]');
+  const saveBtn = document.getElementById('ncSave');
+  const vcard = [
+    'BEGIN:VCARD', 'VERSION:3.0',
+    'FN:Raelynn', 'N:Raelynn;;;;',
+    'TITLE:learning by making',
+    'URL:https://voskamp099.github.io/',
+    'URL:https://github.com/Voskamp099',
+    'NOTE:Notes on video-reasoning research, quant experiments, and building small tools with AI.',
+    'END:VCARD'
+  ].join('\r\n');
+  if (saveBtn) saveBtn.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+  let lastFocus = null;
+  const open = () => {
+    lastFocus = document.activeElement;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    closeBtn?.focus();
+  };
+  const close = () => {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    lastFocus?.focus();
+  };
+  btn.addEventListener('click', () => modal.classList.contains('open') ? close() : open());
+  closeBtn?.addEventListener('click', close);
+  backdrop?.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) close();
+  });
+})();

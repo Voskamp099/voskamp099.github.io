@@ -98,7 +98,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline:3px solid v
 .article-card .tags > span::before { content:"#"; opacity:.5; margin-right:1px; }
 
 /* keep pills only where there is room: project badge + article header */
-.project-feature .tags > span, .article-header .tags > span {
+.project-feature .tags > span, .project-secondary .tags > span, .article-header .tags > span {
   display:inline-block; padding:3px 11px; border:1px solid var(--pill-line); border-radius:999px;
   background:var(--pill-bg); color:var(--accent-2); line-height:1.55; white-space:nowrap; font:12px var(--mono);
 }
@@ -121,6 +121,22 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline:3px solid v
 .project-feature .meta span { border:1px solid var(--line); border-radius:6px; padding:3px 8px; }
 .project-feature .tags { margin:0; }
 .project-feature .section-link { display:inline-block; margin-top:20px; }
+.project-glyph{
+  width:100%; aspect-ratio:1/1; max-height:200px; border-radius:12px; background:var(--dark);
+  display:grid; place-items:center; color:var(--accent); font-size:40px; box-shadow:var(--shadow);
+}
+html.theme-dark .project-glyph{background:#0b0b0d; border:1px solid var(--line)}
+
+/* secondary project card — demoted, quieter than the feature */
+.project-secondary{
+  border:1px solid var(--line); border-radius:14px; background:var(--paper);
+  padding:20px 22px; box-shadow:var(--shadow); margin-top:16px;
+}
+.project-secondary .ps-head{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:8px}
+.project-secondary .tags{margin:0}
+.project-secondary h3{font:600 21px var(--display); margin:0}
+.project-secondary p{font-size:14.5px; color:var(--muted); margin:0 0 12px}
+.project-secondary .section-link{display:inline-block}
 
 /* ---------- about ---------- */
 .about-grid { display:grid; grid-template-columns:1.5fr .5fr; gap:48px; }
