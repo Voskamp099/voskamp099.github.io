@@ -118,9 +118,9 @@ const home = '<main id="main"><section class="hero"><div class="wrap hero-grid">
   + posts.length + ' 篇文章</p></div></section>'
   + '<section id="projects"><div class="wrap"><div class="kicker">02 — ' + b('Projects', '项目') + '</div><h2 class="sec">' + b('Things taking shape', '正在做的东西') + '</h2><p class="sec-sub">'
   + b('Where research meets small tools — I care more about how something behaves in daily use than its feature list.', '研究和小工具交汇的地方 —— 比起功能清单，我更在意它真正用起来的样子。') + '</p>'
-  + '<article class="project-feature"><div><div class="tags"><span>' + b('RESEARCH', '研究') + '</span><span>' + b('VIDEO REASONING', '视频推理') + '</span></div><h3>'
-  + b('Video reasoning & counterfactuals', '视频推理与反事实生成') + '</h3><p>'
-  + b('A growing catalogue of real video-reasoning samples and counterfactual generators. Every entry shows the videos, the prompt that defines the task, and its source licence.', '一个不断扩充的视频推理样本与反事实生成器目录。每条都附上视频、定义任务的提示词，以及来源许可。')
+  + '<article class="project-feature"><div><div class="tags"><span>' + b('RESEARCH', '研究') + '</span><span>' + b('OMNIREASON', 'OmniReason') + '</span></div><h3>'
+  + b('OmniReason', 'OmniReason') + '</h3><p>'
+  + b('Video-to-video reasoning research (V2V + RV2V), with a catalogue of counterfactual generators. Every entry shows the videos, the prompt that defines the task, and its source licence.', '视频到视频推理研究（V2V + RV2V），并附一个反事实生成器目录。每条都附上视频、定义任务的提示词，以及来源许可。')
   + '</p><div class="meta"><span>Video understanding</span><span>Counterfactuals</span><span>Datasets</span></div><a class="section-link" href="/sample-of-work/">'
   + b('Explore the catalogue →', '浏览样本目录 →') + '</a></div><figure><div class="project-glyph" aria-hidden="true">▶</div><figcaption>'
   + b('One real sample per task.', '每个任务一条真实样本。') + '</figcaption></figure></article>'
@@ -293,9 +293,8 @@ const tocRow = items => '<nav class="sample-toc">' + items.map(item =>
   '<a href="' + item.href + '"><span class="n">' + item.n + '</span><span class="t">' + item.en
   + '</span><span class="tz">' + item.zh + '</span></a>').join('') + '</nav>';
 const sampleToc = tocRow([
-  { n: '01', en: 'Video to Video', zh: '视频到视频', href: '#video-to-video' },
-  { n: '02', en: 'Reference Video to Video', zh: '参考视频到视频', href: '#reference-video-to-video' },
-  { n: '03', en: 'Counterfactual generators', zh: '反事实生成器', href: '#generators' },
+  { n: '01', en: 'OmniReason', zh: 'OmniReason', href: '#omni-reason' },
+  { n: '02', en: 'Counterfactual generators', zh: '反事实生成器', href: '#generators' },
   { n: 'A', en: 'Appendix — Task 480', zh: '附录——480 号任务', href: '/sample-of-work/appendix-task-480/' }
 ]);
 const directoryBody = '<main id="main" class="wrap"><header class="article-header"><a class="back" href="/#writing">← '
@@ -305,13 +304,11 @@ const directoryBody = '<main id="main" class="wrap"><header class="article-heade
   + '</h1><p class="article-deck">' + b('One real sample per task and per counterfactual generator. Every entry opens on its own page: the videos, the prompt that defines the task, the source dataset and the licence.',
       '每个任务、每个反事实生成器一条真实样本。点开任何一条都是它自己的一页：视频、定义任务的提示词、来源数据集与授权。')
   + '</p></header>' + sampleToc
-  + '<section id="video-to-video" class="sample-section"><div class="kicker">01 — ' + b('Video to Video', '视频到视频') + '</div>'
-  + '<h2 class="sec">' + b('One sample per task', '每个任务一条样本') + '</h2>'
-  + '<div class="sample-directory">' + v2vTasks.map(taskDirectoryRow).join('') + '</div></section>'
-  + '<section id="reference-video-to-video" class="sample-section"><div class="kicker">02 — ' + b('Reference Video to Video', '参考视频到视频') + '</div>'
-  + '<h2 class="sec">' + b('One sample per task', '每个任务一条样本') + '</h2>'
-  + '<div class="sample-directory">' + rv2vTasks.map(taskDirectoryRow).join('') + '</div></section>'
-  + '<section id="generators" class="sample-section"><div class="kicker">03 — ' + b('Counterfactual generators', '反事实生成器') + '</div>'
+  + '<section id="omni-reason" class="sample-section"><div class="kicker">01 — ' + b('OmniReason', 'OmniReason') + '</div>'
+  + '<h2 class="sec">' + b('Video reasoning samples', '视频推理样本') + '</h2>'
+  + '<p class="sec-sub">' + b('Video-to-video reasoning: each task carries an input, a target, and the prompt that defines it. Two modalities — Video to Video and Reference Video to Video.', '视频到视频推理：每个任务都带输入、目标，以及定义它的提示词。两种模态——视频到视频与参考视频到视频。') + '</p>'
+  + '<div class="sample-directory">' + v2vTasks.map(taskDirectoryRow).join('') + rv2vTasks.map(taskDirectoryRow).join('') + '</div></section>'
+  + '<section id="generators" class="sample-section"><div class="kicker">02 — ' + b('Counterfactual generators', '反事实生成器') + '</div>'
   + '<h2 class="sec">' + b('One sample per generator', '每个生成器一条样本') + '</h2>'
   + '<div class="sample-directory">' + generatorEntries.map(generatorDirectoryRow).join('') + '</div></section>'
   + '<section id="appendix" class="sample-section"><div class="kicker">A — ' + b('Appendix', '附录') + '</div>'
