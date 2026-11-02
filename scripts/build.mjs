@@ -349,10 +349,12 @@ const generatorPage = entry => {
 };
 // The directory rows are the same list as the writing section: a code on the
 // left, a chip, a title, one line of description, and a chip row.
-const directoryRow = (href, id, lead, kind, title, description, chip, cat = '') => '<a class="article-card" href="' + href + '" id="' + id + (cat ? '" data-categories="' + cat + '"' : '') + '">'
+// chip is either plain text (a slug, escaped here) or ready-made HTML (a
+// bilingual pair), so callers pass { raw: true } for the latter.
+const directoryRow = (href, id, lead, kind, title, description, chip, cat = '', raw = false) => '<a class="article-card" href="' + href + '" id="' + id + (cat ? '" data-categories="' + cat + '"' : '') + '">'
   + '<span class="lead">' + esc(lead) + '</span><div><span class="kind">' + kind + '</span>'
   + '<h3>' + title + '</h3><p>' + description + '</p>'
-  + '<div class="tags"><span>' + esc(chip) + '</span></div></div>'
+  + '<div class="tags"><span>' + (raw ? chip : esc(chip)) + '</span></div></div>'
   + '<span class="arrow" aria-hidden="true">↗</span></a>';
 const taskDirectoryRow = entry => directoryRow(taskPath(entry), 'task-' + entry.id, entry.id,
   MODALITY[entry.modality], b(entry.title_en, entry.name_zh), b(entry.description.en, entry.description.zh), entry.name, entry.modality);
@@ -363,14 +365,28 @@ const v2vTasks = sampleEntries.filter(entry => entry.modality === 'v2v');
 const rv2vTasks = sampleEntries.filter(entry => entry.modality === 'rv2v');
 // The catalogue is a table of contents, not a long scroll: the index lists the
 // three collections, and each collection opens on a page of its own.
-const tocRow = items => '<nav class="sample-toc">' + items.map(item =>
-  '<a href="' + item.href + '"><span class="n">' + item.n + '</span><span class="t">'
-  + b(item.en, item.zh) + '</span>' + (item.count ? '<span class="c">' + item.count + '</span>' : '') + '</a>').join('') + '</nav>';
-const sampleToc = tocRow([
-  { n: '01', en: 'OmniReason', zh: 'OmniReason', href: '/sample-of-work/omni-reason/', count: sampleEntries.length },
-  { n: '02', en: 'Counterfactual generators', zh: '反事实生成器', href: '/sample-of-work/counterfactuals/', count: generatorEntries.length },
-  { n: 'A', en: 'Appendix — Task 480', zh: '附录——480 号任务', href: '/sample-of-work/appendix-task-480/', count: appendix480.samples.length }
-]);
+// The collections are listed the same way the entries inside them are: one
+// card per row, stacked vertically. A horizontal strip of three tiles reads
+// like a banner rather than like a directory.
+const collectionRow = (href, id, lead, kind, title, description, chip, cat, count) => directoryRow(href, id, lead, kind, title, description, chip, cat, true)
+  .replace('</div></div><span class="arrow"', '<span class="count">' + count + '</span></div></div><span class="arrow"');
+const sampleToc = '<div class="sample-directory">'
+  + collectionRow('/sample-of-work/omni-reason/', 'collection-omni-reason', '01',
+      b('Video reasoning', '视频推理'), b('OmniReason', 'OmniReason'),
+      b('Video-to-video reasoning tasks. Each task carries an input, a target, and the prompt that defines it, in two modalities: Video to Video and Reference Video to Video.',
+        '视频到视频推理任务。每个任务都带输入、目标，以及定义它的提示词，分两种模态：视频到视频与参考视频到视频。'),
+      esc('v2v · rv2v'), 'research', sampleEntries.length + ' ' + b('tasks', '个任务'))
+  + collectionRow('/sample-of-work/counterfactuals/', 'collection-counterfactuals', '02',
+      b('Counterfactual', '反事实'), b('Counterfactual generators', '反事实生成器'),
+      b('One sample per generator: the true clip beside the counterfactual one, so the change the generator introduces is visible at a glance.',
+        '每个生成器一条样本：真值片段与反事实片段并排，让生成器引入的变化一眼可见。'),
+      b('Counterfactual', '反事实'), 'counterfactual', generatorEntries.length + ' ' + b('generators', '个生成器'))
+  + collectionRow('/sample-of-work/appendix-task-480/', 'collection-appendix', 'A',
+      b('Appendix', '附录'), b('Appendix — Task 480', '附录——480 号任务'),
+      b('Eight samples of one task, from eight different source frames, side by side.',
+        '同一个任务的八条样本，来自八个不同的源画面，并排比较。'),
+      esc('cave_video_commonsense_anomaly_localization'), 'appendix', appendix480.samples.length + ' ' + b('samples', '条样本'))
+  + '</div>';
 const directoryBody = '<main id="main" class="wrap"><header class="article-header"><a class="back" href="/#writing">← '
   + b('All notes', '全部文章') + '</a><div class="article-meta">' + b('Sample directory', '样本目录') + ' · '
   + sampleEntries.length + ' ' + b('tasks', '个任务') + ' · ' + generatorEntries.length + ' '
