@@ -256,16 +256,16 @@ const generatorPage = entry => {
 };
 // The directory rows are the same list as the writing section: a code on the
 // left, a chip, a title, one line of description, and a chip row.
-const directoryRow = (href, id, lead, kind, title, description, chip) => '<a class="article-card" href="' + href + '" id="' + id + '">'
+const directoryRow = (href, id, lead, kind, title, description, chip, cat = '') => '<a class="article-card" href="' + href + '" id="' + id + (cat ? '" data-categories="' + cat + '"' : '') + '">'
   + '<span class="lead">' + esc(lead) + '</span><div><span class="kind">' + kind + '</span>'
   + '<h3>' + title + '</h3><p>' + description + '</p>'
   + '<div class="tags"><span>' + esc(chip) + '</span></div></div>'
   + '<span class="arrow" aria-hidden="true">↗</span></a>';
 const taskDirectoryRow = entry => directoryRow(taskPath(entry), 'task-' + entry.id, entry.id,
-  MODALITY[entry.modality], b(entry.title_en, entry.name_zh), b(entry.description.en, entry.description.zh), entry.name);
+  MODALITY[entry.modality], b(entry.title_en, entry.name_zh), b(entry.description.en, entry.description.zh), entry.name, entry.modality);
 const generatorDirectoryRow = entry => directoryRow(generatorPath(entry), 'generator-' + entry.id,
   entry.id.replace(/^case/, ''), b('Counterfactual generator', '反事实生成器'),
-  b(entry.title.en, entry.title.zh), b(entry.description.en, entry.description.zh), entry.phenomenon);
+  b(entry.title.en, entry.title.zh), b(entry.description.en, entry.description.zh), entry.phenomenon, 'counterfactual');
 const v2vTasks = sampleEntries.filter(entry => entry.modality === 'v2v');
 const rv2vTasks = sampleEntries.filter(entry => entry.modality === 'rv2v');
 const tocRow = items => '<nav class="sample-toc">' + items.map(item =>
@@ -299,7 +299,7 @@ const directoryBody = '<main id="main" class="wrap"><header class="article-heade
   + directoryRow('/sample-of-work/appendix-task-480/', 'appendix-task-480', '480',
       b('Appendix', '附录'), b('Eight samples of one task, side by side', '同一个任务的八条样本并排比较'),
       b('Eight samples of the same task, from eight different source frames.', '同一个任务的八条样本，来自八个不同的源画面。'),
-      'cave_video_commonsense_anomaly_localization')
+      'cave_video_commonsense_anomaly_localization', 'appendix')
   + '</div></section>'
   + '<div class="article-end"><a class="back" href="/#writing">← ' + b('Back to the notebook', '回到文章列表') + '</a></div></main>';
 await fs.mkdir('dist/sample-of-work', { recursive: true });
