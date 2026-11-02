@@ -31,13 +31,14 @@
     root.classList.add('lang-' + language, 'theme-' + theme);
     root.lang = language === 'zh' ? 'zh-CN' : 'en';
     document.title = root.dataset[language === 'zh' ? 'titleZh' : 'titleEn'];
-    // The button shows the language code currently in use. Both codes are
-    // Latin, so an English page and a Chinese page each show only Latin
-    // characters, and the accessible name says "switch language" in the
-    // language currently on screen.
-    languageButton.textContent = language === 'zh' ? 'ZH' : 'EN';
-    languageButton.setAttribute('title', language === 'zh' ? '切换语言' : 'Switch language');
-    languageButton.setAttribute('aria-label', language === 'zh' ? '切换语言' : 'Switch language');
+    // The button names the language it switches to, which is the convention
+    // everyone already knows: read it as "switch to ZH". Both codes are
+    // Latin, so neither page shows the other language's script. The globe
+    // mark carries the meaning for anyone who does not read the code.
+    const code = languageButton.querySelector('.code');
+    if (code) code.textContent = language === 'zh' ? 'EN' : 'ZH';
+    languageButton.setAttribute('title', language === 'zh' ? '切换到英文' : 'Switch to Chinese');
+    languageButton.setAttribute('aria-label', language === 'zh' ? '切换到英文' : 'Switch to Chinese');
     themeButton.textContent = theme === 'dark' ? '☀' : '◐';
     themeButton.setAttribute('aria-label', language === 'zh'
       ? (theme === 'dark' ? '切换到浅色模式' : '切换到深色模式')

@@ -58,6 +58,11 @@
     background:var(--paper-2); color:var(--ink); padding:6px 11px; border-radius:8px; transition:.15s;
   }
   .toggle:hover{border-color:var(--accent); color:var(--accent)}
+  /* The language toggle carries a globe mark and a two-letter code. The code
+     is set in the mono face, the mark in the sans face, because an emoji
+     falls out of alignment in a monospaced line. */
+  #langBtn{font-family:var(--sans); letter-spacing:.04em}
+  #langBtn .code{font-family:var(--mono)}
   .card-btn{
     width:34px; height:34px; padding:0; display:grid; place-items:center;
     border-radius:9px; font-family:var(--display); font-weight:700; font-size:16px;

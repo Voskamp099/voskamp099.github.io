@@ -63,7 +63,7 @@ const header = '<a class="skip" href="#main">' + b('Skip to content', '跳到正
   + '<a href="/#practice">' + b('practice', '实践') + '</a>'
   + '<a href="/sample-of-work/">' + b('samples', '样本') + '</a><a href="/#about">' + b('about', '关于') + '</a><a href="https://github.com/Voskamp099">GitHub ↗</a></nav>'
   + '<button class="toggle" id="themeBtn" type="button" ' + al('Switch to dark theme', '切换到深色模式') + '>◐</button>'
-  + '<button class="toggle" id="langBtn" type="button" ' + al('Switch language', '切换语言') + '>EN</button>'
+  + '<button class="toggle" id="langBtn" type="button" ' + al('Switch to Chinese', '切换到英文') + '><span aria-hidden="true">🌐</span> <span class="code">EN</span></button>'
   + '<button class="toggle card-btn" id="cardBtn" type="button" ' + al('Name card', '名片') + ' aria-haspopup="dialog" ' + tip('Name card', '名片') + '>R</button>'
   + '<button class="toggle menu-toggle" id="menuBtn" type="button" ' + al('Navigation menu', '导航菜单') + ' aria-controls="siteNav" aria-expanded="false">☰</button></header>'
   + '<div class="namecard" id="namecard" aria-hidden="true">'
