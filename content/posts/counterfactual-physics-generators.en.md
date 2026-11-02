@@ -18,18 +18,6 @@ Every case ships four streams: the true clip, the counterfactual clip, the forma
 
 Two halves of a nylon belt buckle seat and latch. In the true clip a sideways pull cannot separate them; in the counterfactual the lock never takes and the halves slide apart under the same pull.
 
-**A cotton strip that suddenly loses its axial stiffness**
-
-%%PANELS:/assets/generator-samples/pr683-cotton-true.mp4|/assets/generator-samples/pr683-cotton-counterfactual.mp4|/assets/generator-samples/pr683-cotton-mask.mp4|/assets/generator-samples/pr683-cotton-overlay.mp4%%
-
-A tensile frame slowly pulls a low-extension woven cotton strip. The true clip shows a small extension; the counterfactual shows the strip losing most of its axial stiffness, stretching far further and narrowing in the middle.
-
-**A page block that shears backwards under the press**
-
-%%PANELS:/assets/generator-samples/pr689-book-true.mp4|/assets/generator-samples/pr689-book-counterfactual.mp4|/assets/generator-samples/pr689-book-mask.mp4|/assets/generator-samples/pr689-book-overlay.mp4%%
-
-A motor-driven pad presses the outer edge of a clamped book. The page block shears away from the spine in the true clip; in the counterfactual the page block and the top cover shear back toward the spine, against the press.
-
 ## 1. One generator, one phenomenon
 
 A generator is one scene plus one broken law. A ball bouncing off a wall (scene) paired with pass-through (law) is the pass-through phenomenon; free fall paired with freeze is the freeze phenomenon. Scene and law are separate parts, so they can be recombined.
