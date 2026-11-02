@@ -58,6 +58,47 @@
     background:var(--paper-2); color:var(--ink); padding:6px 11px; border-radius:8px; transition:.15s;
   }
   .toggle:hover{border-color:var(--accent); color:var(--accent)}
+  .card-btn{
+    width:34px; height:34px; padding:0; display:grid; place-items:center;
+    border-radius:9px; font-family:var(--display); font-weight:700; font-size:16px;
+    color:var(--accent); border-color:var(--line);
+  }
+  .card-btn:hover{background:var(--accent); color:#fff; border-color:var(--accent)}
+
+  /* ---------- name card modal ---------- */
+  .namecard{position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; padding:24px}
+  .namecard.open{display:flex; animation:nc-fade .18s ease-out}
+  @keyframes nc-fade{from{opacity:0}to{opacity:1}}
+  .namecard__backdrop{position:absolute; inset:0; background:rgba(20,19,26,.46); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px)}
+  .namecard__panel{
+    position:relative; z-index:1; width:min(380px,92vw); background:var(--paper);
+    border:1px solid var(--line); border-radius:18px; padding:30px 28px 26px; box-shadow:var(--shadow-hover);
+    text-align:center; font-family:var(--sans); animation:nc-pop .2s cubic-bezier(.2,.7,.2,1);
+  }
+  @keyframes nc-pop{from{transform:translateY(8px) scale(.98); opacity:0}to{transform:none; opacity:1}}
+  .namecard__close{
+    position:absolute; top:12px; right:14px; width:30px; height:30px; border-radius:8px;
+    border:1px solid var(--line); background:var(--paper-2); color:var(--muted); cursor:pointer; font-size:18px; line-height:1;
+  }
+  .namecard__close:hover{color:var(--ink); border-color:var(--accent)}
+  .namecard__mono{
+    width:64px; height:64px; margin:0 auto 14px; border:2px solid var(--ink); border-radius:16px;
+    display:grid; place-items:center; font-family:var(--display); font-weight:700; font-size:32px; box-shadow:var(--shadow);
+  }
+  .namecard__name{font-family:var(--display); font-weight:700; font-size:26px; margin:0 0 4px; letter-spacing:-.02em}
+  .namecard__tag{font-family:var(--mono); font-size:13px; color:var(--accent); margin:0 0 14px}
+  .namecard__bio{font-size:14.5px; color:var(--muted); line-height:1.7; margin:0 0 20px}
+  .namecard__links{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:18px}
+  .namecard__links a{
+    font-family:var(--mono); font-size:12.5px; text-decoration:none; color:var(--ink);
+    border:1px solid var(--line); border-radius:999px; padding:7px 14px; transition:.15s;
+  }
+  .namecard__links a:hover{border-color:var(--accent); color:var(--accent)}
+  .namecard__save{
+    display:inline-block; font-family:var(--mono); font-size:13px; text-decoration:none;
+    background:var(--ink); color:var(--paper); padding:10px 18px; border-radius:10px; transition:.15s;
+  }
+  .namecard__save:hover{background:var(--accent)}
 
   /* ---------- layout ---------- */
   .wrap{max-width:1000px; margin:0 auto; padding:0 24px}

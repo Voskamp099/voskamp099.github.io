@@ -57,7 +57,22 @@ const header = '<a class="skip" href="#main">' + b('Skip to content', '跳到正
   + '<a href="/sample-of-work/">' + b('samples', '样本') + '</a><a href="/#about">' + b('about', '关于') + '</a><a href="https://github.com/Voskamp099">GitHub ↗</a></nav>'
   + '<button class="toggle" id="themeBtn" type="button" aria-label="切换到深色模式">◐</button>'
   + '<button class="toggle" id="langBtn" type="button" aria-label="Switch to English">EN</button>'
-  + '<button class="toggle menu-toggle" id="menuBtn" type="button" aria-label="导航菜单" aria-controls="siteNav" aria-expanded="false">☰</button></header>';
+  + '<button class="toggle card-btn" id="cardBtn" type="button" aria-label="名片 / Name card" aria-haspopup="dialog" title="名片 / Name card">R</button>'
+  + '<button class="toggle menu-toggle" id="menuBtn" type="button" aria-label="导航菜单" aria-controls="siteNav" aria-expanded="false">☰</button></header>'
+  + '<div class="namecard" id="namecard" aria-hidden="true">'
+  + '<div class="namecard__backdrop" data-nc-close></div>'
+  + '<div class="namecard__panel" role="dialog" aria-modal="true" aria-labelledby="ncName">'
+  + '<button class="namecard__close" type="button" id="ncClose" aria-label="关闭名片">×</button>'
+  + '<div class="namecard__mono" aria-hidden="true">R</div>'
+  + '<p class="namecard__name" id="ncName">Raelynn</p>'
+  + '<p class="namecard__tag">' + b('learning by making', '在做东西的过程中学习') + '</p>'
+  + '<p class="namecard__bio">' + b('Notes on video-reasoning research, quant experiments, and building small tools with AI.', '记录视频推理研究、量化实验，以及与 AI 协作做小工具的过程。') + '</p>'
+  + '<div class="namecard__links">'
+  + '<a href="https://github.com/Voskamp099" target="_blank" rel="noopener">GitHub ↗</a>'
+  + '<a href="/sample-of-work/">' + b('Samples', '样本') + '</a>'
+  + '<a href="/#writing">' + b('Notes', '文章') + '</a></div>'
+  + '<a class="namecard__save" id="ncSave" href="#" download="raelynn.vcf">' + b('Save contact ↓', '保存联系人 ↓') + '</a>'
+  + '</div></div>';
 const footer = '<footer><div class="wrap footer-row"><span>~/raelynn · ' + b('Build. Learn. Write.', '做东西，学东西，写下来。')
   + '</span><div><a href="https://github.com/Voskamp099">GitHub ↗</a><a href="/#main">' + b('Back to top ↑', '回到顶部 ↑') + '</a></div></div></footer>';
 function layout({ titleEn, titleZh, description, route = '/', body, article = false, redirectTo = '' }) {
@@ -92,7 +107,7 @@ const home = '<main id="main"><section class="hero"><div class="wrap hero-grid">
   + '<a class="btn btn--ghost" href="#projects">' + b('Explore projects ↗', '看看项目 ↗') + '</a></div></div>'
   + '<aside class="terminal" aria-label="Current notebook"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>notes — raelynn</span></div>'
   + '<div><span class="pr">$</span> whoami</div><div class="output">raelynn <span class="cm">/ ' + b('learning by making', '在做东西的过程中学习') + '</span></div>'
-  + '<div><span class="pr">$</span> cat now.md</div><div class="output">PetAssistant<br><span class="cm">' + b('a quiet cat for the desktop', '一只安静的桌面猫') + '</span></div>'
+  + '<div><span class="pr">$</span> cat now.md</div><div class="output">' + b('video reasoning · counterfactuals', '视频推理 · 反事实生成') + '<br><span class="cm">' + b('research in progress — plus a quiet desktop cat', '进行中的研究 —— 外加一只安静的桌面猫') + '</span></div>'
   + '<div><span class="pr">$</span> cat process.md</div><div class="output">' + b('idea → build → test → write', '想法 → 实现 → 验证 → 记录') + '</div>'
   + '<div><span class="pr">$</span> <span class="blink" aria-hidden="true"></span></div><div class="terminal-note">' + b('A notebook for things in progress.', '把进行中的东西，慢慢记下来。') + '</div></aside></div></section>'
   + '<section id="writing"><div class="wrap"><div class="kicker">01 — ' + b('Writing', '文章') + '</div><div class="section-head"><div><h2 class="sec">'
@@ -102,11 +117,17 @@ const home = '<main id="main"><section class="hero"><div class="wrap hero-grid">
   + '<div class="article-list">' + cards + '</div><p class="empty-state" id="searchEmpty" hidden>' + b('No matching notes. Try another keyword or category.', '没有找到匹配的文章，试试其他关键词或分类。') + '</p><p class="search-status" id="searchCount" aria-live="polite">'
   + posts.length + ' 篇文章</p></div></section>'
   + '<section id="projects"><div class="wrap"><div class="kicker">02 — ' + b('Projects', '项目') + '</div><h2 class="sec">' + b('Things taking shape', '正在做的东西') + '</h2><p class="sec-sub">'
-  + b('Small ideas, turned into something I can use.', '从自己的使用场景出发，做一些能用的小东西。') + '</p><article class="project-feature"><div><div class="tags"><span>'
-  + b('PERSONAL PROTOTYPE', '个人原型') + '</span></div><h3>PetAssistant</h3><p>' + b('A desktop cat that reads my calendar and to-do list once, then stays quietly in place. Built collaboratively with AI.', '点一下读日程，再点一下看待办，读完留在原地。和 AI 一起做的一只安静桌面猫。')
-  + '</p><div class="meta"><span>SwiftUI</span><span>AppKit</span><span>Apple Calendar</span><span>macOS 14+</span></div><a class="section-link" href="/writing/building-petassistant/">'
-  + b('Read the build story →', '读项目记录 →') + '</a></div><figure><img src="/assets/petassistant.png" alt="PetAssistant desktop cat" width="200" height="200" loading="lazy"><figcaption>'
-  + b('The current static cat image.', '目前使用的静态猫图。') + '</figcaption></figure></article></div></section>'
+  + b('Where research meets small tools — I care more about how something behaves in daily use than its feature list.', '研究和小工具交汇的地方 —— 比起功能清单，我更在意它真正用起来的样子。') + '</p>'
+  + '<article class="project-feature"><div><div class="tags"><span>' + b('RESEARCH', '研究') + '</span><span>' + b('VIDEO REASONING', '视频推理') + '</span></div><h3>'
+  + b('Video reasoning & counterfactuals', '视频推理与反事实生成') + '</h3><p>'
+  + b('A growing catalogue of real video-reasoning samples and counterfactual generators. Every entry shows the videos, the prompt that defines the task, and its source licence.', '一个不断扩充的视频推理样本与反事实生成器目录。每条都附上视频、定义任务的提示词，以及来源许可。')
+  + '</p><div class="meta"><span>Video understanding</span><span>Counterfactuals</span><span>Datasets</span></div><a class="section-link" href="/sample-of-work/">'
+  + b('Explore the catalogue →', '浏览样本目录 →') + '</a></div><figure><div class="project-glyph" aria-hidden="true">▶</div><figcaption>'
+  + b('One real sample per task.', '每个任务一条真实样本。') + '</figcaption></figure></article>'
+  + '<article class="project-secondary"><div class="ps-head"><div class="tags"><span>' + b('macOS', 'macOS') + '</span><span>' + b('SIDE PROJECT', '小项目') + '</span></div><h3>PetAssistant</h3></div><p>'
+  + b('A quiet desktop cat that reads my calendar once, then stays put. Built collaboratively with AI.', '一只安静的桌面猫，读一次日程就待在原地。和 AI 一起做的。')
+  + '</p><a class="section-link" href="/writing/building-petassistant/">' + b('Read the build story →', '读项目记录 →') + '</a></article>'
+  + '</div></section>'
   + '<section id="about"><div class="wrap"><div class="kicker">03 — ' + b('About', '关于') + '</div><h2 class="sec">' + b('A place to think in public', '给做东西的过程留一个地方') + '</h2><div class="about-grid"><div><p>'
   + b("I'm Raelynn. This is where I share technical notes and projects as I build and learn.", '我是 Raelynn。这里用来分享我边做边学的技术笔记和项目。')
   + '</p><p>' + b("I care about the behavior behind the feature list: what someone sees, what happens after a click, and whether a tool fits everyday life.", '我关心功能真正用起来的样子：屏幕上能不能看见，点完以后会发生什么，以及它是否适合日常使用。')
