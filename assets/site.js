@@ -31,13 +31,29 @@
     root.classList.add('lang-' + language, 'theme-' + theme);
     root.lang = language === 'zh' ? 'zh-CN' : 'en';
     document.title = root.dataset[language === 'zh' ? 'titleZh' : 'titleEn'];
-    languageButton.textContent = language === 'zh' ? 'EN' : '中文';
-    languageButton.setAttribute('aria-label', language === 'zh' ? 'Switch to English' : '切换到中文');
+    // The button shows the language code currently in use. Both codes are
+    // Latin, so an English page and a Chinese page each show only Latin
+    // characters, and the accessible name says "switch language" in the
+    // language currently on screen.
+    languageButton.textContent = language === 'zh' ? 'ZH' : 'EN';
+    languageButton.setAttribute('title', language === 'zh' ? '切换语言' : 'Switch language');
+    languageButton.setAttribute('aria-label', language === 'zh' ? '切换语言' : 'Switch language');
     themeButton.textContent = theme === 'dark' ? '☀' : '◐';
     themeButton.setAttribute('aria-label', language === 'zh'
       ? (theme === 'dark' ? '切换到浅色模式' : '切换到深色模式')
       : (theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'));
-    search?.setAttribute('placeholder', language === 'zh' ? '搜索标题、内容简介或标签…' : 'Search titles, summaries, or tags…');
+    // Attributes cannot carry the .en/.zh pair, so the build ships both
+    // languages as data-attributes and this writes the visible one in.
+    for (const element of document.querySelectorAll('[data-label-en][data-label-zh]')) {
+      element.setAttribute('aria-label', element.dataset[language === 'zh' ? 'labelZh' : 'labelEn']);
+    }
+    for (const element of document.querySelectorAll('[data-tip-en][data-tip-zh]')) {
+      element.setAttribute('title', element.dataset[language === 'zh' ? 'tipZh' : 'tipEn']);
+    }
+    for (const element of document.querySelectorAll('meta[data-content-en][data-content-zh]')) {
+      element.setAttribute('content', element.dataset[language === 'zh' ? 'contentZh' : 'contentEn']);
+    }
+    if (search) search.setAttribute('placeholder', language === 'zh' ? '搜索标题、内容简介或标签…' : 'Search titles, summaries, or tags…');
     if (menuButton) menuButton.setAttribute('aria-label', language === 'zh' ? '导航菜单' : 'Navigation menu');
     updateSearch();
   }

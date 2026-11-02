@@ -5,7 +5,7 @@
     --dark-fg:#e9e4d8; --pill-bg:rgba(47,111,94,.10); --pill-line:rgba(47,111,94,.26);
     /* category palette */
     --c-research:#3b6fd4; --c-quant:#c5891b; --c-ai:#7a52d6;
-    --c-macos:#2f9a82; --c-growth:#cf4f86;
+    --c-macos:#2f9a82; --c-growth:#cf4f86; --c-practice:#b8562f;
     --c-v2v:#2f9a82; --c-rv2v:#3b6fd4; --c-cf:#7a52d6; --c-appendix:#c5891b;
     /* real, present shadows (replaces the near-invisible 8% offset) */
     --shadow:0 1px 2px rgba(27,26,32,.05), 0 12px 30px -16px rgba(27,26,32,.18);
@@ -19,7 +19,7 @@
     --line:#2c2a34; --accent:#f0744a; --accent-2:#5fbfa6;
     --pill-bg:rgba(95,191,166,.14); --pill-line:rgba(95,191,166,.30);
     --c-research:#7aa2ec; --c-quant:#e0b35a; --c-ai:#a98ce8; --c-macos:#5fbfa6;
-    --c-growth:#e88ab4; --c-v2v:#5fbfa6; --c-rv2v:#7aa2ec; --c-cf:#a98ce8; --c-appendix:#e0b35a;
+    --c-growth:#e88ab4; --c-practice:#e08a5f; --c-v2v:#5fbfa6; --c-rv2v:#7aa2ec; --c-cf:#a98ce8; --c-appendix:#e0b35a;
     --shadow:0 1px 2px rgba(0,0,0,.3), 0 14px 34px -16px rgba(0,0,0,.55);
     --shadow-hover:0 2px 4px rgba(0,0,0,.4), 0 26px 54px -18px rgba(0,0,0,.7);
   }
@@ -226,7 +226,13 @@
   .reveal{opacity:1; transform:none; transition:.6s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1; transform:none}
 
-  /* bilingual */
+  /* bilingual
+     The inline script in <head> sets .lang-en or .lang-zh before the first
+     paint, so only one language is ever visible. The rules below are ordered
+     so that a specific language class always wins over the :not() fallback,
+     which keeps the page usable when JavaScript is unavailable. */
+  html:not(.lang-zh):not(.lang-en) .zh{display:none}
+  html:not(.lang-zh):not(.lang-en) .en{display:revert}
   html.lang-en .zh{display:none}
   html.lang-zh .en{display:none}
 
