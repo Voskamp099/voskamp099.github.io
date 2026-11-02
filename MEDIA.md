@@ -53,6 +53,9 @@ region the generator changed. The site shows all four in one row, in that order,
 and takes them from the version that was merged into main — the delivered
 artefact, not a working copy.
 
+The rule the pages follow lives in README.md, under "Sample pages" and "Media
+rules"; this section is the media-side record of how the set is built.
+
 Two things about that set are easy to get wrong, so they are written down here.
 
 **The names in the merged delivery are not always in the delivered order.** In the
