@@ -209,13 +209,16 @@ html.theme-dark .project-glyph{background:#0b0b0d; border:1px solid var(--line)}
 
 /* ---------- sample of work ---------- */
 .sample-list { max-width:1000px; margin:0 auto; padding:34px 0 48px; }
-.sample-toc { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin:30px 0 0; border-radius:12px; overflow:hidden; }
-.sample-toc a { background:var(--paper); padding:18px 20px; text-decoration:none; display:block; transition:.16s; position:relative; }
-.sample-toc a:hover { background:var(--paper-2); }
-.sample-toc .n { display:block; font:11px var(--mono); letter-spacing:.1em; color:var(--accent); }
-.sample-toc .t { display:block; font:600 16px/1.4 var(--display); letter-spacing:-.01em; color:var(--ink); margin-top:6px; }
-.sample-toc .c { display:block; font:11px var(--mono); color:var(--muted); margin-top:8px; }
 .sample-directory { max-width:1000px; margin:0 auto; }
+/* On the catalogue index the list sits directly under the intro. */
+main > .sample-directory { margin-top:26px; }
+/* The entry count sits at the end of the tag row, separated by a rule so it
+   reads as a count rather than as another topic tag. */
+.sample-directory .article-card .tags .count {
+  margin-left:auto; padding-left:12px; border-left:1px solid var(--line);
+  color:var(--muted); white-space:nowrap;
+}
+.sample-directory .article-card .tags .count::before { content:none; }
 /* Anchors kept for links that predate the per-collection pages. */
 .sample-legacy { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
 .sample-section { margin-top:8px; }
