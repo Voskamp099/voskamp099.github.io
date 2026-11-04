@@ -5,13 +5,55 @@ that can actually break.
 
 ## The short version
 
-The videos are committed to this repository and served straight from GitHub
-Pages. They are not on a separate host, a CDN, or object storage. That is a
+The videos live in this repository, and they are committed to it in the
+clear. They are not on a separate host, a CDN, or object storage. That is a
 deliberate choice: the material stays next to the code that presents it, and
 there is no second service to keep alive, pay for, or lose the keys to.
 
+The published site does **not** serve them in the clear, though. The build
+encrypts the material and the catalogue with an access code; a visitor has to
+type the code before the pages and the clips appear. See "The access gate"
+below.
+
 It also means the media counts against GitHub's limits, so the numbers below
 matter.
+
+## The access gate
+
+The sample material is research work, and it is published for people who were
+given a code rather than for the whole internet. Three things have to hold
+for that to be true, and all three are in place:
+
+1. **The catalogue is encrypted.** `/sample-of-work/` and everything under it
+   are built as an encrypted payload plus a shell that shows the lock. The
+   published HTML contains no task titles, no prompts, no licences — only the
+   lock panel.
+2. **The clips are encrypted.** The delivered videos and their poster frames
+   are encrypted with the same key and published as ciphertext under
+   `dist/assets/media/<hash>.bin`. The browser decrypts them after the code is
+   entered and plays them from a blob. The published figures that belong to
+   the *notes* stay in the clear — a note is the public record, the catalogue
+   behind it is the delivery.
+3. **The repository is private.** The clips are committed here in the clear,
+   so a public repository would hand over everything the gate protects. This
+   is the part that cannot be fixed in the build.
+
+The key is derived from one short access code with PBKDF2 (210,000 rounds,
+SHA-256), so guessing it offline is slow. The code is short on purpose — it
+can be read aloud and typed from memory — which means this is a sharing gate,
+not a vault. Anyone who has the code can pass the material on.
+
+The access code lives in `scripts/gate.mjs`, or in the `SAMPLE_ACCESS_CODE`
+environment variable, which wins. Changing it re-encrypts everything, so
+material shared under the old code stops opening.
+
+To try it locally:
+
+```
+npm run build
+python3 -m http.server 8141 --directory dist --bind 127.0.0.1
+# open http://127.0.0.1:8141/sample-of-work/ and type the code
+```
 
 ## Layout
 

@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import MarkdownIt from 'markdown-it';
 import { STATIC_PAGES } from './static-pages.mjs';
+import { ACCESS_CODE, SALT, ITERATIONS, CANARY_TEXT, deriveKey, encrypt, idFor, ivFor } from './gate.mjs';
 
 const origin = 'https://voskamp099.github.io';
 const md = new MarkdownIt({ html: false, linkify: true, typographer: true });
@@ -57,7 +58,67 @@ const posts = await Promise.all(files.map(async file => {
 }));
 await fs.rm('dist', { recursive: true, force: true });
 await fs.mkdir('dist/assets', { recursive: true });
-await fs.cp('assets', 'dist/assets', { recursive: true });
+
+// What the gate protects: the delivered clips and the frames that come with
+// them. The published figures in the notes stay in the clear — a note is the
+// public record, the catalogue behind it is the delivery.
+const protectedFile = relative => {
+  if (relative.startsWith('v2v-samples/') || relative.startsWith('generator-samples/')) return true;
+  if (relative.startsWith('research/counterfactual/')) return relative.endsWith('.mp4');
+  return false;
+};
+const MEDIA_MIME = { '.mp4': 'video/mp4', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp' };
+const gateKey = deriveKey(ACCESS_CODE);
+const mediaMap = new Map();
+async function walkFiles(directory) {
+  const found = [];
+  for (const entry of await fs.readdir(directory, { withFileTypes: true })) {
+    const full = path.join(directory, entry.name);
+    if (entry.isDirectory()) found.push(...await walkFiles(full));
+    else found.push(full);
+  }
+  return found;
+}
+await fs.mkdir('dist/assets/media', { recursive: true });
+for (const entry of await fs.readdir('assets', { withFileTypes: true })) {
+  const source = path.join('assets', entry.name);
+  if (entry.isFile()) {
+    await fs.copyFile(source, path.join('dist/assets', entry.name));
+    continue;
+  }
+  for (const file of await walkFiles(source)) {
+    const relative = path.relative('assets', file).split(path.sep).join('/');
+    if (!protectedFile(relative)) {
+      const target = path.join('dist/assets', relative);
+      await fs.mkdir(path.dirname(target), { recursive: true });
+      await fs.copyFile(file, target);
+      continue;
+    }
+    // Protected material is encrypted with the gate key and published as
+    // ciphertext: a visitor without the code receives bytes that mean nothing.
+    const id = idFor(relative);
+    await fs.writeFile(path.join('dist/assets/media', id + '.bin'),
+      encrypt(gateKey, await fs.readFile(file), ivFor(id)));
+    mediaMap.set('/assets/' + relative, {
+      file: '/assets/media/' + id + '.bin',
+      mime: MEDIA_MIME[path.extname(file).toLowerCase()] || 'application/octet-stream'
+    });
+  }
+}
+// The canary: a known block encrypted with the same key. The browser decrypts
+// it with the key derived from the code someone typed — if it comes out right,
+// the code was right.
+const canaryId = idFor('canary');
+await fs.writeFile(path.join('dist/assets', 'gate-canary.bin'),
+  encrypt(gateKey, Buffer.from(CANARY_TEXT, 'utf8'), ivFor(canaryId)));
+
+// A reference to protected material is rewritten to the address of its
+// ciphertext. The browser swaps in the decrypted bytes once the code is in.
+const protectRefs = html => html.replace(/(src|poster)="(\/assets\/[^"]+)"/g, (match, attribute, url) => {
+  const entry = mediaMap.get(url);
+  if (!entry) return match;
+  return 'data-' + attribute + '="' + entry.file + '" data-' + attribute + '-mime="' + entry.mime + '"';
+});
 
 for (const page of STATIC_PAGES) {
   const exists = await fs.stat(page).then(() => true).catch(() => false);
@@ -68,7 +129,18 @@ const header = '<a class="skip" href="#main">' + b('Skip to content', '跳到正
   + '<nav id="siteNav" ' + al('Main navigation', '主导航') + '>'
   + '<a href="/#writing">' + b('writing', '文章') + '</a><a href="/#projects">' + b('projects', '项目') + '</a>'
   + '<a href="/#practice">' + b('practice', '实践') + '</a>'
-  + '<a href="/sample-of-work/">' + b('samples', '样本') + '</a><a href="/#about">' + b('about', '关于') + '</a><a href="https://github.com/Voskamp099">GitHub ↗</a></nav>'
+  + '<a href="/sample-of-work/" data-gate-hidden>' + b('samples', '样本') + '</a><a href="/#about">' + b('about', '关于') + '</a><a href="https://github.com/Voskamp099">GitHub ↗</a></nav>'
+  // The lock sits at the top right on every page. Until the code is entered
+  // the sample catalogue is not linked from the site at all; the lock is the
+  // only way in.
+  + '<div class="gate-wrap">'
+  + '<button class="toggle gate-btn" id="gateBtn" type="button" ' + al('Unlock the sample collection', '解锁样本集合') + ' aria-expanded="false" aria-controls="gatePop"><span aria-hidden="true">🔒</span></button>'
+  + '<div class="gate-pop" id="gatePop" hidden>'
+  + '<label class="gate-label"><span class="visually-hidden">' + b('Access code', '访问码') + '</span>'
+  + '<input class="gate-input" type="password" inputmode="numeric" autocomplete="off" ' + al('Access code', '访问码') + ' data-gate-input></label>'
+  + '<button class="btn btn--solid" type="button" data-gate-submit>' + b('Unlock', '解锁') + '</button>'
+  + '<p class="gate-error" data-gate-error hidden>' + b('Wrong code. Try again.', '验证码错误，请重试。') + '</p>'
+  + '</div></div>'
   + '<button class="toggle" id="themeBtn" type="button" ' + al('Switch to dark theme', '切换到深色模式') + '>◐</button>'
   + '<button class="toggle" id="langBtn" type="button" ' + al('Switch to Chinese', '切换到英文') + '><span aria-hidden="true">🌐</span> <span class="code">EN</span></button>'
   + '<button class="toggle card-btn" id="cardBtn" type="button" ' + al('Name card', '名片') + ' aria-haspopup="dialog" ' + tip('Name card', '名片') + '>R</button>'
@@ -83,12 +155,42 @@ const header = '<a class="skip" href="#main">' + b('Skip to content', '跳到正
   + '<p class="namecard__bio">' + b('Notes on video-reasoning research, quant experiments, and building small tools with AI.', '记录视频推理研究、量化实验，以及与 AI 协作做小工具的过程。') + '</p>'
   + '<div class="namecard__links">'
   + '<a href="https://github.com/Voskamp099" target="_blank" rel="noopener">GitHub ↗</a>'
-  + '<a href="/sample-of-work/">' + b('Samples', '样本') + '</a>'
+  + '<a href="/sample-of-work/" data-gate-hidden>' + b('Samples', '样本') + '</a>'
   + '<a href="/#writing">' + b('Notes', '文章') + '</a></div>'
   + '<a class="namecard__save" id="ncSave" href="#" download="raelynn.vcf">' + b('Save contact ↓', '保存联系人 ↓') + '</a>'
   + '</div></div>';
 const footer = '<footer><div class="wrap footer-row"><span>~/raelynn · ' + b('Build. Learn. Write.', '做东西，学东西，写下来。')
   + '</span><div><a href="https://github.com/Voskamp099">GitHub ↗</a><a href="/#main">' + b('Back to top ↑', '回到顶部 ↑') + '</a></div></div></footer>';
+// The lock panel a gated page shows before the code is entered. It is the
+// same panel on every page of the catalogue, and the same code opens all of
+// them.
+const lockedPanel = () => '<div class="gate-panel">'
+  + '<div class="gate-panel__icon" aria-hidden="true">'
+  + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">'
+  + '<rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></div>'
+  + '<h1 class="sec">' + b('This collection is locked', '这个集合已锁定') + '</h1>'
+  + '<p class="sec-sub">' + b('The catalogue and every clip in it are encrypted. Enter the access code to open them.',
+      '目录与其中的每一段素材都已加密。输入访问码即可打开。') + '</p>'
+  + '<form class="gate-form" data-gate-form>'
+  + '<label class="gate-label"><span class="visually-hidden">' + b('Access code', '访问码') + '</span>'
+  + '<input class="gate-input" type="password" inputmode="numeric" autocomplete="off" ' + al('Access code', '访问码') + ' data-gate-input></label>'
+  + '<button class="btn btn--solid" type="submit">' + b('Unlock', '解锁') + '</button></form>'
+  + '<p class="gate-panel__status" data-gate-status>' + b('Opening the collection…', '正在打开这个集合……') + '</p>'
+  + '<p class="gate-error" data-gate-error hidden>' + b('Wrong code. Try again.', '验证码错误，请重试。') + '</p></div>';
+// A gated page ships as a shell plus an encrypted payload. The shell holds
+// the lock; the payload is the page itself, decrypted in the browser once the
+// code is in. The published file contains nothing of the page in the clear.
+async function writeGatedPage(route, inner, meta) {
+  const id = idFor(route);
+  await fs.mkdir('dist/assets/gate', { recursive: true });
+  await fs.writeFile(path.join('dist/assets/gate', id + '.bin'),
+    encrypt(gateKey, Buffer.from(inner, 'utf8'), ivFor(id)));
+  const directory = path.join('dist', route.replace(/^\//, ''));
+  await fs.mkdir(directory, { recursive: true });
+  const body = '<main id="main" class="wrap gate-host" data-gate-payload="/assets/gate/' + id + '.bin" data-gate-state="locked">'
+    + lockedPanel() + '</main>';
+  await fs.writeFile(path.join(directory, 'index.html'), layout({ ...meta, route, body }));
+}
 function layout({ titleEn, titleZh, description, descriptionEn, route = '/', body, article = false, redirectTo = '' }) {
   const descEn = descriptionEn || description;
   return '<!doctype html><html lang="zh-CN" class="lang-zh theme-light" data-title-en="' + esc(titleEn) + '" data-title-zh="' + esc(titleZh)
@@ -109,7 +211,19 @@ function layout({ titleEn, titleZh, description, descriptionEn, route = '/', bod
     + '<script>(function(){var r=document.documentElement,l;try{l=localStorage.getItem("raelynn-language")}catch(e){}'
     + 'if(l!=="en"&&l!=="zh"){l=(navigator.language||"en").toLowerCase().indexOf("zh")===0?"zh":"en"}'
     + 'r.classList.remove("lang-en","lang-zh");r.classList.add("lang-"+l);r.lang=l==="zh"?"zh-CN":"en";'
-    + 'document.title=r.dataset[l==="zh"?"titleZh":"titleEn"];})();</script>'
+    + 'document.title=r.dataset[l==="zh"?"titleZh":"titleEn"];'
+    // The gate state is settled before the first paint as well: a visitor who
+    // already has the code should never see the lock flash across the screen.
+    + 'var c=null;try{c=localStorage.getItem("raelynn-access-code")}catch(e){}'
+    + 'r.classList.add(c?"gate-unlocking":"gate-locked");})();</script>'
+    // The gate parameters. The salt is public on purpose; the code is not
+    // shipped, only checked against in the browser.
+    + '<script>window.RAELYNN_GATE=' + JSON.stringify({
+        salt: SALT.toString('base64'),
+        iterations: ITERATIONS,
+        canary: '/assets/gate-canary.bin',
+        canaryText: CANARY_TEXT
+      }) + ';</script>'
     + '<script src="/assets/site.js" defer></script></head><body>'
     + header + body + footer + '</body></html>';
 }
@@ -188,7 +302,7 @@ const home = '<main id="main"><section class="hero"><div class="wrap hero-grid">
   + '<article class="project-feature"><div><div class="tags"><span>' + b('RESEARCH', '研究') + '</span><span>' + b('OMNIREASON', 'OmniReason') + '</span></div><h3>'
   + b('OmniReason', 'OmniReason') + '</h3><p>'
   + b('Video-to-video reasoning research (V2V + RV2V), with a catalogue of counterfactual generators. Every entry shows the videos, the prompt that defines the task, and its source licence.', '视频到视频推理研究（V2V + RV2V），并附一个反事实生成器目录。每条都附上视频、定义任务的提示词，以及来源许可。')
-  + '</p><div class="meta"><span>' + b('Video understanding', '视频理解') + '</span><span>' + b('Counterfactuals', '反事实') + '</span><span>' + b('Datasets', '数据集') + '</span></div><a class="section-link" href="/sample-of-work/omni-reason/">'
+  + '</p><div class="meta"><span>' + b('Video understanding', '视频理解') + '</span><span>' + b('Counterfactuals', '反事实') + '</span><span>' + b('Datasets', '数据集') + '</span></div><a class="section-link" href="/sample-of-work/omni-reason/" data-gate-hidden>'
   + b('Explore the catalogue →', '浏览样本目录 →') + '</a></div><figure><div class="project-glyph" aria-hidden="true">▶</div><figcaption>'
   + b('One page per task.', '每个任务一页。') + '</figcaption></figure></article>'
   + '<article class="project-secondary"><div class="ps-head"><div class="tags"><span>' + b('macOS', 'macOS') + '</span><span>' + b('SIDE PROJECT', '小项目') + '</span></div><h3>PetAssistant</h3></div><p>'
@@ -212,7 +326,7 @@ const home = '<main id="main"><section class="hero"><div class="wrap hero-grid">
   + '</p><p>' + b("I care about the behavior behind the feature list: what someone sees, what happens after a click, and whether a tool fits everyday life.", '我关心功能真正用起来的样子：屏幕上能不能看见，点完以后会发生什么，以及它是否适合日常使用。')
   + '</p><a class="section-link" href="https://github.com/Voskamp099">' + b('Find me on GitHub ↗', '在 GitHub 找到我 ↗') + '</a></div><aside class="note"><h3>// '
   + b('what goes in here', '这里记录什么') + '</h3><ul><li>' + b('Projects and demos', '项目与演示') + '</li><li>' + b('Debugging notes', '调试记录') + '</li><li>' + b('Working with AI', '与 AI 协作') + '</li><li>' + b('Product, marketing, industry', '产品、市场与行业') + '</li></ul></aside></div></div></section></main>';
-await fs.writeFile('dist/index.html', layout({ titleEn: 'Raelynn — Projects & Notes', titleZh: 'Raelynn — 项目与技术笔记', description: 'Raelynn 的项目与中英文技术笔记：小工具、macOS 开发，以及和 AI 一起做东西的过程。', descriptionEn: 'Raelynn\u2019s projects and bilingual technical notes: small tools, macOS work, and building with AI.', body: home }));
+await fs.writeFile('dist/index.html', layout({ titleEn: 'Raelynn — Projects & Notes', titleZh: 'Raelynn — 项目与技术笔记', description: 'Raelynn 的项目与中英文技术笔记：小工具、macOS 开发，以及和 AI 一起做东西的过程。', descriptionEn: 'Raelynn\u2019s projects and bilingual technical notes: small tools, macOS work, and building with AI.', body: protectRefs(home) }));
 for (const post of posts) {
   const route = '/writing/' + post.slug + '/';
   const body = '<main id="main" class="wrap"><article><header class="article-header"><a class="back" href="/#writing">← '
@@ -221,7 +335,7 @@ for (const post of posts) {
     + '<div class="en" lang="en">' + post.html.en + '</div><div class="zh" lang="zh-CN">' + post.html.zh + '</div><div class="article-end"><a class="back" href="/#writing">← '
     + b('Back to the notebook', '回到文章列表') + '</a></div></div></article></main>';
   await fs.mkdir('dist' + route, { recursive: true });
-  await fs.writeFile('dist' + route + 'index.html', layout({ titleEn: post.title.en + ' — Raelynn', titleZh: post.title.zh + ' — Raelynn', description: post.summary.zh, descriptionEn: post.summary.en, route, body, article: true }));
+  await fs.writeFile('dist' + route + 'index.html', layout({ titleEn: post.title.en + ' — Raelynn', titleZh: post.title.zh + ' — Raelynn', description: post.summary.zh, descriptionEn: post.summary.en, route, body: protectRefs(body), article: true }));
 }
 // Keep the former debugging article URL usable after merging it into the project record.
 if (posts.some(post => post.slug === 'building-petassistant')) {
@@ -264,24 +378,9 @@ const promptBlock = (promptEn, promptZh) => '<div class="prompt-block">'
   + '<div class="en prompt-label">Prompt</div><div class="zh prompt-label">提示词</div>'
   + '<pre class="en prompt-text" lang="en">' + esc(promptEn) + '</pre>'
   + '<pre class="zh prompt-text" lang="zh-CN">' + esc(promptZh) + '</pre></div>';
-const playScript = `<script>
-(() => {
-  const all = () => Array.from(document.querySelectorAll('main video'));
-  const pause = document.getElementById('pauseAll');
-  if (pause) pause.addEventListener('click', () => { for (const video of all()) video.pause(); });
-  for (const button of document.querySelectorAll('[data-play]')) {
-    button.addEventListener('click', () => {
-      const scope = button.closest('.sample-card') || document;
-      const videos = Array.from(scope.querySelectorAll('video'));
-      for (const video of videos) {
-        video.currentTime = 0;
-        const started = video.play();
-        if (started && started.catch) started.catch(() => {});
-      }
-    });
-  }
-})();
-</script>`;
+// The play buttons live in the page script rather than in the page itself:
+// a gated page is injected into the document after the code is entered, and
+// a script tag inside injected markup does not run.
 const mediaBlock = entry => {
   if (!entry.media) return '<p class="sample-note">' + b(entry.note ? entry.note.en : '', entry.note ? entry.note.zh : '') + '</p>';
   const reference = entry.media_files.reference
@@ -329,8 +428,7 @@ const taskPage = entry => {
       : '')
     + '</article>'
     + '<div class="article-end"><a class="back" href="/sample-of-work/omni-reason/">← ' + b('Back to OmniReason', '回到 OmniReason') + '</a></div>';
-  return layout({ titleEn: entry.title_en + ' — Raelynn', titleZh: entry.name_zh + ' — Raelynn',
-    description: entry.description.zh, descriptionEn: entry.description.en, route: taskPath(entry), body: '<main id="main" class="wrap">' + head + '</main>' + playScript });
+  return protectRefs(head);
 };
 // One page per counterfactual generator.
 // One page per counterfactual generator.
@@ -365,8 +463,7 @@ const generatorPage = entry => {
     + '<p class="sample-meta">' + b('Phenomenon: ', '现象标识：') + esc(entry.phenomenon) + '</p>'
     + '</article>'
     + '<div class="article-end"><a class="back" href="/sample-of-work/counterfactuals/">← ' + b('Back to the generators', '回到生成器列表') + '</a></div>';
-  return layout({ titleEn: entry.title.en + ' — Raelynn', titleZh: entry.title.zh + ' — Raelynn',
-    description: entry.description.zh, descriptionEn: entry.description.en, route: generatorPath(entry), body: '<main id="main" class="wrap">' + head + '</main>' + playScript });
+  return protectRefs(head);
 };
 // The directory rows are the same list as the writing section: a code on the
 // left, a chip, a title, one line of description, and a chip row.
@@ -408,7 +505,7 @@ const sampleToc = '<div class="sample-directory">'
         '同一个任务的八条样本，来自八个不同的源画面，并排比较。'),
       esc('cave_video_commonsense_anomaly_localization'), 'appendix', appendix480.samples.length + ' ' + b('samples', '条样本'))
   + '</div>';
-const directoryBody = '<main id="main" class="wrap"><header class="article-header"><a class="back" href="/#writing">← '
+const directoryBody = '<header class="article-header"><a class="back" href="/#writing">← '
   + b('All notes', '全部文章') + '</a><div class="article-meta">' + b('Sample directory', '样本目录') + ' · '
   + sampleEntries.length + ' ' + b('tasks', '个任务') + ' · ' + generatorEntries.length + ' '
   + b('generators', '个生成器') + '</div><h1>' + b('Sample of work', '作品样本')
@@ -418,12 +515,11 @@ const directoryBody = '<main id="main" class="wrap"><header class="article-heade
   // The collections used to be anchors on this page. Keep the ids so old
   // links still resolve, and send them to the collection that replaced them.
   + '<div class="sample-legacy"><span id="omni-reason"></span><span id="generators"></span></div>'
-  + '<div class="article-end"><a class="back" href="/#writing">← ' + b('Back to the notebook', '回到文章列表') + '</a></div></main>';
-await fs.mkdir('dist/sample-of-work', { recursive: true });
-await fs.writeFile('dist/sample-of-work/index.html', layout({ titleEn: 'Sample of work — Raelynn', titleZh: '作品样本 — Raelynn', description: '视频推理任务与反事实生成器的样本目录，每条一个页面。', descriptionEn: 'A directory of video-reasoning tasks and counterfactual generators, one entry per page.', route: '/sample-of-work/', body: directoryBody }));
+  + '<div class="article-end"><a class="back" href="/#writing">← ' + b('Back to the notebook', '回到文章列表') + '</a></div>';
+await writeGatedPage('/sample-of-work/', directoryBody, { titleEn: 'Sample of work — Raelynn', titleZh: '作品样本 — Raelynn', description: '视频推理任务与反事实生成器的样本目录，每条一个页面。', descriptionEn: 'A directory of video-reasoning tasks and counterfactual generators, one entry per page.' });
 // Collection pages: each holds its own list, and every row still leads to a
 // page of its own.
-const collectionHeader = (back, meta, title, deck) => '<main id="main" class="wrap"><header class="article-header"><a class="back" href="'
+const collectionHeader = (back, meta, title, deck) => '<header class="article-header"><a class="back" href="'
   + back + '">← ' + b('Sample directory', '样本目录') + '</a><div class="article-meta">' + meta + '</div><h1>' + title
   + '</h1><p class="article-deck">' + deck + '</p></header>';
 const omniReasonBody = collectionHeader('/sample-of-work/',
@@ -432,27 +528,31 @@ const omniReasonBody = collectionHeader('/sample-of-work/',
     b('Video-to-video reasoning: each task carries an input, a target, and the prompt that defines it. Two modalities — Video to Video and Reference Video to Video. Pick a task to open it on its own page.',
         '视频到视频推理：每个任务都带输入、目标，以及定义它的提示词。两种模态——视频到视频与参考视频到视频。点开任意一个任务即是它自己的一页。'))
   + '<section class="sample-section"><div class="sample-directory">' + v2vTasks.map(taskDirectoryRow).join('') + rv2vTasks.map(taskDirectoryRow).join('') + '</div></section>'
-  + '<div class="article-end"><a class="back" href="/sample-of-work/">← ' + b('Back to the directory', '回到目录') + '</a></div></main>';
-await fs.mkdir('dist/sample-of-work/omni-reason', { recursive: true });
-await fs.writeFile('dist/sample-of-work/omni-reason/index.html', layout({ titleEn: 'OmniReason — Raelynn', titleZh: 'OmniReason 视频推理样本 — Raelynn', description: '视频到视频推理任务样本目录，每条一个页面。', descriptionEn: 'A directory of video-to-video reasoning tasks, one entry per page.', route: '/sample-of-work/omni-reason/', body: omniReasonBody }));
+  + '<div class="article-end"><a class="back" href="/sample-of-work/">← ' + b('Back to the directory', '回到目录') + '</a></div>';
+await writeGatedPage('/sample-of-work/omni-reason/', omniReasonBody, { titleEn: 'OmniReason — Raelynn', titleZh: 'OmniReason 视频推理样本 — Raelynn', description: '视频到视频推理任务样本目录，每条一个页面。', descriptionEn: 'A directory of video-to-video reasoning tasks, one entry per page.' });
 const counterfactualBody = collectionHeader('/sample-of-work/',
     b('Collection 02', '集合 02') + ' · ' + b('Counterfactual generators', '反事实生成器') + ' · ' + generatorEntries.length + ' ' + b('generators', '个生成器'),
     b('Counterfactual generators', '反事实生成器'),
     b('One sample per generator: the true clip beside the counterfactual one, so the change the generator introduces is visible at a glance. Pick a generator to open it on its own page.',
         '每个生成器一条样本：真值片段与反事实片段并排，让生成器引入的变化一眼可见。点开任意一个生成器即是它自己的一页。'))
   + '<section class="sample-section"><div class="sample-directory">' + generatorEntries.map(generatorDirectoryRow).join('') + '</div></section>'
-  + '<div class="article-end"><a class="back" href="/sample-of-work/">← ' + b('Back to the directory', '回到目录') + '</a></div></main>';
-await fs.mkdir('dist/sample-of-work/counterfactuals', { recursive: true });
-await fs.writeFile('dist/sample-of-work/counterfactuals/index.html', layout({ titleEn: 'Counterfactual generators — Raelynn', titleZh: '反事实生成器 — Raelynn', description: '反事实生成器样本目录，每条一个页面。', descriptionEn: 'A directory of counterfactual generators, one entry per page.', route: '/sample-of-work/counterfactuals/', body: counterfactualBody }));
+  + '<div class="article-end"><a class="back" href="/sample-of-work/">← ' + b('Back to the directory', '回到目录') + '</a></div>';
+await writeGatedPage('/sample-of-work/counterfactuals/', counterfactualBody, { titleEn: 'Counterfactual generators — Raelynn', titleZh: '反事实生成器 — Raelynn', description: '反事实生成器样本目录，每条一个页面。', descriptionEn: 'A directory of counterfactual generators, one entry per page.' });
 for (const entry of sampleEntries) {
-  const target = path.join('dist', taskPath(entry).replace(/^\//, ''), 'index.html');
-  await fs.mkdir(path.dirname(target), { recursive: true });
-  await fs.writeFile(target, taskPage(entry));
+  await writeGatedPage(taskPath(entry), taskPage(entry), {
+    titleEn: entry.title_en + ' — Raelynn',
+    titleZh: entry.name_zh + ' — Raelynn',
+    description: entry.description.zh,
+    descriptionEn: entry.description.en
+  });
 }
 for (const entry of generatorEntries) {
-  const target = path.join('dist', generatorPath(entry).replace(/^\//, ''), 'index.html');
-  await fs.mkdir(path.dirname(target), { recursive: true });
-  await fs.writeFile(target, generatorPage(entry));
+  await writeGatedPage(generatorPath(entry), generatorPage(entry), {
+    titleEn: entry.title.en + ' — Raelynn',
+    titleZh: entry.title.zh + ' — Raelynn',
+    description: entry.description.zh,
+    descriptionEn: entry.description.en
+  });
 }
 // The appendix: eight samples of one task, so the variety is visible.
 const appendixCard = row => '<article class="sample-card appendix-card" id="sample-' + row.index + '">'
@@ -464,16 +564,15 @@ const appendixCard = row => '<article class="sample-card appendix-card" id="samp
       b('Source: ', '来源：') + esc(row.dataset),
       b('Licence: ', '授权：') + '<a href="' + esc(appendix480.licence_url) + '" rel="noopener">' + esc(appendix480.licence) + '</a>',
       b('Cite as: ', '引用：') + esc(appendix480.citation)].join(' · ') + '</p></article>';
-const appendixBody = '<main id="main" class="wrap"><header class="article-header"><a class="back" href="/sample-of-work/">← '
+const appendixBody = '<header class="article-header"><a class="back" href="/sample-of-work/">← '
   + b('Sample directory', '样本目录') + '</a><div class="article-meta">' + b('Appendix', '附录') + ' · ' + b('Task', '任务') + ' 480 · '
   + appendix480.samples.length + ' ' + b('samples', '条样本') + '</div><h1>' + b(appendix480.title.en, appendix480.title.zh)
   + '</h1><p class="article-deck">' + b(appendix480.intro.en, appendix480.intro.zh) + '</p>'
   + '<div class="sample-toolbar"><button type="button" id="pauseAll" class="sample-button">' + b('Pause all', '全部暂停') + '</button></div></header>'
   + '<section id="samples" class="sample-section"><div class="sample-list">'
   + appendix480.samples.map(appendixCard).join('') + '</div></section>'
-  + '<div class="article-end"><a class="back" href="/sample-of-work/">← ' + b('Back to the directory', '回到目录') + '</a></div></main>' + playScript;
-await fs.mkdir('dist/sample-of-work/appendix-task-480', { recursive: true });
-await fs.writeFile('dist/sample-of-work/appendix-task-480/index.html', layout({ titleEn: 'Appendix — Task 480 — Raelynn', titleZh: '附录——480 号任务 — Raelynn', description: '480 号任务的八条真实样本。', descriptionEn: 'Eight real samples of task 480.', route: '/sample-of-work/appendix-task-480/', body: appendixBody }));
+  + '<div class="article-end"><a class="back" href="/sample-of-work/">← ' + b('Back to the directory', '回到目录') + '</a></div>';
+await writeGatedPage('/sample-of-work/appendix-task-480/', appendixBody, { titleEn: 'Appendix — Task 480 — Raelynn', titleZh: '附录——480 号任务 — Raelynn', description: '480 号任务的八条真实样本。', descriptionEn: 'Eight real samples of task 480.' });
 // The former generator page points at the generator collection.
 await fs.mkdir('dist/counterfactual-samples', { recursive: true });
 await fs.writeFile('dist/counterfactual-samples/index.html', layout({ titleEn: 'Counterfactual generators — Raelynn', titleZh: '反事实生成器 — Raelynn', description: '反事实生成器样本目录。', descriptionEn: 'A directory of counterfactual generator samples.', route: '/sample-of-work/counterfactuals/', body: '<main id="main" class="wrap"><section><h1 class="sec">'
