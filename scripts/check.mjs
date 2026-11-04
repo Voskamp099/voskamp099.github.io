@@ -25,7 +25,10 @@ for (const file of files) {
     || !text.includes('data-desc-en=') || !text.includes('data-desc-zh='))) {
     throw new Error('Missing bilingual title/description pair in ' + file);
   }
-  for (const match of text.matchAll(/(?:href|src|poster)="([^"]+)"/g)) {
+  // The link checker follows every address a page carries. Protected media
+  // and the encrypted page payload are referenced through data-attributes
+  // rather than src/href, so they are checked here as well.
+  for (const match of text.matchAll(/(?:href|src|poster|data-gate-payload)="([^"]+)"/g)) {
     const href = match[1];
     if (/^(https?:|mailto:|data:)/.test(href)) continue;
     const url = new URL(href.replaceAll('&amp;', '&'), 'https://example.test/' + path.relative(root, file));

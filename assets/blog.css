@@ -301,3 +301,32 @@ main > .sample-directory { margin-top:26px; }
 .prompt-block { margin:22px 0 0; border:1px solid var(--line); border-radius:10px; background:var(--paper-2); overflow:hidden; }
 .prompt-label { font:11px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:9px 14px; border-bottom:1px solid var(--line); }
 .prompt-text { margin:0; padding:15px 16px; background:none; color:var(--ink); font:13px/1.8 var(--mono); white-space:pre-wrap; overflow-wrap:anywhere; }
+
+/* ---------- protected material ---------- */
+/* Material behind the access code is an empty frame with a lock in it until
+   the code is entered. The bytes are ciphertext until then: the page holds
+   an address, not the file. The selectors are specific enough to win over
+   the frame styles that sit above them. */
+img.is-locked,
+.article-body img.is-locked {
+  background-color: var(--paper-2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='38' viewBox='0 0 24 24' fill='none' stroke='%23726c7a' stroke-width='1.4' stroke-linecap='round'%3E%3Crect x='4.5' y='10.5' width='15' height='10' rx='2'/%3E%3Cpath d='M8 10.5V7.5a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 38px 38px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  min-height: 120px;
+}
+video.is-locked,
+.article-body video.is-locked,
+.article-body .video-row video.is-locked,
+.article-body .panel-cell video.is-locked,
+.sample-figure video.is-locked {
+  background-color: #0b0b0d;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='38' viewBox='0 0 24 24' fill='none' stroke='%23b9b3c4' stroke-width='1.4' stroke-linecap='round'%3E%3Crect x='4.5' y='10.5' width='15' height='10' rx='2'/%3E%3Cpath d='M8 10.5V7.5a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 38px 38px;
+  border: 1px dashed var(--line);
+}
