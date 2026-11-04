@@ -34,9 +34,15 @@ for that to be true, and all three are in place:
    entered and plays them from a blob. The published figures that belong to
    the *notes* stay in the clear — a note is the public record, the catalogue
    behind it is the delivery.
-3. **The repository is private.** The clips are committed here in the clear,
-   so a public repository would hand over everything the gate protects. This
-   is the part that cannot be fixed in the build.
+3. **The repository stays public — a known trade-off.** The clips are committed
+   here in the clear, so the gate protects the *site*, not the repository:
+   anyone can clone this repo and get the original material. Making the
+   repository private would close that, but GitHub Pages only accepts a
+   private source on GitHub Pro — on the Free plan a private repository
+   unpublishes the site entirely, which was measured, not assumed. Until the
+   account moves to Pro, this is the remaining gap in the sharing story, and
+   it is the reason to keep the repository out of reach of people who should
+   not have the material.
 
 The key is derived from one short access code with PBKDF2 (210,000 rounds,
 SHA-256), so guessing it offline is slow. The code is short on purpose — it
