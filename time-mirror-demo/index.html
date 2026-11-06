@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Time Mirror · 时光镜像（交互演示）</title>
+<meta name="description" content="Time Mirror 时光镜像：给孩子创建数字分身。投喂回忆，数字分身随记忆成长；与分身流式对话，回答只来自真实回忆。" />
+<style>
+  :root{
+    --cream:#FEF8E7; --warm:#FFF8DC; --sage:#E8F0E0; --sage-2:#F0F4E8;
+    --gold:#D4A843; --gold-2:#E8D068; --gold-deep:#B8941F; --gold-text:#5B4A1E; --gold-soft:#8B7B4A;
+    --radius:16px;
+    --glass:rgba(255,255,255,.62);
+    --line:rgba(139,123,74,.28);
+    --shadow:0 10px 30px rgba(196,163,90,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+    color:var(--gold-text);
+    background:linear-gradient(180deg,var(--cream) 0%,var(--warm) 30%,var(--sage-2) 62%,var(--sage) 100%);
+    background-attachment:fixed;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  #particles{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;opacity:.5;z-index:0}
+  .wrap{position:relative;z-index:1;max-width:460px;margin:0 auto;padding:22px 16px 108px}
+  header{text-align:center;margin-bottom:16px}
+  .brand{font-size:13px;letter-spacing:.22em;color:var(--gold-soft);text-transform:uppercase}
+  h1{margin:6px 0 2px;font-size:26px;font-weight:600;letter-spacing:.04em}
+  .sub{margin:0;font-size:13px;color:var(--gold-soft)}
+  .card{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+        border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+  .card h2{margin:0 0 4px;font-size:15px;font-weight:600}
+  .card .hint{margin:0 0 12px;font-size:12px;color:var(--gold-soft);line-height:1.6}
+  label{display:block;font-size:12px;color:var(--gold-soft);margin:10px 0 6px}
+  textarea,input,select{width:100%;font:inherit;font-size:14px;color:var(--gold-text);
+        background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:12px;padding:10px 12px;outline:none}
+  textarea:focus,input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,168,67,.16)}
+  textarea{min-height:92px;resize:vertical;line-height:1.6}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);
+        background:rgba(255,255,255,.6);color:var(--gold-text);cursor:pointer;transition:.22s ease}
+  .chip[aria-pressed="true"]{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(212,168,67,.32)}
+  .chip[data-type="survival"][aria-pressed="true"]{background:linear-gradient(135deg,#A8A29E,#78716C)}
+  .chip[data-type="earning"][aria-pressed="true"]{background:linear-gradient(135deg,#D97706,#B45309)}
+  .chip[data-type="beauty"][aria-pressed="true"]{background:linear-gradient(135deg,#DB2777,#BE185D)}
+  .chip[data-type="play"][aria-pressed="true"]{background:linear-gradient(135deg,#0EA5E9,#0369A1)}
+  .chip[data-type="flow"][aria-pressed="true"]{background:linear-gradient(135deg,#C2410C,#7C2D12)}
+  .btn{width:100%;margin-top:14px;font:inherit;font-size:15px;font-weight:600;color:#fff;cursor:pointer;
+      border:none;border-radius:14px;padding:13px 16px;
+      background:linear-gradient(135deg,var(--gold-2),var(--gold-deep));
+      box-shadow:0 8px 20px rgba(184,148,31,.28);transition:.22s ease}
+  .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:rgba(255,255,255,.7);color:var(--gold-text);border:1px solid var(--line);box-shadow:none}
+  .row{display:flex;gap:10px}
+  .row>*{flex:1}
+  .stat{display:flex;justify-content:space-between;align-items:baseline;margin:8px 0 4px;font-size:13px}
+  .stat b{font-size:15px}
+  .bar{height:8px;border-radius:999px;background:rgba(139,123,74,.14);overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold-2),var(--gold-deep));transition:width .6s ease}
+  .dist{margin-bottom:12px}
+  .dist .name{font-size:13px}
+  .dist .val{font-size:12px;color:var(--gold-soft)}
+  .seed-stage{display:flex;align-items:center;gap:16px}
+  .seed-stage svg{flex:0 0 132px;height:150px}
+  .seed-copy{font-size:12.5px;color:var(--gold-soft);line-height:1.7}
+  .timeline{list-style:none;margin:0;padding:0}
+  .timeline li{position:relative;padding:0 0 14px 20px;border-left:1px solid var(--line);margin-left:6px}
+  .timeline li:last-child{border-left-color:transparent;padding-bottom:0}
+  .timeline li::before{content:"";position:absolute;left:-6px;top:4px;width:11px;height:11px;border-radius:50%;
+        background:radial-gradient(circle at 35% 35%,#fff,var(--gold-2));box-shadow:0 0 10px rgba(212,168,67,.7)}
+  .timeline .date{font-size:11.5px;color:var(--gold-soft);letter-spacing:.06em}
+  .timeline .text{font-size:13.5px;line-height:1.65;margin-top:3px}
+  .timeline .tags{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+  .pill{font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(212,168,67,.14);color:var(--gold-deep)}
+  .chatlog{display:flex;flex-direction:column;gap:10px;max-height:46vh;overflow:auto;padding:2px}
+  .msg{max-width:86%;font-size:13.5px;line-height:1.7;padding:10px 13px;border-radius:16px;white-space:pre-wrap}
+  .msg.me{align-self:flex-end;background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#fff;border-bottom-right-radius:6px}
+  .msg.bot{align-self:flex-start;background:rgba(255,255,255,.78);border:1px solid var(--line);border-bottom-left-radius:6px}
+  .msg.bot b{color:var(--gold-deep)}
+  .toggle{display:inline-flex;background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:999px;padding:3px}
+  .toggle button{font:inherit;font-size:12px;border:none;background:none;color:var(--gold-soft);padding:6px 14px;border-radius:999px;cursor:pointer}
+  .toggle button[aria-pressed="true"]{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#fff}
+  nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;padding:0 0 env(safe-area-inset-bottom)}
+  .navbar{position:fixed;bottom:14px;display:flex;gap:4px;background:var(--glass);backdrop-filter:blur(16px);
+         border:1px solid var(--line);border-radius:999px;padding:5px;box-shadow:var(--shadow)}
+  .navbar button{font:inherit;font-size:12.5px;border:none;background:none;color:var(--gold-soft);padding:9px 15px;border-radius:999px;cursor:pointer;transition:.2s}
+  .navbar button[aria-pressed="true"]{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#fff}
+  .note{font-size:11.5px;line-height:1.75;color:var(--gold-soft);background:rgba(255,255,255,.5);
+        border:1px dashed var(--line);border-radius:14px;padding:12px 14px;margin-top:4px}
+  .note a{color:var(--gold-deep)}
+  .empty{font-size:12.5px;color:var(--gold-soft);text-align:center;padding:22px 0}
+  .fadein{animation:fade .5s ease forwards}
+  @keyframes fade{from{opacity:.35;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="wrap">
+  <header>
+    <div class="brand">Time Mirror</div>
+    <h1>时光镜像</h1>
+    <p class="sub">给孩子创建数字分身 · 投喂回忆，让分身随记忆生长</p>
+  </header>
+
+  <main id="view"></main>
+
+  <div class="note">
+    这是 <b>静态交互演示</b>：对话回复由本地检索 + 模板合成，未调用大模型，用来展示交互与检索逻辑；
+    完整版是 Next.js 16 全栈应用（流式接口接入大模型 + 数据库 + 对象存储），源码在本仓库 <code>src/</code> 目录。
+  </div>
+</div>
+
+<nav><div class="navbar" id="nav"></div></nav>
+
+<script>
+(function(){
+  "use strict";
+
+  var TYPES = {
+    survival:{name:"生存时间", color:"#78716C"},
+    earning:{name:"赚钱时间", color:"#B45309"},
+    beauty:{name:"好看时间", color:"#BE185D"},
+    play:{name:"好玩时间", color:"#0369A1"},
+    flow:{name:"心流时间", color:"#7C2D12"}
+  };
+  var EMOTIONS = ["兴奋","好奇","专注","骄傲","温柔","安静","倔强","开心"];
+
+  var SEED = [
+    {date:"2026-03-12", content:"第一次自己穿衣服出门，一路上一直在看路边的树不肯回家", types:["survival"], emotion:"兴奋", scene:"公园", tags:["第一次","出门","树"]},
+    {date:"2026-03-28", content:"把纸箱房子的屋顶拆下来重新搭，因为想让它更结实一点", types:["play"], emotion:"好奇", scene:"客厅", tags:["搭建","纸箱","反复"]},
+    {date:"2026-04-05", content:"画完画以后自己讲了一个故事，讲了十分钟不让人插话", types:["flow"], emotion:"专注", scene:"书房", tags:["画画","讲故事"]},
+    {date:"2026-04-19", content:"第一次自己系鞋带，蹲在地上试了很多次才成功", types:["survival"], emotion:"骄傲", scene:"玄关", tags:["第一次","鞋带","坚持"]},
+    {date:"2026-05-08", content:"把家里的绿萝搬到阳台上晒太阳，还给每一盆都起了名字", types:["beauty"], emotion:"温柔", scene:"阳台", tags:["绿萝","照料","命名"]},
+    {date:"2026-05-21", content:"把积木按颜色排成一排，排了又拆，拆了又排", types:["flow"], emotion:"专注", scene:"客厅", tags:["积木","颜色","专注"]}
+  ];
+
+  var STORE_KEY = "time-mirror-demo-v1";
+  var state = {tab:"feed", role:"parent", memories:[], draft:{types:[], emotion:"好奇", scene:"", tags:""}};
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(raw){ var s = JSON.parse(raw); if(s && s.memories && s.memories.length){ state.memories = s.memories; return; } }
+    }catch(e){}
+    state.memories = SEED.map(function(m,i){ return {id:"s"+i, createdAt:m.date, mediaName:"", mediaPreview:"", type:"text", author:"parent", mediaType:"text", memoryDate:m.date, memoryContent:m.content, memoryTypes:m.types, memoryEmotion:m.emotion, memoryScene:m.scene, memoryTags:m.tags}; });
+    save();
+  }
+  function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify({memories:state.memories})); }catch(e){} }
+
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+
+  function counts(){
+    var t = {survival:0,earning:0,beauty:0,play:0,flow:0}, e = {}, tags = {};
+    state.memories.forEach(function(m){
+      (m.memoryTypes||[]).forEach(function(k){ t[k] = (t[k]||0)+1; });
+      if(m.memoryEmotion) e[m.memoryEmotion] = (e[m.memoryEmotion]||0)+1;
+      (m.memoryTags||[]).forEach(function(k){ tags[k] = (tags[k]||0)+1; });
+    });
+    return {t:t,e:e,tags:tags};
+  }
+
+  function growth(){ return Math.min(1, state.memories.length/12); }
+
+  function seedSVG(){
+    var g = growth();
+    var stem = 8 + 46*g, leaves = g>0.18?1:(g>0.45?2:0), leafR = 8 + 12*g;
+    var leaf = "";
+    for(var i=0;i<leaves;i++){
+      var y = 118 - stem + i*16, x = 66 + (i%2===0?-1:1)*(10+8*g);
+      leaf += '<ellipse cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" rx="'+leafR.toFixed(1)+'" ry="'+(leafR*0.55).toFixed(1)+'" transform="rotate('+(i%2===0?-28:28)+' '+x.toFixed(1)+' '+y.toFixed(1)+')" fill="url(#leafGrad)"/>';
+    }
+    var dots = state.memories.length;
+    var glow = "";
+    for(var j=0;j<Math.min(dots,18);j++){
+      var a = (j*137.5)*Math.PI/180, r = 30 + (j%5)*7;
+      glow += '<circle cx="'+(66+Math.cos(a)*r).toFixed(1)+'" cy="'+(112-Math.sin(a)*r*0.8).toFixed(1)+'" r="2.4" fill="#E8D068" opacity="0.85"/>';
+    }
+    return '<svg viewBox="0 0 132 150" role="img" aria-label="成长中的幼苗">'+
+      '<defs>'+
+        '<linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#A3C9A5"/><stop offset="100%" stop-color="#5B7D5A"/></linearGradient>'+
+        '<radialGradient id="soilGrad"><stop offset="0%" stop-color="#C9A96A"/><stop offset="100%" stop-color="#A8894F"/></radialGradient>'+
+        '<radialGradient id="halo"><stop offset="0%" stop-color="#FFF3C4" stop-opacity=".85"/><stop offset="100%" stop-color="#FFF3C4" stop-opacity="0"/></radialGradient>'+
+      '</defs>'+
+      '<circle cx="66" cy="70" r="58" fill="url(#halo)" opacity="'+(0.25+0.5*g).toFixed(2)+'"/>'+
+      glow+
+      '<path d="M34 118 Q66 108 98 118 L98 132 Q66 140 34 132 Z" fill="url(#soilGrad)" opacity=".9"/>'+
+      '<path d="M66 118 C66 '+(118-stem)+' 64 '+(120-stem*1.1)+' 62 '+(120-stem*1.05)+'" stroke="#6E8B63" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+      leaf+
+      '<ellipse cx="66" cy="118" rx="10" ry="7" fill="#E8D068" opacity=".95"/>'+
+      '</svg>';
+  }
+
+  /* ---------- 视图 ---------- */
+
+  function viewFeed(){
+    var c = counts();
+    var html = '<section class="card fadein">'+
+      '<h2>投喂回忆</h2>'+
+      '<p class="hint">写下一件关于 TA 的小事：时间标签决定它归入哪一类时间，情绪与场景会进入分身的画像。</p>'+
+      '<label for="mc">回忆内容</label>'+
+      '<textarea id="mc" placeholder="例：第一次自己系鞋带，蹲在地上试了很多次才成功"></textarea>'+
+      '<label>时间分类（可多选）</label>'+
+      '<div class="chips" id="types">'+ Object.keys(TYPES).map(function(k){
+        return '<button class="chip" type="button" data-type="'+k+'" aria-pressed="'+(state.draft.types.indexOf(k)>=0)+'">'+TYPES[k].name+'</button>';
+      }).join("") +'</div>'+
+      '<div class="row">'+
+        '<div><label for="me">情绪</label><select id="me">'+EMOTIONS.map(function(e){ return '<option'+(state.draft.emotion===e?' selected':'')+'>'+e+'</option>'; }).join("")+'</select></div>'+
+        '<div><label for="ms">场景</label><input id="ms" placeholder="客厅 / 公园" value="'+esc(state.draft.scene)+'"></div>'+
+      '</div>'+
+      '<label for="mt">自定义标签（逗号分隔）</label>'+
+      '<input id="mt" placeholder="第一次, 坚持" value="'+esc(state.draft.tags)+'">'+
+      '<button class="btn" id="submit">投喂这一颗光点</button>'+
+      '</section>'+
+      '<section class="card fadein">'+
+      '<h2>分身进度</h2>'+
+      '<p class="hint">每一次投喂都会多一粒光点，轮廓随之清晰。</p>'+
+      '<div class="seed-stage">'+seedSVG()+'<div class="seed-copy">已投喂 <b>'+state.memories.length+'</b> 条回忆<br>'+
+      '光点 '+state.memories.length+' 粒<br>成长度 '+Math.round(growth()*100)+'%</div></div>'+
+      '<div class="bar" style="margin-top:10px"><i style="width:'+(growth()*100).toFixed(0)+'%"></i></div>'+
+      '</section>';
+    return html;
+  }
+
+  function viewMirror(){
+    var c = counts();
+    var order = {survival:0,earning:0,beauty:0,play:0,flow:0};
+    var items = state.memories.slice().sort(function(a,b){ return (b.memoryDate||"").localeCompare(a.memoryDate||""); });
+    var html = '<section class="card fadein"><h2>回忆面板</h2><p class="hint">光点连成时间线，每一条都是分身的记忆依据。</p>';
+    if(!items.length){ html += '<div class="empty">还没有回忆，先去投喂一页。</div>'; }
+    else{
+      html += '<ul class="timeline">'+ items.map(function(m){
+        var pills = (m.memoryTypes||[]).map(function(k){ return '<span class="pill">'+TYPES[k].name+'</span>'; }).join("");
+        return '<li><div class="date">'+esc(m.memoryDate)+' · '+esc(m.memoryScene||"未记场景")+'</div>'+
+               '<div class="text">'+esc(m.memoryContent)+'</div>'+
+               '<div class="tags">'+pills+'<span class="pill">'+esc(m.memoryEmotion)+'</span></div></li>';
+      }).join("")+'</ul>';
+    }
+    return html+'</section>';
+  }
+
+  function viewGrowth(){
+    var c = counts(), total = state.memories.length || 1;
+    var dist = Object.keys(TYPES).map(function(k){
+      var v = c.t[k]||0, pct = Math.round(v/total*100);
+      return '<div class="dist"><div class="stat"><span class="name">'+TYPES[k].name+'</span><span class="val">'+v+' 条 · '+pct+'%</span></div>'+
+             '<div class="bar"><i style="width:'+pct+'%;background:'+TYPES[k].color+'"></i></div></div>';
+    }).join("");
+    var emo = Object.keys(c.e).sort(function(a,b){ return c.e[b]-c.e[a]; }).slice(0,4).map(function(k){
+      var pct = Math.round(c.e[k]/total*100);
+      return '<div class="dist"><div class="stat"><span class="name">'+esc(k)+'</span><span class="val">'+c.e[k]+' 次</span></div>'+
+             '<div class="bar"><i style="width:'+pct+'%"></i></div></div>';
+    }).join("") || '<div class="empty">情绪画像还没有样本。</div>';
+    var tagList = Object.keys(c.tags).sort(function(a,b){ return c.tags[b]-c.tags[a]; }).slice(0,6);
+    return '<section class="card fadein"><h2>成长界面</h2><p class="hint">五种时间分布、情绪模式与价值种子，全部由回忆推出；点开价值种子可以回看它的证据。</p>'+
+      '<div class="seed-stage" style="margin-bottom:14px">'+seedSVG()+'<div class="seed-copy">成长阶段：'+stages(total).join(' → ')+'</div></div>'+
+      '<h2 style="font-size:13.5px;margin-top:4px">五种时间分布</h2>'+dist+
+      '<h2 style="font-size:13.5px;margin-top:12px">情绪模式</h2>'+emo+
+      '<h2 style="font-size:13.5px;margin-top:12px">价值种子</h2>'+
+      (tagList.length? '<div class="chips">'+tagList.map(function(t){ return '<button class="chip" type="button" data-evidence="'+esc(t)+'">'+esc(t)+' · '+c.tags[t]+'</button>'; }).join("")+'</div>' : '<div class="empty">还没有形成价值种子。</div>')+
+      '</section>';
+  }
+
+  function stages(n){
+    var s = [];
+    if(n>=1) s.push("播种"); if(n>=3) s.push("破土"); if(n>=5) s.push("萌芽");
+    if(n>=8) s.push("抽叶"); if(n>=10) s.push("生长"); if(n>=12) s.push("茁壮");
+    return s;
+  }
+
+  function viewChat(){
+    return '<section class="card fadein"><h2>与数字分身对话</h2>'+
+      '<p class="hint">回答只会来自回忆里真实发生过的细节；回忆不足时它会直说，而不是编一个。</p>'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">'+
+        '<div class="toggle" id="role">'+
+          '<button type="button" data-role="parent" aria-pressed="'+(state.role==="parent")+'">家长视角</button>'+
+          '<button type="button" data-role="child" aria-pressed="'+(state.role==="child")+'">孩子视角</button>'+
+        '</div>'+
+        '<span style="font-size:11.5px;color:var(--gold-soft)">记忆 '+state.memories.length+' 条</span>'+
+      '</div>'+
+      '<div class="chatlog" id="log"></div>'+
+      '<label for="q">说点什么</label>'+
+      '<input id="q" placeholder="例：她什么时候开始自己穿衣服的？">'+
+      '<button class="btn" id="ask">发送</button>'+
+      '</section>';
+  }
+
+  /* ---------- 检索与回复（本地，不调用大模型） ---------- */
+
+  var STOP = "的了吗呢啊是在有和与也就都很还要会说自己你他她它们个这那什么怎样时候能".split("");
+
+  function tokens(q){
+    var out = [];
+    for(var i=0;i<q.length;i++){
+      var ch = q[i];
+      if(STOP.indexOf(ch)>=0) continue;
+      out.push(ch);
+      if(i+1<q.length && STOP.indexOf(q[i+1])<0) out.push(q.substr(i,2));
+    }
+    return out;
+  }
+
+  function retrieve(q){
+    var tk = tokens(q), scored = [];
+    state.memories.forEach(function(m){
+      var hay = ((m.memoryContent||"")+" "+(m.memoryScene||"")+" "+(m.memoryEmotion||"")+" "+((m.memoryTags||[]).join(" "))).toLowerCase();
+      var score = 0;
+      tk.forEach(function(t){ if(t.length>1 && hay.indexOf(t)>=0) score += t.length>1?2:1; });
+      if(score>0) scored.push({m:m, score:score});
+    });
+    scored.sort(function(a,b){ return b.score-a.score; });
+    return scored.slice(0,2);
+  }
+
+  function reply(q){
+    var hits = retrieve(q);
+    var parent = state.role==="parent";
+    if(!hits.length){
+      return parent
+        ? "这段我还不够了解你——目前只有 "+state.memories.length+" 条回忆，没有能支撑这段问题的线索。你再投喂一些细节，我就能从里面找。"
+        : "这段我还不了解。我们一起再记几件事吧，我现在还只有 "+state.memories.length+" 条回忆。";
+    }
+    var top = hits[0].m, second = hits[1] && hits[1].score >= hits[0].score*0.6 ? hits[1].m : null;
+    var lines = [];
+    if(parent){
+      lines.push("我记得 "+top.memoryDate+"：<b>"+esc(top.memoryContent)+"</b>。");
+      lines.push("那一回是"+top.memoryEmotion+"的，在"+ (top.memoryScene||"家里") +"。");
+      if(second) lines.push("另外还有一条接近的：<b>"+esc(second.memoryContent)+"</b>。");
+      lines.push("要不要说说当时你就在旁边看见了什么？");
+    }else{
+      lines.push("你 "+top.memoryDate+" 的时候，<b>"+esc(top.memoryContent)+"</b>。");
+      lines.push("那一次是"+top.memoryEmotion+"的。");
+      if(second) lines.push("还有一条我也记得：<b>"+esc(second.memoryContent)+"</b>。");
+      lines.push("你还记得那之后发生了什么吗？");
+    }
+    return lines.join("\n");
+  }
+
+  /* ---------- 渲染 ---------- */
+
+  var TABS = [{k:"feed",n:"投喂"},{k:"mirror",n:"镜像"},{k:"growth",n:"成长"},{k:"chat",n:"对话"}];
+
+  function render(){
+    var v = document.getElementById("view");
+    if(state.tab==="feed") v.innerHTML = viewFeed();
+    else if(state.tab==="mirror") v.innerHTML = viewMirror();
+    else if(state.tab==="growth") v.innerHTML = viewGrowth();
+    else v.innerHTML = viewChat();
+
+    document.getElementById("nav").innerHTML = TABS.map(function(t){
+      return '<button type="button" data-tab="'+t.k+'" aria-pressed="'+(state.tab===t.k)+'">'+t.n+'</button>';
+    }).join("");
+
+    if(state.tab==="feed") bindFeed();
+    if(state.tab==="growth") bindGrowth();
+    if(state.tab==="chat") bindChat();
+    if(state.tab==="chat") greet();
+  }
+
+  function bindFeed(){
+    var chips = document.getElementById("types");
+    chips.addEventListener("click", function(e){
+      var b = e.target.closest(".chip"); if(!b) return;
+      var k = b.dataset.type, i = state.draft.types.indexOf(k);
+      if(i>=0) state.draft.types.splice(i,1); else state.draft.types.push(k);
+      b.setAttribute("aria-pressed", state.draft.types.indexOf(k)>=0);
+    });
+    document.getElementById("me").addEventListener("change", function(e){ state.draft.emotion = e.target.value; });
+    document.getElementById("ms").addEventListener("input", function(e){ state.draft.scene = e.target.value; });
+    document.getElementById("mt").addEventListener("input", function(e){ state.draft.tags = e.target.value; });
+    document.getElementById("submit").addEventListener("click", function(){
+      var content = (document.getElementById("mc").value||"").trim();
+      if(!content){ document.getElementById("mc").focus(); return; }
+      var tags = (state.draft.tags||"").split(/[,，、\s]+/).filter(Boolean);
+      var d = new Date();
+      var mm = String(d.getMonth()+1).padStart(2,"0"), dd = String(d.getDate()).padStart(2,"0");
+      state.memories.push({
+        id:"m"+Date.now(), createdAt:d.toISOString(), type:"text", mediaName:"", mediaPreview:"", author:"parent",
+        memoryDate:d.getFullYear()+"-"+mm+"-"+dd, memoryContent:content,
+        memoryTypes:state.draft.types.length?state.draft.types.slice():["play"],
+        memoryEmotion:state.draft.emotion, memoryScene:(state.draft.scene||"").trim(), memoryTags:tags
+      });
+      save();
+      state.draft = {types:[], emotion:"好奇", scene:"", tags:""};
+      burst();
+      render();
+    });
+  }
+
+  function bindGrowth(){
+    document.getElementById("view").addEventListener("click", function(e){
+      var b = e.target.closest("[data-evidence]"); if(!b) return;
+      var tag = b.dataset.evidence;
+      var ev = state.memories.filter(function(m){ return (m.memoryTags||[]).indexOf(tag)>=0; });
+      var box = document.createElement("div");
+      box.className = "note fadein";
+      box.style.marginTop = "12px";
+      box.innerHTML = "<b>"+esc(tag)+"</b> 的证据（"+ev.length+" 条）<br>" + ev.map(function(m){ return "· "+esc(m.memoryDate)+"　"+esc(m.memoryContent); }).join("<br>");
+      document.getElementById("view").appendChild(box);
+    });
+  }
+
+  function greet(){
+    var log = document.getElementById("log");
+    if(!log) return;
+    if(log.childElementCount===0){
+      push("bot", state.role==="parent"
+        ? "我是 TA 的数字分身。你问什么，我只会从这些回忆里找答案。"
+        : "我是你的数字分身。你问什么，我只会从这些回忆里找答案。");
+    }
+  }
+
+  function push(who, html){
+    var log = document.getElementById("log"); if(!log) return;
+    var el = document.createElement("div");
+    el.className = "msg " + (who==="me"?"me":"bot");
+    el.innerHTML = html;
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function bindChat(){
+    document.getElementById("role").addEventListener("click", function(e){
+      var b = e.target.closest("[data-role]"); if(!b) return;
+      state.role = b.dataset.role;
+      this.querySelectorAll("[data-role]").forEach(function(x){ x.setAttribute("aria-pressed", String(x.dataset.role===state.role)); });
+      var log = document.getElementById("log"); if(log) log.innerHTML = "";
+      greet();
+    });
+    function ask(){
+      var input = document.getElementById("q");
+      var q = (input.value||"").trim(); if(!q) return;
+      push("me", esc(q)); input.value = "";
+      push("bot", reply(q));
+    }
+    document.getElementById("ask").addEventListener("click", ask);
+    document.getElementById("q").addEventListener("keydown", function(e){ if(e.key==="Enter") ask(); });
+  }
+
+  document.getElementById("nav").addEventListener("click", function(e){
+    var b = e.target.closest("[data-tab]"); if(!b) return;
+    state.tab = b.dataset.tab; render();
+  });
+
+  /* ---------- 粒子背景 ---------- */
+
+  var canvas = document.getElementById("particles"), ctx = null, parts = [];
+  try { ctx = canvas.getContext("2d"); } catch(e){ ctx = null; }
+  function sizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  function seedParticles(){ parts = []; for(var i=0;i<34;i++) parts.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:1+Math.random()*2,vx:(Math.random()-.5)*.16,vy:-0.05-Math.random()*.12,a:.15+Math.random()*.45}); }
+  function draw(){
+    if(!ctx) return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i=0;i<parts.length;i++){
+      var p = parts[i];
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.y<-10){ p.y=window.innerHeight+8; p.x=Math.random()*window.innerWidth; }
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = "rgba(212,168,67,"+p.a+")"; ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  function burst(){
+    for(var i=0;i<18;i++) parts.push({x:window.innerWidth/2,y:window.innerHeight*0.42,r:1+Math.random()*2.4,vx:(Math.random()-.5)*3,vy:(Math.random()-.9)*2.6,a:.4+Math.random()*.5});
+  }
+  window.addEventListener("resize", function(){ sizeCanvas(); seedParticles(); });
+  sizeCanvas(); seedParticles(); draw();
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
