@@ -314,9 +314,9 @@ const home = '<main id="main"><section class="hero"><div class="wrap hero-grid">
   + b('A quiet desktop cat that reads my calendar once, then stays put. Built collaboratively with AI.', '一只安静的桌面猫，读一次日程就待在原地。和 AI 一起做的。')
   + '</p><a class="section-link" href="/writing/building-petassistant/">' + b('Read the build story →', '读项目记录 →') + '</a></article>'
   + '<article class="project-secondary"><div class="ps-head"><div class="tags"><span>' + b('PRODUCT', '产品') + '</span><span>Time Mirror</span></div><h3>Time Mirror</h3></div><p>'
-  + b('A digital twin that grows from a child\'s memories — every memory becomes a point of light, and the answers come back only from what was actually recorded. The demo runs entirely in the browser, with no server and no model call.',
-    '一个从孩子记忆里长出来的数字孪生 —— 每段记忆化作一束光，回答只来自真正记录过的细节。演示完全跑在浏览器里，不需要服务器，也不需要模型调用。')
-  + '</p><a class="section-link" href="/time-mirror-demo/">' + b('Open the demo →', '打开演示 →') + '</a></article>'
+  + b('A digital twin that grows from a child\'s memories — every memory becomes a point of light, and the answers come back only from what was actually recorded. The live app opens on a seed pushing through soil, then grows through six stages, from sowing to thriving.',
+    '一个从孩子记忆里长出来的数字分身 —— 每段记忆化作一束光，回答只来自真正记录过的细节。线上版以一颗破土的种子开场，随后走过播种、破土、萌芽、抽叶、生长、茁壮六个阶段。')
+  + '</p><a class="section-link" href="https://coding-lady-hackathon.vercel.app/">' + b('Open the live app →', '打开线上版 →') + '</a></article>'
   + '</div></section>'
   + '<section id="practice"><div class="wrap"><div class="kicker">03 — ' + b('Practice', '实践') + '</div><h2 class="sec">'
   + b('Beyond the technical work', '技术之外的那一部分') + '</h2><p class="sec-sub">'
