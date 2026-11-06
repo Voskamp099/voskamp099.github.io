@@ -122,7 +122,12 @@ const protectRefs = html => html.replace(/(src|poster)="(\/assets\/[^"]+)"/g, (m
 
 for (const page of STATIC_PAGES) {
   const exists = await fs.stat(page).then(() => true).catch(() => false);
-  if (exists) await fs.cp(page, 'dist/' + page);
+  if (!exists) continue;
+  // A static page may live in a subfolder, so the destination directory has to
+  // exist before the file is copied into it.
+  const dest = 'dist/' + page;
+  await fs.mkdir(path.dirname(dest), { recursive: true });
+  await fs.cp(page, dest);
 }
 const header = '<a class="skip" href="#main">' + b('Skip to content', '跳到正文') + '</a>'
   + '<header class="topbar"><a class="path" href="/">~/<b>raelynn</b> / notes</a>'
@@ -308,6 +313,10 @@ const home = '<main id="main"><section class="hero"><div class="wrap hero-grid">
   + '<article class="project-secondary"><div class="ps-head"><div class="tags"><span>' + b('macOS', 'macOS') + '</span><span>' + b('SIDE PROJECT', '小项目') + '</span></div><h3>PetAssistant</h3></div><p>'
   + b('A quiet desktop cat that reads my calendar once, then stays put. Built collaboratively with AI.', '一只安静的桌面猫，读一次日程就待在原地。和 AI 一起做的。')
   + '</p><a class="section-link" href="/writing/building-petassistant/">' + b('Read the build story →', '读项目记录 →') + '</a></article>'
+  + '<article class="project-secondary"><div class="ps-head"><div class="tags"><span>' + b('PRODUCT', '产品') + '</span><span>Time Mirror</span></div><h3>Time Mirror</h3></div><p>'
+  + b('A digital twin that grows from a child\'s memories — every memory becomes a point of light, and the answers come back only from what was actually recorded. The demo runs entirely in the browser, with no server and no model call.',
+    '一个从孩子记忆里长出来的数字孪生 —— 每段记忆化作一束光，回答只来自真正记录过的细节。演示完全跑在浏览器里，不需要服务器，也不需要模型调用。')
+  + '</p><a class="section-link" href="/time-mirror-demo/">' + b('Open the demo →', '打开演示 →') + '</a></article>'
   + '</div></section>'
   + '<section id="practice"><div class="wrap"><div class="kicker">03 — ' + b('Practice', '实践') + '</div><h2 class="sec">'
   + b('Beyond the technical work', '技术之外的那一部分') + '</h2><p class="sec-sub">'
@@ -592,7 +601,7 @@ const notFound = '<main id="main" class="wrap"><section><div class="kicker">404<
 await fs.writeFile('dist/404.html', layout({ titleEn: 'Page not found — Raelynn', titleZh: '页面不存在 — Raelynn', description: '回到 Raelynn 的笔记。', descriptionEn: 'Return to Raelynn’s notebook.', route: '/404.html', body: notFound }));
 await fs.writeFile('dist/.nojekyll', '');
 await fs.writeFile('dist/robots.txt', 'User-agent: *\nAllow: /\nSitemap: ' + origin + '/sitemap.xml\n');
-const routes = ['/', ...sampleRoutes, ...posts.map(post => '/writing/' + post.slug + '/')];
+const routes = ['/', ...sampleRoutes, ...posts.map(post => '/writing/' + post.slug + '/'), '/time-mirror-demo/'];
 await fs.writeFile('dist/sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
   + routes.map(route => '<url><loc>' + origin + route + '</loc></url>').join('') + '</urlset>');
 await fs.writeFile('dist/feed.xml', '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Raelynn — 项目与技术笔记</title><link>' + origin
