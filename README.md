@@ -125,6 +125,8 @@ generator, so it can be shared on its own.
   kept at their native resolution and never downscaled for the web; only the container is changed
   (faststart), or the pixel format when a browser cannot decode the original.
 - Every clip gets a poster image so the page shows a real frame before playback.
+- A clip, its poster and its target come from the same reviewed sample; replacing one of them means
+  replacing the whole set, never half of it.
 - Footage that may not be redistributed is not published: the entry then shows the prompt and the
   task definition only, and says so in one line.
 - Clips live under assets/v2v-samples/ (tasks) and assets/generator-samples/ (generators), H.264,
