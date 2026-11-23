@@ -1,0 +1,14 @@
+# 提交身份归并（mailmap）
+#
+# 历史里曾出现三个不属于本账号的署名身份：
+#   raelynn@users.noreply.github.com —— 属于另一个 GitHub 账号（Portland 的 Raelynn Keron）
+#   raelynn_0612@163.com            —— 本人的 163 邮箱，但未绑定 GitHub 账号
+#   MintMuse                        —— 笔名，邮箱本身是对的
+# 用这些邮箱提交，GitHub 会把提交记到对应账号名下，不会征求账号主人同意。
+# 历史已改写为 Voskamp099；这里保留作为防御，防止将来误用。
+#
+# 格式：显示身份 <显示邮箱> <提交里实际使用的邮箱>
+
+Voskamp099 <voskamp099@users.noreply.github.com> Raelynn <raelynn@users.noreply.github.com>
+Voskamp099 <voskamp099@users.noreply.github.com> Raelynn Zhao <raelynn_0612@163.com>
+Voskamp099 <voskamp099@users.noreply.github.com> MintMuse <141211105+Voskamp099@users.noreply.github.com>
