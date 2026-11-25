@@ -591,6 +591,28 @@ await fs.writeFile('dist/counterfactual-samples/index.html', layout({ titleEn: '
 await fs.mkdir('dist/v2v-task-samples', { recursive: true });
 await fs.writeFile('dist/v2v-task-samples/index.html', layout({ titleEn: 'Sample of work — Raelynn', titleZh: '作品样本 — Raelynn', description: '作品样本页。', descriptionEn: 'The sample of work page.', route: '/sample-of-work/', body: '<main id="main" class="wrap"><section><h1 class="sec">' + b('This page moved to the sample directory.', '这一页已并入作品样本目录。')
   + '</h1><a class="btn btn--solid" href="/sample-of-work/">' + b('Open the sample directory →', '打开作品样本目录 →') + '</a></section></main>', redirectTo: '/sample-of-work/' }));
+// A generator whose case was rewritten keeps its old address usable: the four generators below
+// carry a new phenomenon now, and the pages that were published under the old one point at the
+// new page instead of turning into a dead link.
+const RENAMED_GENERATORS = [
+  ['pr751-diving', 'pr751-spring-platform'],
+  ['pr752-shuttle', 'pr752-clock'],
+  ['pr753-needle', 'pr753-lathe'],
+  ['pr755-iceloop', 'pr755-ice-cubes']
+];
+for (const [oldId, newId] of RENAMED_GENERATORS) {
+  const target = '/sample-of-work/generator-' + newId + '/';
+  await fs.mkdir(path.join('dist', 'sample-of-work', 'generator-' + oldId), { recursive: true });
+  await fs.writeFile(path.join('dist', 'sample-of-work', 'generator-' + oldId, 'index.html'),
+    layout({ titleEn: 'Counterfactual generator — Raelynn', titleZh: '反事实生成器 — Raelynn',
+      description: '这一条生成器换了一个题目，旧地址仍然可用。',
+      descriptionEn: 'This generator carries another case now; the old address still works.',
+      route: target,
+      body: '<main id="main" class="wrap"><section><h1 class="sec">'
+        + b('This generator now shows another case.', '这一条生成器换了一个题目。')
+        + '</h1><a class="btn btn--solid" href="' + target + '">'
+        + b('Open the current case →', '打开当前这一条 →') + '</a></section></main>', redirectTo: target }));
+}
 const sampleRoutes = ['/sample-of-work/', '/sample-of-work/omni-reason/', '/sample-of-work/counterfactuals/',
   '/sample-of-work/appendix-task-480/',
   ...sampleEntries.map(taskPath), ...generatorEntries.map(generatorPath)];

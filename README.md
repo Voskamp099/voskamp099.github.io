@@ -111,19 +111,26 @@ generator, so it can be shared on its own.
   task also shows its reference asset, on its own labelled row above the input and target pair.
 - Every clip on the page is rendered in the same box, so a reference asset and an input clip read as
   the same object and no frame is ever cropped.
-- A generator that reached main carries the delivered four-stream set, and the page shows all four in
-  one row: True, Counterfactual, Formal Mask, QA overlay. The clips are the ones from the version
-  that was merged into main, so the page shows the delivered artefact and not a working copy. A
-  generator without that delivery keeps the true and counterfactual pair, plus the phenomenon id.
+- Every generator carries the four-stream delivery, and the page shows all four in one row: True,
+  Counterfactual, Formal Mask, QA overlay. The four clips come from the review bundle of the
+  version that was last reviewed, so the page shows the delivered artefact and not a working copy.
+  Nothing is rendered again for the blog.
+- The roles of the four files are taken from the review page and then checked against the picture:
+  the mask has to be a strict black-and-white label, and the overlay has to be the counterfactual
+  clip with that mask painted red. Some of the older deliveries carry the files under swapped
+  names, so the names alone are not evidence; the check is what decides.
 - The page never states whether a task is finished, passed or pending.
 - Every task card carries its own "play together" control that starts that task's clips at once;
   the page keeps one "pause all" control above the entries.
 
 ### Media rules
 
-- Publish at the quality the host allows. GitHub Pages serves the files as they are, so clips are
-  kept at their native resolution and never downscaled for the web; only the container is changed
-  (faststart), or the pixel format when a browser cannot decode the original.
+- Publish at the quality the host allows. GitHub Pages serves the files as they are, so the task
+  clips are kept at their native resolution and never downscaled for the web; only the container is
+  changed (faststart), or the pixel format when a browser cannot decode the original.
+- The counterfactual generator clips are published as 1024x1024 viewing copies, the shape the
+  sample pages already use: four panels sit side by side, so the delivered 2048x2048 render would
+  be four times the pixels the page shows.
 - Every clip gets a poster image so the page shows a real frame before playback.
 - A clip, its poster and its target come from the same reviewed sample; replacing one of them means
   replacing the whole set, never half of it.
@@ -134,7 +141,9 @@ generator, so it can be shared on its own.
 - The four-stream set of a generator is named `<id>-true`, `<id>-counterfactual`, `<id>-mask` and
   `<id>-overlay`, and the article shows the same four clips in one row when it uses a case. The mask
   panel is encoded losslessly so it stays a strict black-and-white label, and the overlay is the
-  red-tinted copy from the same delivery.
+  counterfactual clip with the mask painted red, which is how the delivery defines it.
+- A generator whose case was rewritten keeps its old address: the page under the old name points
+  at the new one instead of turning into a dead link.
 
 ### Licence rules
 

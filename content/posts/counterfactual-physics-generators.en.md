@@ -6,11 +6,11 @@ The two clips are pixel-identical until the violation starts. So the only differ
 
 The second clip also carries a pixel-level mask that says where the violating object is and from which frame the violation becomes visible. Plus a pair of prompts: two ways of describing the same scene, one of which obeys the physics and one of which does not.
 
-This post is about how that data is produced, and about the thirty-two generators I wrote, each with a real sample.
+This post is about how that data is produced, and about the forty generators I wrote, each with a real sample.
 
 ### One case, four streams
 
-Every case ships four streams: the true clip, the counterfactual clip, the formal binary mask, and the QA overlay that marks the region the generator changed. Here they are in one row, in the order they are delivered, taken from the versions merged into main.
+Every case ships four streams: the true clip, the counterfactual clip, the formal binary mask, and the QA overlay that marks the region the generator changed. Here they are in one row, in the order they are delivered, taken from the version each generator was last reviewed on.
 
 **A side-release buckle that unlocks under a sideways pull**
 
@@ -80,7 +80,7 @@ The physics can be right and the frame still be worthless. Everything in this se
 
 ## 6. The gallery
 
-Below are thirty-two real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip. The same thirty-two generators are also on the [sample of work page](/sample-of-work/); where a generator has the full four-stream delivery, the same four clips play in one row there.
+Below are forty real samples, one per generator. Each one has four panels: true, counterfactual, the formal binary mask, and the red QA overlay. The top row is the first frame that proves the violation, the bottom row is the last frame of the clip. The same forty generators are also on the [sample of work page](/sample-of-work/); where a generator has the full four-stream delivery, the same four clips play in one row there.
 
 ### A feather that loses its air drag
 
@@ -88,7 +88,7 @@ A silver iron ball and a white feather are released together in still air. The t
 
 ![A feather that loses its air drag: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/case6a-feather.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `free_fall_feather_iron_air_drag`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `free_fall_feather_iron_air_drag`.*
 
 ### An iron ball with an anomalous gravitational acceleration
 
@@ -96,7 +96,31 @@ Inside an evacuated chamber the ball and the feather fall straight down and land
 
 ![An iron ball with an anomalous gravitational acceleration: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/case6b-feather.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `free_fall_feather_iron_near_vacuum`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `free_fall_feather_iron_near_vacuum`.*
+
+### An induced current that outlives the circuit
+
+Two coils sit on the same iron core and one of them is wired to an alternating supply. In the true clip the induced current decays quickly once the supply is switched off; in the counterfactual the contribution of the mutual induction is kept, so a current is still flowing in the coil after the power is gone and the meter reading stays away from zero.
+
+![An induced current that outlives the circuit: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr607-mutual-induction.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `mutual_induction_steady_current_persistence`.*
+
+### The leaves of an electroscope do not close after the rod is taken away
+
+A charged rod is brought near the metal ball of an electroscope and the leaves are pushed apart by the induced charge. In the true clip the leaves close again slowly once the rod is taken away; in the counterfactual the induced charge stays on the ball and the leaves keep standing open instead of closing.
+
+![The leaves of an electroscope do not close after the rod is taken away: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr640-electroscope.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `electroscope_induction_no_leaf_divergence`.*
+
+### A charged comb that does not pick up the neutral paper
+
+A charged comb is brought near a neutral scrap of paper hanging in the air. In the true clip the gradient of the field picks the paper up and it follows the comb; in the counterfactual that polarisation does not happen, the paper only sways where it is and is never lifted.
+
+![A charged comb that does not pick up the neutral paper: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr676-comb.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `charged_comb_neutral_paper_repulsion`.*
 
 ### A side-release buckle that unlocks under a sideways pull
 
@@ -104,23 +128,23 @@ Two halves of a nylon belt buckle seat and latch. In the true clip a sideways pu
 
 ![A side-release buckle that unlocks under a sideways pull: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr680-buckle.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `backpack_side_release_buckle_locked_extraction`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `backpack_side_release_buckle_locked_extraction`.*
 
 ### A towel that no longer drapes over the ball it lands on
 
-A thick towel is released above a solid ball. The true clip keeps a visible raised bump above the ball; the counterfactual lets the towel pass through and settle under it.
+A thick towel is released above a solid ball. In the true clip the cloth bulges into a visible bump over the top of the ball and the corners hang down to the table; in the counterfactual the towel passes through the ball and settles underneath it, and the bump the contact should have produced is gone.
 
 ![A towel that no longer drapes over the ball it lands on: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr681-towel.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `towel_sphere_contact_bump_suppression`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `towel_sphere_contact_bump_suppression`.*
 
 ### A thin aluminium can that wrinkles under axial load
 
-A thin-wall can sits between two plates under sustained axial load. Below the buckling threshold the wall stays unchanged; the counterfactual shows Yoshimura-pattern diamond folds appearing in the same wall.
+A thin-walled aluminium can is held between two press plates under a steady axial load. In the true clip the load stays below the critical buckling load, the wall barely deforms and springs back when the plates release; in the counterfactual the same load makes the wall grow a Yoshimura-type diamond pattern, while the can itself stays intact.
 
 ![A thin aluminium can that wrinkles under axial load: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr682-can.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `thin_wall_aluminum_can_axial_buckling`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `thin_wall_aluminum_can_axial_buckling`.*
 
 ### A cotton strip that suddenly loses its axial stiffness
 
@@ -128,15 +152,15 @@ A tensile frame slowly pulls a low-extension woven cotton strip. The true clip s
 
 ![A cotton strip that suddenly loses its axial stiffness: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr683-cotton.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `cotton_strip_axial_compliance_failure`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `cotton_strip_axial_compliance_failure`.*
 
 ### A pleated paper bridge that loses its bending stiffness
 
-A flat paper card and an equally pleated card carry the same small weight. The pleated one stays almost straight in the true clip; in the counterfactual it suddenly loses the bending stiffness of its folds and sags as deep as the flat card.
+A flat sheet of paper and an accordion-pleated paper bridge stand on two pairs of supports, each carrying the same small weight. In the true clip the flat sheet collapses while the pleated bridge barely bends; in the counterfactual the pleated bridge suddenly loses the bending stiffness that the folds gave it and sinks as deep as the flat sheet — without unfolding, without tearing, and with the supports untouched.
 
 ![A pleated paper bridge that loses its bending stiffness: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr684-accordion.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `accordion_paper_bridge_section_rigidity_failure`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `accordion_paper_bridge_section_rigidity_failure`.*
 
 ### An electroscope shielded by a grounded mesh cage
 
@@ -144,23 +168,23 @@ A charged rod approaches two leaf electroscopes, one inside a grounded fine mesh
 
 ![An electroscope shielded by a grounded mesh cage: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr685-faraday.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `grounded_faraday_cage_electroscope_shielding_failure`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `grounded_faraday_cage_electroscope_shielding_failure`.*
 
-### A claw that closes before it reaches the doll
+### Three claws close on the doll and still fail to lift it
 
-The three jaws of an arcade claw drop over a plush doll. In the true clip they pause above it, close and lift it clear of the glass; in the counterfactual the grab cycle fires early, the jaws shut in the air, and the doll stays on the platform.
+Three claws sit a hundred and twenty degrees apart, two of them gripping the widest part of a cloth doll and the third closing in from behind. In the true clip the claws lift the doll clear of the glass table and hold it under the claw hub; in the counterfactual the machine moves exactly the same way — it descends onto the doll and closes at the doll's waist — but the pads never grip the cloth, the hub rises empty and the doll stands on the table for the whole clip.
 
-![A claw that closes before it reaches the doll: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr686-claw.jpg)
+![Three claws close on the doll and still fail to lift it: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr686-claw.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `claw_machine_doll_lift_failure`. 102/102 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `claw_machine_doll_lift_failure`.*
 
-### A typewriter whose carriage never returns
+### A typewriter that returns to the margin and feeds a line
 
-The carriage of a typewriter reaches the right margin and the return lever is pushed. In the true clip the draw band pulls it back to the left margin and the paper steps up a line; in the counterfactual the linkage travels and moves nothing.
+While typing, the part of a typewriter that carries the print head walks slowly to the right margin; pressing the carriage lever pulls it back to the left margin and lifts the paper one line. In the counterfactual the lever is pressed exactly the same way, but the linkage misses the cam pin, the cam spins freely, the carriage stays at the right margin and the paper does not move.
 
-![A typewriter whose carriage never returns: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr687-typewriter.jpg)
+![A typewriter that returns to the margin and feeds a line: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr687-typewriter.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `typewriter_carriage_return_failure`. 102/102 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `typewriter_carriage_return_failure`.*
 
 ### A nickel tab that stays magnetised past the Curie point
 
@@ -168,7 +192,7 @@ A nickel pendulum tab is heated past the Curie point of roughly 354 °C while it
 
 ![A nickel tab that stays magnetised past the Curie point: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr688-curie.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `curie_pendulum_high_temperature_attraction_persistence`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `curie_pendulum_high_temperature_attraction_persistence`.*
 
 ### A page block that shears backwards under the press
 
@@ -176,7 +200,7 @@ A motor-driven pad presses the outer edge of a clamped book. The page block shea
 
 ![A page block that shears backwards under the press: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr689-book.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `book_page_shear_response_reversal`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `book_page_shear_response_reversal`.*
 
 ### The upper string breaks first under a fast pull
 
@@ -184,159 +208,199 @@ A weight hangs from two equally strong strings. In the true clip the lower strin
 
 ![The upper string breaks first under a fast pull: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr690-string.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `quick_pull_two_string_upper_first_fracture`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `quick_pull_two_string_upper_first_fracture`.*
 
 ### A newspaper's transient air resistance under a ruler
 
-A ruler under a flat newspaper lifts its covered end only a few millimetres because the sealed air pocket resists. In the counterfactual that transient resistance is gone and the paper comes up clear of the table.
+A ruler lies on a newspaper spread flat on the table, one end sticking out over the edge, and that end is pushed down once, briefly. In the true clip the air sealed under the paper gives a short-lived pressure difference that resists the lift, so the raised end comes up a few millimetres and is pushed back down; in the counterfactual that transient resistance is gone and the newspaper lifts clearly away from the table.
 
 ![A newspaper's transient air resistance under a ruler: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr691-ruler.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `newspaper_ruler_transient_pressure_resistance_failure`. 98/98 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `newspaper_ruler_transient_pressure_resistance_failure`.*
 
 ### A motor whose torque stays wrong after the supply is reversed
 
-A cutaway brushed DC motor is reconnected with the opposite supply polarity. In the true clip the rotor decelerates through zero and reverses; in the counterfactual the torque acts the wrong way and the rotor keeps turning in its original direction.
+A permanent-magnet brushed DC motor is cut open and driven from a battery through a visible two-pole switch that opens the contacts and closes them again with the opposite polarity, while the stator magnets stay put. In the true clip the rotor slows down through zero speed and then turns the other way, instead of stopping there; in the counterfactual the electromagnetic torque is still wrong after the reversal and the rotor keeps turning the way it was already turning.
 
 ![A motor whose torque stays wrong after the supply is reversed: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr694-motor.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `counterfactual_reversed_supply_wrong_torque`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `counterfactual_reversed_supply_wrong_torque`.*
 
 ### A suction cup that leaks and never grips
 
-Two manual vacuum cups sit on a glass plate under a lever. In the true clip they bite the glass and the return spring lifts the plate clear of the bench; in the counterfactual the rims leak, the cord never goes taut and the plate never leaves the bench.
+Two hand-operated suction cups are pressed onto the top face of a glass sheet near one edge and linked by a lever to the cup plungers. In the true clip pressing the lever enlarges the cavity, the pressure falls, both cups grip the glass and a spring reel lifts the sheet off the table; in the counterfactual the cup rim leaks, no low pressure is built up, the cord never tightens and the glass stays lying on the table.
 
 ![A suction cup that leaks and never grips: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr732-suction.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `suction_cup_glass_lift_failure`. 99/99 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `suction_cup_glass_lift_failure`.*
 
 ### A row of pendulums whose phase cascade runs backwards
 
-A row of pendulums with steadily increasing string length is released at the same angle. The true clip falls out of step in one direction along the rail; in the counterfactual the bobs exchange their rates and the progression runs the other way.
+A row of six to eight pendulums hangs from a bar, the cord lengths growing geometrically so the periods form an arithmetic ladder. In the true clip the balls reach their turning points one after another, from the short end towards the long one; in the counterfactual the cord length no longer decides how fast a pendulum swings, the whole row is re-timed inside one 1.4 second window, the peaks collapse into a single shared swing and every ball gets the same restoring length and reaches the turning point together. Not one cord changed and the row never stopped and started again.
 
 ![A row of pendulums whose phase cascade runs backwards: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr745-pendulum.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `pendulum_phase_cascade_direction_reversal`. 87/87 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `pendulum_phase_cascade_direction_reversal`.*
 
 ### A coin that is not deflected by the turning table
 
-A coin is released on a steadily turning turntable. In the true clip the turning surface bends its path and it sweeps around the hub before resting on the rim; in the counterfactual it runs straight along the marked release radius.
+The stop pin is pulled at the moment of intervention. In the true clip the coin leaves with the Coriolis term, bends away from the release radius painted on the table, sweeps around the axis and comes to rest clearly to one side at the rim; in the counterfactual only that coupling is removed and the coin runs straight out along the same rotating radius.
 
 ![A coin that is not deflected by the turning table: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr746-coin.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `turntable_coin_coriolis_deflection_reversal`. 85/85 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `turntable_coin_coriolis_deflection_reversal`.*
 
 ### A pencil that topples to the other side
 
-A pencil stands on its tip in a socket and is held by a slim arm while the platform turns. In the true clip it goes over downhill with its point still in the socket; in the counterfactual the platform turns the other way and the point ends up on the opposite side.
+The disc tilts down towards one side and the pencil falls that way. The counterfactual reverses only the direction the disc tilts; the pencil, its starting lean and the disc are otherwise identical.
 
 ![A pencil that topples to the other side: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr747-pencil.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `pencil_tip_balance_topple_direction_reversal`. 85/85 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `pencil_tip_balance_topple_direction_reversal`.*
 
-### A mousetrap that never releases
+### The bar throws the ball clear, or only pushes it out of its seat
 
-A steel ball rests in a cradle beside a mousetrap held by a red latch. In the true clip the latch opens and the bar clips the ball out of its cradle; in the counterfactual nothing is released and the ball stays in the cradle.
+A steel catch releases and a torsion spring drives the bar over the top. In the true clip the head of the bar scoops the yellow ball from underneath and throws it in an arc back onto the table; in the counterfactual the catch releases and the bar sweeps over the top just the same, but the head does not get under the ball — it only pushes the ball sideways out of its seat, and the yellow ball drops straight down onto the table beside the post. Same machine, same release; the difference is only in the moment the bar meets the ball.
 
-![A mousetrap that never releases: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr748-mousetrap.jpg)
+![The bar throws the ball clear, or only pushes it out of its seat: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr748-mousetrap.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `mousetrap_snap_bar_launch_reversal`. 85/85 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `mousetrap_snap_bar_launch_reversal`.*
 
 ### A rubber band that never unwinds
 
-A toy car carries a rubber band wound around its rear axle and held by a catch. In the true clip the catch lifts and the band unwinds to drive the car down the track; in the counterfactual the catch never lifts and the car stays parked.
+The release is the experiment and the fault is in the drive: in the true clip the catch falls over (its foot stays planted, only the top tips over), the rubber band unwinds turn by turn and drives the rear wheel, and the car rolls down the slope and stops halfway; in the counterfactual the catch falls over exactly the same way, but the rubber band stays tight, the wheel does not turn and the car sits at the top of the slope for the whole clip. Both branches have the same slope.
 
 ![A rubber band that never unwinds: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr749-rubber.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `rubber_band_stored_energy_car_drive_reversal`. 85/85 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `rubber_band_stored_energy_car_drive_reversal`.*
 
 ### A freewheel that turns the pedals instead
 
-A rear wheel spins up on a roller stand while a dog clutch beside the sprocket is open. In the true clip the clutch engages the freewheel hub and the crank stays still while the wheel coasts; in the counterfactual it locks the sprocket to the wheel and the crank is back-driven.
+The rear wheel of a bicycle accelerates on a roller rig with the chain slack and a dog clutch beside the chainring that can be engaged. In the true clip the clutch connects to the ratchet on the hub, so the ratchet freewheels while coasting and the crank and pedals hardly move; in the counterfactual the clutch locks the chainring straight onto the wheel, and the coasting wheel drives the crank the other way and turns the pedals by itself.
 
 ![A freewheel that turns the pedals instead: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr750-freewheel.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `bicycle_freewheel_coast_drag_reversal`. 85/85 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `bicycle_freewheel_coast_drag_reversal`.*
 
-### A diving board that bounces faster than it should
+### The load leaves, and the platform does not answer
 
-A diver bounces on a springy board whose knee brace is left free. In the true clip the brace gives way and the bounce is deep and slow; in the counterfactual the brace locks, the bounce turns quick and shallow, and the cycle shortens.
+A steel weight presses on a spring platform that rises and falls for the whole clip. In the true clip a pusher slides the weight sideways off the platform and the weight drops into a catch tray on a separate stand: the load leaves, the spring rebounds, the platform rises and the period of the oscillation shortens, so the beat is clearly faster. In the counterfactual the pusher pushes exactly the same way and the drive is identical, but the platform does not answer the transfer at all: the spring stays on the same compressed step, the platform stays at the same low position and the oscillation keeps the slow beat it had while the weight was still there.
 
-![A diving board that bounces faster than it should: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr751-diving.jpg)
+![The load leaves, and the platform does not answer: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr751-spring-platform.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `diving_board_bounce_frequency_mass_reversal`. 85/85 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `spring_platform_weight_transfer_period_shortening`.*
 
-### A shuttlecock that is not caught by the drag spike
+### The seconds hand of a demonstration movement runs backwards
 
-A shuttlecock is struck low and flat. In the true clip the skirt bellies out, the shuttle meets the air broadside and is pulled up short; in the counterfactual it never meets the air broadside and sails the length of the court.
+An open demonstration movement hangs on the workshop wall: a sixty-second dial (a brass ring, twelve marks, four raised numerals at 0, 15, 30 and 45), a large spoked wheel behind it with one spoke painted red, and a blued-steel seconds hand in front with a weighted tail. In the true clip the hand advances six degrees a second, sweeping clockwise from 0 through 15 and on towards 30, and the red spoke turns the same way; in the counterfactual the drive is taken to the other side, the hand turns back on itself, retreats through 0 and carries on towards 45, and the red spoke turns the other way at the same time.
 
-![A shuttlecock that is not caught by the drag spike: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr752-shuttle.jpg)
+![The seconds hand of a demonstration movement runs backwards: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr752-clock.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `badminton_shuttlecock_drag_spike_reversal`. 85/85 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `clock_seconds_hand_runs_backwards`.*
 
-### A steel needle that sinks
+### A lathe that does not cut the thread
 
-A thin steel needle is laid flat on perfectly still water. In the true clip it floats where it was put for the whole clip; in the counterfactual nothing holds it up and it sinks straight through the surface to the bottom.
+A small lathe holds a steel bar in its chuck and spins it while a yellow round-bar cutting tool feeds towards the tailstock with its tip on the bar; a short dark paint mark near the chuck makes the rotation visible. In the true clip the edge is sound and the tip cuts a continuous helical groove into the bar: the floor of the groove is the width of the tip, two straight flanks rise to the surface, the groove is much wider than the tool and thread crests stand between the turns, level with the bar, cut out of the steel itself. In the counterfactual both branches travel and turn exactly the same way, but from the intervention frame the edge chips, stops cutting, slips on the bar and tears a dark mass of metal sideways across the same groove with ragged broken edges — the thread never forms.
 
-![A steel needle that sinks: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr753-needle.jpg)
+![A lathe that does not cut the thread: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr753-lathe.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `needle_surface_tension_float_failure`. 85/85 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `lathe_thread_not_cut`.*
 
 ### An air jet that can no longer hold the ball up
 
-A nozzle blows a steady column of air straight up with a ping-pong ball in it. In the true clip the blower stays at full flow and the ball bobs inside the column; in the counterfactual the flow weakens and the ball drops into the tray.
+In the true clip the blower stays at full speed and the column of air keeps the ball up: it bobs in the jet and never lands for the whole clip. In the counterfactual the airflow decays until it can no longer hold the ball, and the ball drops out of the jet into the catch tray.
 
 ![An air jet that can no longer hold the ball up: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr754-airjet.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `air_jet_ping_pong_ball_lift_failure`. 102/102 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `air_jet_ping_pong_ball_lift_failure`.*
 
-### A string loop that slips on the ice
+### The contact face freezes and drags both blocks along
 
-A loop of string is draped over a block of ice with a brass weight on its ends. In the true clip the string grips and lifts the block clear of the bench; in the counterfactual it slides down both faces and the block never lifts.
+Two ice blocks stand side by side on a steel table, the right one held by a steel clamp whose finger presses its outer face and whose foot rides the rails of the table; a steel cylinder at the left end of the rails pushes the clamp, and with it the right block, to the right. In the true clip the contact face between the two blocks never freezes into a bond, the right block slides straight off the contact and the left one stays on the table without moving; in the counterfactual a white frozen seam grows across the contact face, the bond carries the friction between the left block and the table, and the left block is dragged along with the right one.
 
-![A string loop that slips on the ice: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr755-iceloop.jpg)
+![The contact face freezes and drags both blocks along: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr755-ice-cubes.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `ice_loop_regelation_string_lift_reversal`. 85/85 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `two_ice_cubes_regelation_bond_drag_reversal`.*
 
-### A sand cone that refuses to slump
+### A cone of sand that slumps past its angle of repose
 
-Dry sand is poured into a steep cone next to a marked straightedge that shows the angle. In the true clip the cone cannot hold that face and slumps to the shallow angle of repose; in the counterfactual it keeps its steep sides and height from first frame to last.
+Coarse sand pours through a funnel onto a shallow round tray and piles into a cone steeper than the angle the sand can hold. In the true clip the cone cannot stand once the pouring stops: the top collapses, the base spreads out and it settles at the shallow angle the sand can really hold; in the counterfactual the grains do not slide past each other and the cone keeps its original steepness and height.
 
-![A sand cone that refuses to slump: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr756-sand.jpg)
+![A cone of sand that slumps past its angle of repose: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr756-sand.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `sand_pile_angle_of_repose_slope_reversal`. 99/99 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `sand_pile_angle_of_repose_slope_reversal`.*
 
 ### A paper plane that unfolds by itself
 
-A folded paper dart rests on a dark mat while two wing grips release. In the true clip it keeps its nose, body and wings; in the counterfactual the folded structure suddenly loosens in one burst and spreads into a flat sheet.
+A folded paper plane lies on a dark desk mat and two small clip jaws release and withdraw. In the true clip the plane keeps its nose, its body and its two wings for the whole clip; in the counterfactual nothing is done to it, the folded structure lets go in one sudden move and the plane opens out into a flat sheet on the mat.
 
 ![A paper plane that unfolds by itself: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr757-plane.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `paper_airplane_spontaneous_unfolding`. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `paper_airplane_spontaneous_unfolding`.*
 
 ### A picture that settles crooked the other way
 
-A framed picture hangs from a single hook and is not balanced on it. In the true clip its weight sits to the right and it rests with the right-hand corner lower; in the counterfactual it rests with the left-hand corner lower.
+A framed picture hangs on a plaster wall from a nail and a wire, its centre of mass exactly below the nail, so it hangs square and still for the whole clip; the counterfactual puts a small balance offset into the same picture, the frame turns away from the nail, swings and comes to rest crooked with the lower right corner down.
 
 ![A picture that settles crooked the other way: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr762-picture.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `hanging_picture_hook_tilt_reversal`. 99/99 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `hanging_picture_hook_tilt_reversal`.*
 
-### A banner the wind lifts up the pole
+### A banner the wind streams downstream
 
-A stiff banner is laced to a tall pole. In the true clip a steady wind streams it away from the pole and down; in the counterfactual the wind lifts it on the other side so the free edge rises above the lacing and the banner points up the pole.
+The wind fills the flag along the flag equation and blows it downstream, and in the true clip the free edge sits below the pole; the counterfactual only flips the sign of the crosswind lift, and the same flag is lifted the other way, up past the top of the pole.
 
-![A banner the wind lifts up the pole: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr763-flag.jpg)
+![A banner the wind streams downstream: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr763-flag.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `wind_flag_deflection_reversal`. 99/99 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `wind_flag_deflection_reversal`.*
 
 ### A charged balloon that loses its grip on the wall
 
-A rubber balloon is held on a plaster wall by its static charge. In the true clip a draught only rocks it and it keeps its grip; in the counterfactual the dry air strips the charge, it lets go and falls the height of the wall.
+A statically charged rubber balloon sticks to a plaster wall, and when a draught passes it only leans a little and stays attached; in the counterfactual the dry air carries the charge off the rubber, the balloon leaves the wall and is pushed down onto the floor. The wooden crate on the floor is a prop that gives the balloon its scale, not a sampled axis.
 
 ![A charged balloon that loses its grip on the wall: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr764-balloon.jpg)
 
-*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip.Phenomenon id `static_balloon_wall_stick_failure`. 99/99 independent criteria pass. *
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `static_balloon_wall_stick_failure`.*
+
+### The clothespin holds the towel until the friction goes
+
+A washing line runs across the frame, a wooden clothespin is clipped to it and one corner of a towel is caught in the jaws. In the true clip the friction between the jaws and the cloth carries the weight of the towel, so it hangs on the line and creeps down a little as the grip slackens; in the counterfactual only that friction is removed, the towel slides out of the jaws and falls to the floor in a heap. The clip, the line, the towel, the lighting and the camera are identical in both branches.
+
+![The clothespin holds the towel until the friction goes: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr867-clothespin.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `clothespin_grip_loss_towel_falls_off_line_reversal`.*
+
+### A chisel that splits the timber along the grain
+
+A length of timber lies across a workbench with dark grain lines running along it, and a chisel is set at an angle against its end face and pushed in. In the true clip the timber splits along the grain and a long crack runs the length of it and opens up; in the counterfactual the fibres no longer hold each other, the chisel slides along them and the timber stays in one piece with only a shallow pit on the end face.
+
+![A chisel that splits the timber along the grain: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr893-chisel.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `chisel_grain_split_along_fiber_reversal`.*
+
+### A hand plane that lifts one continuous shaving
+
+A board lies flat on a workbench and a wooden hand plane is pushed along its near edge, the iron set at an angle in the body with its edge right on that edge of the board, so the shaving leaves the mouth, crosses the edge of the board and hangs down its side onto the bench. In the true clip the iron cuts the wood away as a whole and what comes out is one unbroken shaving that hangs over the edge and drops onto the bench; in the counterfactual the wood in front of the edge does not get cut away but breaks up, and out of the same strip come small chips that land on the edge of the board and on the bench — the continuous band is simply not there.
+
+![A hand plane that lifts one continuous shaving: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr894-hand-plane.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `hand_plane_continuous_shaving_reversal`.*
+
+### A curling stone that curls across the ice
+
+A pale blue sheet of ice fills the frame and a granite curling stone with a red handle slides away, spinning as it goes. In the true clip the stone slows down, the rotating running band pushes it sideways and it follows a curved path, so the handle ends up off the line it started on; in the counterfactual the rotating running band no longer pushes the stone sideways, it runs straight across the ice and the handle keeps pointing along the line it started on.
+
+![A curling stone that curls across the ice: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr895-curling.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `curling_stone_curl_reversal`.*
+
+### A coin on its edge that falls flat by itself
+
+A coin stands on its edge on a table, spinning slowly and leaning a little further as it goes. In the true clip the rim grinds against the table, the spin is worn away, the lean grows and the coin finally slaps flat onto the surface; in the counterfactual the rim no longer grinds the table, the spin is not worn away, the lean does not grow and the coin spins upright for the whole clip, still standing on its edge at the end.
+
+![A coin on its edge that falls flat by itself: true / counterfactual / formal binary mask / red overlay](/assets/research/counterfactual/pr896-coin.jpg)
+
+*Top row: the first frame that proves the violation. Bottom row: the last frame of the clip. Phenomenon id `spinning_coin_falls_flat_edge_friction_reversal`.*
 
 ## 7. What this data is for
 

@@ -65,9 +65,9 @@ python3 -m http.server 8141 --directory dist --bind 127.0.0.1
 
 | Path | What | Size |
 |---|---|---|
-| `assets/v2v-samples/` | OmniReason task clips (`<id>-input.mp4`, `-target.mp4`, plus `-reference.mp4` for the RV2V modality) and their poster frames | ~43 MB |
-| `assets/generator-samples/` | Counterfactual generator clips (`<id>-true.mp4`, `-counterfactual.mp4`, plus `-mask.mp4` and `-overlay.mp4` for the generators that reached main) and posters | ~12 MB |
-| `assets/research/counterfactual/` | The static four-panel figures used by the article: true, counterfactual, binary mask, QA overlay | ~1 MB |
+| `assets/v2v-samples/` | OmniReason task clips (`<id>-input.mp4`, `-target.mp4`, plus `-reference.mp4` for the RV2V modality) and their poster frames | ~39 MB |
+| `assets/generator-samples/` | Counterfactual generator clips (`<id>-true.mp4`, `-counterfactual.mp4`, `-mask.mp4` and `-overlay.mp4`) and posters, for all forty generators | ~34 MB |
+| `assets/research/counterfactual/` | The static four-panel figures used by the article: true, counterfactual, binary mask, QA overlay | ~3 MB |
 | `assets/research/v2v/` | Diagrams used in the articles | <1 MB |
 
 `content/v2v-task-samples.json`, `content/counterfactual-samples.json` and
@@ -81,8 +81,8 @@ From GitHub's Pages documentation:
 
 | Limit | Value | Kind | Where we stand |
 |---|---|---|---|
-| Published site size | 1 GB | hard | 52 MB — 5% used |
-| Source repository size | 1 GB | recommended | 123 MB |
+| Published site size | 1 GB | hard | 76 MB — 7% used |
+| Source repository size | 1 GB | recommended | 190 MB |
 | Bandwidth | 100 GB / month | soft | Needs ~2,000 full-site visits a month to hit it |
 | Builds | 10 / hour | soft | Not applicable, deployment runs on GitHub Actions |
 | Single file | 100 MB | hard | Largest clip is 10 MB |
@@ -109,14 +109,27 @@ Two things about that set are easy to get wrong, so they are written down here.
 **The names in the merged delivery are not always in the delivered order.** In the
 approved36 batches the file called `case_XX_counterfactual.mp4` holds the binary
 mask and the one called `case_XX_mask.mp4` holds the counterfactual clip. The
-panels on this site are taken from the review page of the merged head, which
+panels on this site are taken from the review page of the reviewed head, which
 labels them correctly, and the mask panel is compared against the merged file
 byte for byte before it is published.
+
+**The label is not proof; the picture is.** The four roles are taken from the
+review page and then checked against the media itself: the mask has to decode
+to a strict black-and-white label, and the overlay has to be the counterfactual
+clip with that mask painted red, which is how the delivery defines the overlay
+(`tools/source_based_v4/make_derivatives.py`). Every set on the site is checked
+that way before it is published, because the file names alone have been wrong
+more than once.
 
 **The mask panel has to stay binary.** It is encoded losslessly, so the label
 stays a strict black-and-white mask instead of picking up compression ringing.
 The overlay is the red-tinted copy from the same delivery, and it is the panel
 that makes the change readable without watching the two clips side by side.
+
+**The generator clips are published as 1024×1024 viewing copies.** The delivered
+render is 2048×2048, and four panels sit side by side on the page, so the full
+resolution would be four times the pixels the page shows. The task clips under
+`assets/v2v-samples/` keep their native resolution; the generator clips do not.
 
 ## Keeping the size down
 
