@@ -5,3 +5,6 @@ dist/
 .env
 .env.*
 notes/
+
+# 本机规则文件，不进公开仓库
+AGENTS.md
