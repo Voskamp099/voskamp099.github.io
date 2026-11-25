@@ -134,6 +134,10 @@ generator, so it can be shared on its own.
 - Every clip gets a poster image so the page shows a real frame before playback.
 - A clip, its poster and its target come from the same reviewed sample; replacing one of them means
   replacing the whole set, never half of it.
+- A task clip comes from the Gate B review bundle of that task, and the bytes are checked against the
+  HTTP verification record committed with that gate before the clip is published. When a later gate
+  republishes the same task under a new origin, the media is compared against the newest record first;
+  only a bundle whose bytes match is used.
 - Footage that may not be redistributed is not published: the entry then shows the prompt and the
   task definition only, and says so in one line.
 - Clips live under assets/v2v-samples/ (tasks) and assets/generator-samples/ (generators), H.264,

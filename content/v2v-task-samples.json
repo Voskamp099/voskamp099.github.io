@@ -254,6 +254,41 @@
     "prompt_zh": "接收方刚拿到一支带盖的笔，正把它拿在白板旁边；笔盖还没拔下，白板就在正前方。仅依据可见的输入上下文，细致预测接收方接下来会如何合理地、有目标地使用这支刚接手的笔。以接收方的第一人称视角，从输入的结尾处紧接着继续，呈现这一动作自然完成的全过程。保持同样的人、物体、场景、视角与物理连续性。不要把续写延伸到无关的活动里。"
   },
   {
+    "id": "554",
+    "name": "street_scene_geolocation_rotating_globe_marking",
+    "modality": "rv2v",
+    "description": {
+      "en": "From a street-scene video, mark where it was filmed on a rotating globe.",
+      "zh": "从一段街景视频判断拍摄地点，并在自转地球上把它标出来。"
+    },
+    "source": "BitRobot/FrodoBots-Mini-4K",
+    "source_url": "https://huggingface.co/datasets/BitRobot/FrodoBots-Mini-4K",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "citation": "BitRobot/FrodoBots-Mini-4K, CC BY-SA 4.0",
+    "prompt": "Infer the capture location from the street-scene video. Copy the rotating Earth reference exactly and draw a red hollow circle at the corresponding surface location whenever it is visible. Hide the marker when the location rotates behind the globe. Do not add text or alter the Earth rotation.",
+    "media": true,
+    "media_files": {
+      "input": "assets/v2v-samples/554-input.mp4",
+      "target": "assets/v2v-samples/554-target.mp4",
+      "reference": "assets/v2v-samples/554-reference.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/554-input.jpg",
+      "target": "assets/v2v-samples/554-target.jpg",
+      "reference": "assets/v2v-samples/554-reference.jpg"
+    },
+    "reference_files": [
+      "rotating_earth.mp4"
+    ],
+    "frames": 80,
+    "fps": 10,
+    "resolution": "640x360",
+    "name_zh": "在自转地球上标出街景拍摄位置",
+    "title_en": "Marking where a street scene was filmed",
+    "prompt_zh": "根据街景视频推断拍摄位置。精确复制自转地球的参考素材，在对应的表面位置可见时画一个红色空心圆；当该位置转到地球背面时隐藏标记。不要添加文字，也不要改变地球的自转。"
+  },
+  {
     "id": "480",
     "name": "cave_video_commonsense_anomaly_localization",
     "modality": "v2v",
@@ -342,6 +377,36 @@
     "name_zh": "第一人称手部动作的相位面板",
     "title_en": "Turning egocentric hand motion into a phase panel",
     "prompt_zh": "输入视频右侧有一块固定面板，上面预印了 CAMERA PHASE 选项以及空的 LEFT HAND 与 RIGHT HAND 框。\n\n对每一帧，用黄色框标出当前的第一人称相机运动阶段：可穿戴相机保持静止时标 STOP（即使手在动），穿戴者与相机向前平移时标 FORWARD，相机转向时标 ROTATE，相机在运动状态之间切换时标 TRANSITION，演示标注结束处标 FINISHED。\n\n在每个手部框中，当该手清晰可见时，画出对应人手的 2D 姿态，显示手腕、手掌与手指关键点，构成连通的 21 点骨架。骨架必须与同一 RGB 帧中手的位置、朝向、手指弯曲与左右手性一致。手不可见时保持该框为空。"
+  },
+  {
+    "id": "482",
+    "name": "egocentric_visual_to_full_hand_touch_state_panel",
+    "modality": "v2v",
+    "description": {
+      "en": "A hand works in front of the camera; the target keeps the scene and adds a right-hand pressure map that updates frame by frame.",
+      "zh": "画面里是一只手在镜头前操作；目标视频保持原场景，右侧补上一块逐帧更新的右手压力图。"
+    },
+    "source": "rayxsong/opentouch",
+    "source_url": "https://huggingface.co/datasets/rayxsong/opentouch",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+    "citation": "rayxsong/opentouch, CC BY 4.0",
+    "prompt": "Preserve the original video exactly. Add a fixed 16x16 right-hand tactile pressure map on the right side, with a synchronized frame cursor at the bottom.\n\nIn the tactile pressure map:\n- Each cell corresponds to a fixed spatial location in the right-hand tactile sensor grid and remains in the same grid position across frames.\n- Based on the input video, update the 16x16 map frame by frame to represent the corresponding right-hand tactile pressure state.\n- Use one consistent blue-to-yellow gradient, with lower-signal regions in deep blue, stronger tactile signals in yellow, and continuous interpolation between them.",
+    "media": true,
+    "media_files": {
+      "input": "assets/v2v-samples/482-input.mp4",
+      "target": "assets/v2v-samples/482-target.mp4"
+    },
+    "posters": {
+      "input": "assets/v2v-samples/482-input.jpg",
+      "target": "assets/v2v-samples/482-target.jpg"
+    },
+    "frames": 81,
+    "fps": 30,
+    "resolution": "896x480",
+    "name_zh": "从第一视角视频推出右手触觉压力图",
+    "title_en": "Adding a right-hand pressure map to an egocentric video",
+    "prompt_zh": "精确保留原视频。在画面右侧加一块固定的 16×16 右手触觉压力图，底部配一个同步的帧游标。\n\n在这张触觉压力图里：\n- 每个格子对应右手触觉传感器网格上的一个固定空间位置，并且在各帧之间保持同一个网格位置。\n- 根据输入视频，逐帧更新这张 16×16 图，表示对应的右手触觉压力状态。\n- 使用统一的蓝到黄渐变：低信号区域为深蓝，强触觉信号为黄色，中间做连续过渡。"
   },
   {
     "id": "552",

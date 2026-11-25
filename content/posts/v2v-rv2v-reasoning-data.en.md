@@ -57,7 +57,7 @@ Two lessons from that round matter more than the picture.
 
 ## 3. The tasks I owned
 
-Below are the sixteen tasks I owned, covering continuation, repair, re-shooting, generation, localisation and explanation. Each one is a formal task inside the team's video-reasoning benchmark suite: a written task definition, a sample contract and an independent review step.
+Below are the eighteen tasks I owned, covering continuation, repair, re-shooting, generation, localisation and explanation. Each one is a formal task inside the team's video-reasoning benchmark suite: a written task definition, a sample contract and an independent review step.
 
 | Task | Modality | Task name | What the model has to do |
 | --- | --- | --- | --- |
@@ -73,10 +73,12 @@ Below are the sixteen tasks I owned, covering continuation, repair, re-shooting,
 | 480 | Video to Video | cave_video_commonsense_anomaly_localization | Locate a commonsense anomaly in cave video |
 | 481 | Video to Video | gameplay_commonsense_error_localization_and_explanation | Locate and explain a commonsense error in gameplay footage |
 | 483 | Video to Video | egocentric_hand_motion_phase_panel_visualization | A phase panel of egocentric hand motion |
+| 482 | Video to Video | egocentric_visual_to_full_hand_touch_state_panel | Read the hand's touch state out of an egocentric view |
 | 328 | Reference Video to Video | bimanual_manipulation_process_panel | Rebuild the process of a two-handed manipulation from a reference |
 | 391 | Reference Video to Video | language_grounded_multi_object_grasp_video_generation | Generate the video of a language-specified multi-object grasp |
 | 479 | Reference Video to Video | reference_guided_progressive_makeup_transfer | Progressive makeup transfer under a reference |
 | 551 | Reference Video to Video | reference_guided_ego_action_skill_comparison | Compare egocentric action skills against a reference |
+| 554 | Reference Video to Video | street_scene_geolocation_rotating_globe_marking | Mark where a street scene was filmed on a rotating globe |
 
 Every task can be looked at directly: the input video, the target video and the prompt that defines the task are on their own page — [sample of work](/sample-of-work/) — one entry per task, each one labelled with its source dataset, its licence and the line to cite it by.
 

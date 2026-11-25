@@ -57,7 +57,7 @@
 
 ## 三、我做过的任务
 
-下面是我自己负责的十六个任务，覆盖续写、修复、重拍、生成、定位与解释等不同类型。每一个都是团队视频推理基准套件里的正式任务：有明确的任务定义、样本契约和独立的评审环节。
+下面是我自己负责的十八个任务，覆盖续写、修复、重拍、生成、定位与解释等不同类型。每一个都是团队视频推理基准套件里的正式任务：有明确的任务定义、样本契约和独立的评审环节。
 
 | 任务 | 模态 | 任务名 | 要求模型做什么 |
 | --- | --- | --- | --- |
@@ -73,10 +73,12 @@
 | 480 | 视频到视频 | cave_video_commonsense_anomaly_localization | 洞穴视频里定位常识性异常 |
 | 481 | 视频到视频 | gameplay_commonsense_error_localization_and_explanation | 定位并解释画面里的常识错误 |
 | 483 | 视频到视频 | egocentric_hand_motion_phase_panel_visualization | 第一人称手部动作的相位面板 |
+| 482 | 视频到视频 | egocentric_visual_to_full_hand_touch_state_panel | 第一视角画面推出手部触觉压力图 |
 | 328 | 参考视频到视频 | bimanual_manipulation_process_panel | 借助参考素材还原双手操作的过程 |
 | 391 | 参考视频到视频 | language_grounded_multi_object_grasp_video_generation | 用语言指定的多物体抓取，生成对应视频 |
 | 479 | 参考视频到视频 | reference_guided_progressive_makeup_transfer | 参考引导的渐进式妆容迁移 |
 | 551 | 参考视频到视频 | reference_guided_ego_action_skill_comparison | 参考引导的第一人称动作技能对比 |
+| 554 | 参考视频到视频 | street_scene_geolocation_rotating_globe_marking | 在自转地球上标出街景拍摄位置 |
 
 每个任务都可以直接看：输入视频、目标视频和那条定义任务的提示词放在另一页——[作品样本](/sample-of-work/)——一条一个任务，逐条标注来源数据集、授权与引用方式。
 
